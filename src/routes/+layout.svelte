@@ -1,7 +1,7 @@
 <script>
-	import '../app.scss';
-	import Header from '../components/Header.svelte';
-	import Footer from '../components/Footer.svelte';
+	import "../app.scss";
+	import Header from "../lib/components/Header/Header.svelte";
+	import Footer from "../lib/components/Footer.svelte";
 </script>
 
 <Header />
@@ -19,7 +19,7 @@
 		}
 
 		width: 50%;
-		margin: auto;
+		margin: 10vh auto auto;
 
 		height: 10000px;
 	}
