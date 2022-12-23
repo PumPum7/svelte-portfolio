@@ -22,13 +22,21 @@ $breakpointMedium: 992px;
 $breakpointLarge: 1200px;
 
 
+$fa-font-path: "../webfonts";
+
+
 @mixin theme-colors($light-theme: true) {
-  transition: background-color 0.3s;
   @if $light-theme {
     background-color: $nord6;
     color:$nord0;
+    --foreground-color: #{$nord5};
+    --primary-text-color: #{$nord0};
+    --secondary-text-color: #{$nord3};
   } @else {
     background-color: $nord0;
-    color:$nord4;
+    color:$nord6;
+    --foreground-color: #{$nord1};
+    --primary-text-color: #{$nord6};
+    --secondary-text-color: #{$nord4};
   }
 }
