@@ -1,0 +1,12 @@
+body {
+  @include theme-colors($light-theme: true);
+
+  --foreground-color: #{$nord5};
+
+}
+
+body.dark-mode {
+  @include theme-colors($light-theme: false);
+
+  --foreground-color: #{$nord3};
+}
