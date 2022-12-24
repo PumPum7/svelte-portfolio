@@ -1,8 +1,13 @@
-<script>
+<script lang="ts">
 	import profilePicture from "../lib/assets/FamousFox.png?run&height=300&width=300&fit=cover&normalize";
 	import Img from "@zerodevx/svelte-img";
 	import WavingHand from "$lib/components/WavingHand.svelte";
 	import AboutMe from "$lib/components/AboutMe.svelte";
+
+	import type { PageServerLoad } from "./$types";
+	import ProjectList from "$lib/components/ProjectList.svelte";
+
+	export let data: PageServerLoad;
 </script>
 
 <section>
@@ -31,6 +36,9 @@
 </section>
 
 <AboutMe />
+
+
+<ProjectList projectData={data.data} />
 
 <style lang="scss">
 	@use '../variables' as var;

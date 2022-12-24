@@ -1,9 +1,11 @@
 <script lang="ts">
-  export let title: string;
+  export let title = "";
 </script>
 
 <div>
-  <h2>{title}</h2>
+  {#if title !== ""}
+    <h2>{title}</h2>
+  {/if}
   <div class="card">
     <slot />
   </div>
