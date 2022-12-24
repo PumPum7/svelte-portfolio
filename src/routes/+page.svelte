@@ -19,11 +19,11 @@
 				target="_blank"
 			>
 				@Officer_Pum
-				<i class="fa-brands fa-twitter" />
+				<i class="twitter-icon" />
 			</a>
 			<a class="github" href="https://github.com/PumPum7" rel="noopener noreferrer" target="_blank"
 			>@PumPum7
-				<i class="fa-brands fa-github" /></a
+				<i class="github-icon" /></a
 			>
 		</div>
 	</div>
@@ -35,8 +35,32 @@
 <style lang="scss">
 	@use '../variables' as var;
 
-	@import '../fontawesome/fontawesome.scss';
-	@import '../fontawesome/brands.scss';
+	.github-icon {
+		background: url('/github-mark.svg') no-repeat;
+		background-size: cover; /* stretch the background to cover the whole element */
+
+		/*
+       still inline, but has block features
+       meaning height and width can be set
+    */
+		display: inline-block;
+		height: 20px;
+		width: 20px;
+	}
+
+	.twitter-icon {
+		background: url('/twitter-icon.svg') no-repeat;
+		background-size: cover; /* stretch the background to cover the whole element */
+
+		/*
+       still inline, but has block features
+       meaning height and width can be set
+    */
+		display: inline-block;
+		height: 20px;
+		width: 20px;
+		fill: none !important;
+	}
 
 	section {
 		display: flex;
