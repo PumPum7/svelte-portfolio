@@ -14,13 +14,17 @@
 
 <style lang="scss">
 	main {
-		@media (max-width: $breakpointSmall) {
-			width: 100%;
+		@media screen and (max-width: $breakpointMedium) {
+			width: 75%;
+			margin: 5vh auto auto;
+		}
+
+		@media screen and (max-width: $breakpointSmall) {
+			width: 80%;
+			margin: 2vh auto auto;
 		}
 
 		width: 50%;
 		margin: 10vh auto auto;
-
-		height: 10000px;
 	}
 </style>

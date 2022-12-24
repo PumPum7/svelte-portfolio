@@ -78,7 +78,6 @@
 		font-weight: 600;
 		line-height: 1.6;
 		letter-spacing: 0;
-		font-size: 2rem;
 		margin: 0 2.25rem 2.25rem 0;
 		padding: 0;
 		text-rendering: optimizelegibility;
@@ -91,6 +90,14 @@
 
 	:global(.profile-picture) {
 		border-radius: 12px;
+
+		@media screen and (max-width: var.$breakpointSmall) {
+			display: none;
+		}
+
+		@media screen and (max-width: var.$breakpointMedium) {
+			margin-left: 16px;
+		}
 	}
 
 	.links {

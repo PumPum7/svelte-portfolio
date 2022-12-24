@@ -1,10 +1,8 @@
 <script>
 	import ThemeSwitch from "./ThemeSwitch.svelte";
-
-	let position;
 </script>
 
-<header style={position <= 90 ? "height: 100px;" : position <= 80 ? "height: 75px;" : "height: 70px;"}>
+<header>
 	<div>
 		<p>Pum</p>
 
@@ -17,6 +15,7 @@
 
 	header {
 		border-bottom: 1px solid;
+		height: 70px;
 
 		position: sticky;
 		top: 0;
@@ -28,8 +27,12 @@
 	}
 
 	div {
-		@media (max-width: var.$breakpointSmall) {
+		@media screen and (max-width: var.$breakpointSmall) {
 			width: 100%
+		}
+
+		@media screen and (max-width: var.$breakpointMedium) {
+			width: 75%
 		}
 
 		height: 100%;
@@ -40,5 +43,3 @@
 		align-items: center;
 	}
 </style>
-
-<svelte:window bind:scrollY={position} />
