@@ -44,7 +44,7 @@
 	@use '../variables' as var;
 
 	.github-icon {
-		background: url('/github-mark.svg') no-repeat;
+		background: url('/icons/github-mark.svg') no-repeat;
 		background-size: cover; /* stretch the background to cover the whole element */
 
 		/*
@@ -57,7 +57,7 @@
 	}
 
 	.twitter-icon {
-		background: url('/twitter-icon.svg') no-repeat;
+		background: url('/icons/twitter-icon.svg') no-repeat;
 		background-size: cover; /* stretch the background to cover the whole element */
 
 		/*
