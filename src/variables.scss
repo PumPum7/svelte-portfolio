@@ -28,15 +28,17 @@ $fa-font-path: "../webfonts";
 @mixin theme-colors($light-theme: true) {
   @if $light-theme {
     background-color: $nord6;
-    color:$nord0;
+    color: $nord0;
     --foreground-color: #{$nord5};
     --primary-text-color: #{$nord0};
     --secondary-text-color: #{$nord3};
+    --button-color: #{$nord9};
   } @else {
     background-color: $nord0;
-    color:$nord6;
+    color: $nord6;
     --foreground-color: #{$nord1};
     --primary-text-color: #{$nord6};
     --secondary-text-color: #{$nord4};
+    --button-color: #{$nord10};
   }
 }
