@@ -1,11 +1,11 @@
 <script lang="ts">
-	import profilePicture from "../lib/assets/FamousFox.png?run&height=300&width=300&fit=cover&normalize";
-	import Img from "@zerodevx/svelte-img";
-	import WavingHand from "$lib/components/WavingHand.svelte";
-	import AboutMe from "$lib/components/AboutMe.svelte";
+	import profilePicture from '../lib/assets/FamousFox.png?run&height=300&width=300&fit=cover&normalize';
+	import Img from '@zerodevx/svelte-img';
+	import WavingHand from '$lib/components/WavingHand.svelte';
+	import AboutMe from '$lib/components/AboutMe.svelte';
 
-	import type { PageServerLoad } from "./$types";
-	import ProjectList from "$lib/components/ProjectList.svelte";
+	import type { PageServerLoad } from './$types';
+	import ProjectList from '$lib/components/ProjectList.svelte';
 
 	export let data: PageServerLoad;
 </script>
@@ -26,9 +26,9 @@
 				@Officer_Pum
 				<i class="twitter-icon" />
 			</a>
-			<a class="github" href="https://github.com/PumPum7" rel="noopener noreferrer" target="_blank"
-			>@PumPum7
-				<i class="github-icon" /></a
+			<a class="contact" href="/contact"
+				>Contact
+				<i class="arrow-up-right-icon" /></a
 			>
 		</div>
 	</div>
@@ -37,37 +37,26 @@
 
 <AboutMe />
 
-
 <ProjectList projectData={data.data} />
+<a class="github" href="https://github.com/PumPum7" rel="noopener noreferrer" target="_blank"
+	>@PumPum7
+	<i class="github-icon" /></a
+>
 
 <style lang="scss">
 	@use '../variables' as var;
+	@use "../mixins.scss" as mixin;
 
 	.github-icon {
-		background: url('/icons/github-mark.svg') no-repeat;
-		background-size: cover; /* stretch the background to cover the whole element */
-
-		/*
-       still inline, but has block features
-       meaning height and width can be set
-    */
-		display: inline-block;
-		height: 20px;
-		width: 20px;
+		@include mixin.svg-in-text('/icons/github-mark.svg');
 	}
 
 	.twitter-icon {
-		background: url('/icons/twitter-icon.svg') no-repeat;
-		background-size: cover; /* stretch the background to cover the whole element */
+		@include mixin.svg-in-text('/icons/twitter-icon.svg');
+	}
 
-		/*
-       still inline, but has block features
-       meaning height and width can be set
-    */
-		display: inline-block;
-		height: 20px;
-		width: 20px;
-		fill: none !important;
+	.arrow-up-right-icon {
+		@include mixin.svg-in-text('/icons/arrow-up-right.svg')
 	}
 
 	section {
@@ -103,31 +92,36 @@
 	.links {
 		display: flex;
 
-		a {
-			color: var.$nord10;
-			padding: 11px 16px;
-			border-radius: 12px;
-			background-color: rgb(var.$nord10, 10%);
-			text-decoration: none;
-			font-weight: 500;
+		a:not(:first-child) {
+			margin-left: 14px;
+		}
 
-			display: flex;
-			align-items: center;
+	}
 
-			&:hover {
-				transform: scale(1.05);
-				transition: transform 0.3s;
-				box-shadow: 0 2px 40px -4px var.$nord9;
-			}
+	a {
+		color: var.$nord10;
+		padding: 11px 16px;
+		border-radius: 12px;
+		background-color: rgb(var.$nord10, 10%);
+		text-decoration: none;
+		font-weight: 500;
 
-			&:not(:first-child) {
-				margin-left: 14px;
-			}
+		display: flex;
+		align-items: center;
 
-			i {
-				fill: var.$nord10;
-				margin-left: 8px;
-			}
+		&:hover {
+			transform: scale(1.05);
+			transition: transform 0.3s;
+			box-shadow: 0 2px 40px -4px var.$nord9;
+		}
+
+		&.github {
+			max-width: fit-content;
+		}
+
+		i {
+			fill: var.$nord10;
+			margin-left: 8px;
 		}
 	}
 </style>
