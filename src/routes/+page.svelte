@@ -1,13 +1,15 @@
-<script lang="ts">
-	import profilePicture from '../lib/assets/FamousFox.png?run&height=300&width=300&fit=cover&normalize';
-	import Img from '@zerodevx/svelte-img';
-	import WavingHand from '$lib/components/WavingHand.svelte';
-	import AboutMe from '$lib/components/AboutMe.svelte';
+<script>
+	import Img from "@zerodevx/svelte-img";
 
-	import type { PageServerLoad } from './$types';
-	import ProjectList from '$lib/components/ProjectList.svelte';
+	import WavingHand from "$lib/components/WavingHand.svelte";
+	import AboutMe from "$lib/components/AboutMe.svelte";
+	import ProjectList from "$lib/components/ProjectList.svelte";
+	import Button from "$lib/components/Button.svelte";
 
-	export let data: PageServerLoad;
+	import profilePicture from "../lib/assets/FamousFox.png?run&height=300&width=300&fit=cover&normalize";
+
+	/** @type {import("./$types").PageData} */
+	export let data;
 </script>
 
 <section>
@@ -17,19 +19,14 @@
 			enthusiast 🍲 and fullstack developer 👨‍💻 working with Typescript, React, GoLang and Python.
 		</h1>
 		<div class="links">
-			<a
-				class="twitter"
-				href="https://twitter.com/Officer_Pum"
-				rel="noopener noreferrer"
-				target="_blank"
-			>
+			<Button className="twitter" isLink={true} link="https://twitter.com/Officer_Pum">
 				@Officer_Pum
 				<i class="twitter-icon" />
-			</a>
-			<a class="contact" href="/contact"
-				>Contact
-				<i class="arrow-up-right-icon" /></a
-			>
+			</Button>
+			<Button className="contact" isLink={true} link="/contact"
+			>Contact
+				<i class="arrow-up-right-icon" />
+			</Button>
 		</div>
 	</div>
 	<Img alt="Profile Famous Fox Federation NFT" class="profile-picture" src={profilePicture} />
@@ -38,14 +35,14 @@
 <AboutMe />
 
 <ProjectList projectData={data.data} />
-<a class="github" href="https://github.com/PumPum7" rel="noopener noreferrer" target="_blank"
-	>@PumPum7
-	<i class="github-icon" /></a
->
+<Button className="github" isLink={true} link="https://github.com/PumPum7">
+	@PumPum7
+	<i class="github-icon" />
+</Button>
 
 <style lang="scss">
 	@use '../variables' as var;
-	@use "../mixins.scss" as mixin;
+	@use '../mixins.scss' as mixin;
 
 	.github-icon {
 		@include mixin.svg-in-text('/icons/github-mark.svg');
@@ -56,7 +53,7 @@
 	}
 
 	.arrow-up-right-icon {
-		@include mixin.svg-in-text('/icons/arrow-up-right.svg')
+		@include mixin.svg-in-text('/icons/arrow-up-right.svg');
 	}
 
 	section {
@@ -92,36 +89,12 @@
 	.links {
 		display: flex;
 
-		a:not(:first-child) {
-			margin-left: 14px;
+		:global(a) {
+			margin-right: 14px;
 		}
-
 	}
 
-	a {
-		color: var.$nord10;
-		padding: 11px 16px;
-		border-radius: 12px;
-		background-color: rgb(var.$nord10, 10%);
-		text-decoration: none;
-		font-weight: 500;
-
-		display: flex;
-		align-items: center;
-
-		&:hover {
-			transform: scale(1.05);
-			transition: transform 0.3s;
-			box-shadow: 0 2px 40px -4px var.$nord9;
-		}
-
-		&.github {
-			max-width: fit-content;
-		}
-
-		i {
-			fill: var.$nord10;
-			margin-left: 8px;
-		}
+	i {
+		margin-left: 8px;
 	}
 </style>
