@@ -1,10 +1,14 @@
 <script>
-	import ThemeSwitch from "./ThemeSwitch.svelte";
+	import ThemeSwitch from './ThemeSwitch.svelte';
+	import { page } from '$app/stores';
 </script>
 
 <header>
 	<div>
-		<p>Pum</p>
+		<ul>
+			<li class:active={$page.url.pathname === '/'}><a href="/">Home</a></li>
+			<li class:active={$page.url.pathname === '/contact'}><a href="/contact">Contact</a></li>
+		</ul>
 
 		<ThemeSwitch />
 	</div>
@@ -28,11 +32,11 @@
 
 	div {
 		@media screen and (max-width: var.$breakpointSmall) {
-			width: 100%
+			width: 100%;
 		}
 
 		@media screen and (max-width: var.$breakpointMedium) {
-			width: 75%
+			width: 75%;
 		}
 
 		height: 100%;
@@ -41,5 +45,27 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
+	}
+
+	ul {
+		list-style: none;
+
+		display: flex;
+		gap: 1rem;
+
+		li {
+
+			&.active {
+				a {
+					text-decoration: underline;
+					color: var(--primary-text-color)
+				}
+			}
+
+			a {
+				color: var(--secondary-text-color);
+				text-decoration: none;
+			}
+		}
 	}
 </style>
