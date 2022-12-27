@@ -22,7 +22,8 @@
 	footer {
 		border-top: 1px solid;
 		height: 70px;
-    padding-bottom: 1rem;
+    padding: 1rem 0;
+    margin-top: 2rem;
 	}
 
 	ul.links {
