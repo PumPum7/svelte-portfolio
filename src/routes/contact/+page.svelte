@@ -68,28 +68,6 @@
 			color: vars.$nord6;
 		}
 
-		& > * {
-			margin-bottom: 16px;
-			border-radius: 30px;
-			position: relative;
-			display: block;
-			width: 100%;
-			background: var(--foreground-color);
-			font-family: Inter, sans-serif;
-			font-size: 18px;
-			line-height: 1.2;
-			padding: 0 35px;
-			outline: none !important;
-			border: none !important;
-			caret-color: var(--secondary-text-color);
-
-			&::placeholder {
-				color: var(--secondary-text-color);
-				font-family: Inter, sans-serif;
-				opacity: 0.5;
-			}
-		}
-
 		input {
 			height: 62px;
 		}
@@ -137,6 +115,28 @@
 			top: 50%;
 			transform: translateY(-50%);
 			right: 16px;
+		}
+	}
+
+	input, textarea {
+		margin-bottom: 16px;
+		border-radius: 30px;
+		position: relative;
+		display: block;
+		width: 100%;
+		background: var(--foreground-color);
+		font-family: Inter, sans-serif;
+		font-size: 18px;
+		line-height: 1.2;
+		padding: 0 35px;
+		outline: none !important;
+		border: none !important;
+		caret-color: var(--secondary-text-color);
+
+		&::placeholder {
+			color: var(--secondary-text-color);
+			font-family: Inter, sans-serif;
+			opacity: 0.5;
 		}
 	}
 
