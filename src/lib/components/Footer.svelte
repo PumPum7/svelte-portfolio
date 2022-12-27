@@ -19,11 +19,14 @@
 </footer>
 
 <style lang="scss">
+	@use '../../variables' as var;
+
+
 	footer {
 		border-top: 1px solid;
 		height: 70px;
-    padding: 1rem 0;
-    margin-top: 2rem;
+		padding: 1rem 0;
+		margin-top: 2rem;
 	}
 
 	ul.links {
@@ -34,6 +37,10 @@
 	}
 
 	div {
+		@media screen and (max-width: var.$breakpointMedium) {
+			width: 100%;
+		}
+
 		width: 50%;
 		margin: auto;
 	}

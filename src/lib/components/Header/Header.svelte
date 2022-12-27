@@ -1,6 +1,6 @@
 <script>
-	import ThemeSwitch from './ThemeSwitch.svelte';
-	import { page } from '$app/stores';
+	import ThemeSwitch from "./ThemeSwitch.svelte";
+	import { page } from "$app/stores";
 </script>
 
 <header>
@@ -36,7 +36,7 @@
 		}
 
 		@media screen and (max-width: var.$breakpointMedium) {
-			width: 75%;
+			width: 80%;
 		}
 
 		height: 100%;
@@ -49,6 +49,7 @@
 
 	ul {
 		list-style: none;
+		padding: 0;
 
 		display: flex;
 		gap: 1rem;
