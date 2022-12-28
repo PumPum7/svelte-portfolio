@@ -5,7 +5,7 @@ import fetch from "node-fetch";
 import { SECRET_DISCORD_WEBHOOK } from "$env/static/private";
 
 export const actions: Actions = {
-  sendMessage: async ({ request }) => {
+  default: async ({ request }) => {
     const data = await request.formData();
     const name = data.get("name");
     const email = data.get("email");
@@ -25,8 +25,26 @@ export const actions: Actions = {
       });
     }
 
+    const nameTooLong = name.length > 256;
+    const emailTooLong  = email.length > 1000;
+    const subjectTooLong  = subject.length > 256;
+    const messageTooLong  = message.length > 4000;
+
+    if (nameTooLong || emailTooLong || subjectTooLong || messageTooLong ) {
+      return fail(400, {
+        name: nameTooLong ? "" : name,
+        email: emailTooLong ? "" : email,
+        subject: subjectTooLong ? "" : subject,
+        message: messageTooLong ? "" : message,
+        nameTooLong,
+        emailTooLong,
+        subjectTooLong,
+        messageTooLong
+      });
+    }
+
     const params = {
-      username: name,
+      username: "Portfolio Message Service",
       content: "New message <@274561812664549376>",
       embeds: [
         {

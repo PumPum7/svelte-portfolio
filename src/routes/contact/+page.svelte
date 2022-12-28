@@ -1,35 +1,117 @@
 <script>
-	import Button from "$lib/components/Button.svelte";
-
-	/** @type {import("./$types").PageData} */
-	export let data;
-
+	import Button from '$lib/components/Button.svelte';
 
 	/** @type {import("./$types").ActionData} */
 	export let form;
 
+	console.log(form)
 </script>
 
-<!-- svelte-ignore TODO: The inputs have to be wrapped in divs -->
+{#if form?.success}
+	<h1>Handle success</h1>
+{:else}
+	<section>
+		<h1>Send me a message</h1>
+		<form method="post" novalidate={true}>
+			<div
+				data-validate-missing="Please enter your name"
+				class:missing={form?.missingName}
+				data-validate-invalid="Your name cant be longer than 255 characters"
+				class:invalid-input={form?.nameTooLong}
+				class="input-container"
+			>
+				<input
+					on:focus={() => {
+						if (form) form.missingName = false;
+					}}
+					name="name"
+					placeholder="Name"
+					required
+					type="text"
+					maxlength={255}
+					value={form?.name ?? ''}
+				/>
+			</div>
+			<div
+				data-validate-missing="Please enter your E-Mail"
+				class:missing={form?.missingEmail}
+				data-validate-invalid="Please enter a valid E-Mail"
+				class:invalid-input={form?.emailTooLong}
+				class="input-container"
+			>
+				<input
+					on:focus={() => {
+						if (form) form.missingEmail = false;
+					}}
+					name="email"
+					placeholder="E-mail"
+					required
+					type="email"
+					maxlength={250}
+					value={form?.email ?? ''}
+				/>
+			</div>
+			<div
+				data-validate-missing="Please enter a Subject"
+				class:missing={form?.missingSubject}
+				data-validate-invalid="The subject cant be longer than 256 characters"
+				class:invalid-input={form?.subjectTooLong}
+				class="input-container"
+			>
+				<input
+					on:focus={() => {
+						if (form) form.missingSubject = false;
+					}}
+					name="subject"
+					placeholder="Subject"
+					required
+					type="text"
+					maxlength={255}
+					value={form?.subject ?? ''}
+				/>
+			</div>
 
-
-<section>
-	<h1>Send me a message</h1>
-	<form action="?/sendMessage" method="post" novalidate="novalidate">
-		<input class:missing={form?.missingName} data-validate="Please enter your name" name="name" placeholder="Name"
-					 required
-					 type="text">
-		<input name="email" placeholder="E-mail" required type="email" />
-		<input name="subject" placeholder="Subject" required type="text" />
-		<textarea name="message" placeholder="Your Message" required />
-		<Button buttonType="submit" className="submit-button" isLink={false}>
-			<span>
-				<i class="send-icon" />
-				Send
-			</span>
-		</Button>
-	</form>
-</section>
+			<div
+				data-validate-missing="Please enter your Message"
+				class:missing={form?.missingMessage}
+				data-validate-invalid="Please enter a valid message"
+				class:invalid-input={form?.messageTooLong}
+				class="input-container"
+			>
+			<!-- svelte-ignore This if block is added to add the previously inputted data only if it exists -->
+				{#if form?.message}
+					<textarea
+						on:focus={() => {
+							if (form) form.missingMessage = false;
+						}}
+						name="message"
+						placeholder="Your Message"
+						required
+						maxlength={3500}
+					>
+						{form.message ?? ''}
+					</textarea>
+				{:else}
+					<textarea
+						on:focus={() => {
+							if (form) form.missingMessage = false;
+						}}
+						name="message"
+						placeholder="Your Message"
+						required
+						maxlength={3500}
+					/>
+				{/if}
+			</div>
+			<Button buttonType="submit" className="submit-button" isLink={false}>
+				<span>
+					<i class="send-icon" />
+					Send
+				</span>
+			</Button>
+		</form>
+	</section>
+{/if}
 
 <style lang="scss">
 	@use '../../mixins.scss' as mixin;
@@ -67,58 +149,28 @@
 			background-color: var(--button-color);
 			color: vars.$nord6;
 		}
-
-		input {
-			height: 62px;
-		}
-
-		textarea {
-			min-height: 169px;
-			padding: 19px 35px 0;
-		}
 	}
 
 	:global(.missing) {
-		&::before {
-			content: attr(data-validate);
-			position: absolute;
-			z-index: 1000;
-			max-width: 70%;
-			background-color: #fff;
-			border: 1px solid #c80000;
-			border-radius: 14px;
-			padding: 4px 25px 4px 10px;
-			top: 50%;
-			transform: translateY(-50%);
-			right: 10px;
-			pointer-events: none;
-			font-family: Inter, sans-serif;
-			color: #c80000;
-			font-size: 13px;
-			line-height: 1.4;
-			text-align: left;
-			visibility: hidden;
-			opacity: 0;
-			-webkit-transition: opacity .4s;
-			-o-transition: opacity .4s;
-			-moz-transition: opacity .4s;
-			transition: opacity .4s;
-		}
-
-		&::after {
-			content: "!";
-			display: block;
-			position: absolute;
-			z-index: 1100;
-			color: #c80000;
-			font-size: 16px;
-			top: 50%;
-			transform: translateY(-50%);
-			right: 16px;
-		}
+		@include mixin.error-message-form(attr(data-validate-missing), vars.$nord11);
 	}
 
-	input, textarea {
+	:global(.invalid-input) {
+		@include mixin.error-message-form(attr(data-validate-invalid), vars.$nord11);
+	}
+
+	.input-container {
+		position: relative;
+		width: 100%;
+		border-radius: 31px;
+		margin-bottom: 16px;
+		position: relative;
+		z-index: 1;
+		padding: 0 35px;
+	}
+
+	input,
+	textarea {
 		margin-bottom: 16px;
 		border-radius: 30px;
 		position: relative;
@@ -138,6 +190,15 @@
 			font-family: Inter, sans-serif;
 			opacity: 0.5;
 		}
+	}
+
+	input {
+		height: 62px;
+	}
+
+	textarea {
+		min-height: 169px;
+		padding: 19px 35px 0;
 	}
 
 	span {
