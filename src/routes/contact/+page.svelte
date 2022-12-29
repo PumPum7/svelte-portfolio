@@ -3,12 +3,17 @@
 
 	/** @type {import("./$types").ActionData} */
 	export let form;
-
-	console.log(form)
 </script>
 
 {#if form?.success}
-	<h1>Handle success</h1>
+	<section class="success">
+		<div class="success-icon">
+			<div class="success-icon__tip" />
+			<div class="success-icon__long" />
+		</div>
+		<h1>Thank you!</h1>
+		<p>I will get back to you as soon as possible!</p>
+	</section>
 {:else}
 	<section>
 		<h1>Send me a message</h1>
@@ -78,7 +83,7 @@
 				class:invalid-input={form?.messageTooLong}
 				class="input-container"
 			>
-			<!-- svelte-ignore This if block is added to add the previously inputted data only if it exists -->
+				<!-- svelte-ignore This if block is added to add the previously inputted data only if it exists -->
 				{#if form?.message}
 					<textarea
 						on:focus={() => {
@@ -99,7 +104,7 @@
 						name="message"
 						placeholder="Your Message"
 						required
-						maxlength={3500}
+						maxlength={5000}
 					/>
 				{/if}
 			</div>
@@ -213,5 +218,103 @@
 	.send-icon {
 		@include mixin.svg-in-text('/icons/paper-airplane.svg');
 		margin-right: 8px;
+	}
+
+	.success {
+		height: 70vh;
+		align-items: center;
+		justify-content: center;
+
+		// The icon specifics
+		// Variables
+		$green: #4BB543;
+		$icon-base-size: 20px;
+
+		// Structure
+		.success-icon {
+			display: inline-block;
+			width: 8em;
+			height: 8em;
+			font-size: $icon-base-size;
+			border-radius: 50%;
+			border: 4px solid lighten($green, 20%);
+			background-color: transparent;
+			position: relative;
+			overflow: hidden;
+			transform-origin: center;
+			animation: showSuccess 180ms ease-in-out;
+			transform: scale(1);
+		}
+
+		// Elements
+		.success-icon {
+			&__tip,
+			&__long {
+				display: block;
+				position: absolute;
+				height: 4px;
+				background-color: lighten($green, 20%);
+				border-radius: 10px;
+			}
+
+			&__tip {
+				width: 2.4em;
+				top: 4.5em;
+				left: 1.5em;
+				transform: rotate(45deg);
+				animation: tipInPlace 300ms ease-in-out;
+				animation-fill-mode: forwards;
+				animation-delay: 180ms;
+				visibility: hidden;
+			}
+
+			&__long {
+				width: 4em;
+				transform: rotate(-45deg);
+				top: 3.7em;
+				left: 2.75em;
+				animation: longInPlace 140ms ease-in-out;
+				animation-fill-mode: forwards;
+				visibility: hidden;
+				animation-delay: 300ms + 140ms;
+			}
+		}
+
+		@keyframes showSuccess {
+			from {
+				transform: scale(0);
+			}
+			to {
+				transform: scale(1);
+			}
+		}
+
+		@keyframes tipInPlace {
+			from {
+				width: 0em;
+				top: 0em;
+				left: -1.6em;
+			}
+			to {
+				width: 2.4em;
+				top: 4.3em;
+				left: 1.4em;
+				visibility: visible;
+			}
+		}
+
+		@keyframes longInPlace {
+			from {
+				width: 0em;
+				top: 5.1em;
+				left: 3.2em;
+			}
+			to {
+				width: 4em;
+				top: 3.7em;
+				left: 2.75em;
+				visibility: visible;
+			}
+		}
 	}
 </style>

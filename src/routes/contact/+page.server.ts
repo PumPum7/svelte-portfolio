@@ -58,18 +58,18 @@ export const actions: Actions = {
       ]
     };
 
-    fetch(SECRET_DISCORD_WEBHOOK, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(params)
-    })
-      .then(() => {
-        return { sucess: true };
+    try {
+      await fetch(SECRET_DISCORD_WEBHOOK, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(params)
       })
-      .catch((error) => {
-        return fail(500, { error, isError: true });
-      });
+    } catch (error) {
+      return fail(500, { error, isError: true });
+    }
+    
+    return { success: true };
   }
 };
