@@ -1,6 +1,6 @@
 <script>
-	import ThemeSwitch from "./ThemeSwitch.svelte";
-	import { page } from "$app/stores";
+	import ThemeSwitch from './ThemeSwitch.svelte';
+	import { page } from '$app/stores';
 </script>
 
 <header>
@@ -55,17 +55,38 @@
 		gap: 1rem;
 
 		li {
+			display: inline-block;
+			position: relative;
 
 			&.active {
 				a {
-					text-decoration: underline;
-					color: var(--primary-text-color)
+					color: var(--primary-text-color);
 				}
 			}
 
 			a {
 				color: var(--secondary-text-color);
 				text-decoration: none;
+			}
+
+			&::after {
+				content: '';
+				position: absolute;
+				width: 100%;
+				transform: scaleX(0);
+				height: 2px;
+				bottom: 0;
+				left: 0;
+				background-color: var(--primary-text-color);
+				transform-origin: bottom right;
+				transition: transform 0.25s ease-out;
+			}
+
+			&:hover {
+				&::after {
+					transform: scaleX(1);
+					transform-origin: bottom left;
+				}
 			}
 		}
 	}
