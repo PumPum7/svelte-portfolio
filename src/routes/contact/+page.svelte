@@ -1,9 +1,14 @@
-<script>
+<script lang="ts">
+	import type { ActionData } from './$types';
+
 	import Button from '$lib/components/Button.svelte';
 
-	/** @type {import("./$types").ActionData} */
-	export let form;
+	export let form: ActionData;
 </script>
+
+<svelte:head>
+	<title>Contact</title>
+</svelte:head>
 
 {#if form?.success}
 	<section class="success">

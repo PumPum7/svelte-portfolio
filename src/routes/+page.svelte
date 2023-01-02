@@ -1,4 +1,6 @@
-<script>
+<script lang="ts">
+	import type { PageData } from './$types';
+
 	import Img from "@zerodevx/svelte-img";
 
 	import WavingHand from "$lib/components/WavingHand.svelte";
@@ -6,10 +8,10 @@
 	import ProjectList from "$lib/components/ProjectList.svelte";
 	import Button from "$lib/components/Button.svelte";
 
+	// @ts-ignore
 	import profilePicture from "../lib/assets/FamousFox.png?run&height=300&width=300&fit=cover&normalize";
 
-	/** @type {import("./$types").PageData} */
-	export let data;
+	export let data: PageData;
 </script>
 
 <section>
