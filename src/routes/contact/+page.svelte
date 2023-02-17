@@ -1,37 +1,127 @@
-<script>
-	import Button from "$lib/components/Button.svelte";
+<script lang="ts">
+	import type { ActionData } from './$types';
 
-	/** @type {import("./$types").PageData} */
-	export let data;
+	import Button from '$lib/components/Button.svelte';
 
-	/** @type {import("./$types").ActionData} */
-	export let form;
+	export let form: ActionData;
 </script>
 
-<!-- svelte-ignore TODO: The inputs have to be wrapped in divs -->
+<svelte:head>
+	<title>Contact</title>
+</svelte:head>
 
-<section>
-	<h1>Send me a message</h1>
-	<form action="?/sendMessage" method="post" novalidate="novalidate">
-		<input
-			class:missing={form?.missingName}
-			data-validate="Please enter your name"
-			name="name"
-			placeholder="Name"
-			required
-			type="text"
-		/>
-		<input name="email" placeholder="E-mail" required type="email" />
-		<input name="subject" placeholder="Subject" required type="text" />
-		<textarea name="message" placeholder="Your Message" required />
-		<Button buttonType="submit" className="submit-button" isLink={false}>
-			<span>
-				<i class="send-icon" />
-				Send
-			</span>
-		</Button>
-	</form>
-</section>
+{#if form?.success}
+	<section class="success">
+		<div class="success-icon">
+			<div class="success-icon__tip" />
+			<div class="success-icon__long" />
+		</div>
+		<h1>Thank you!</h1>
+		<p>I will get back to you as soon as possible!</p>
+	</section>
+{:else}
+	<section>
+		<h1>Send me a message</h1>
+		<form method="post" novalidate={true}>
+			<div
+				data-validate-missing="Please enter your name"
+				class:missing={form?.missingName}
+				data-validate-invalid="Your name cant be longer than 255 characters"
+				class:invalid-input={form?.nameTooLong}
+				class="input-container"
+			>
+				<input
+					on:focus={() => {
+						if (form) form.missingName = false;
+					}}
+					name="name"
+					placeholder="Name"
+					required
+					type="text"
+					maxlength={255}
+					value={form?.name ?? ''}
+				/>
+			</div>
+			<div
+				data-validate-missing="Please enter your E-Mail"
+				class:missing={form?.missingEmail}
+				data-validate-invalid="Please enter a valid E-Mail"
+				class:invalid-input={form?.emailTooLong}
+				class="input-container"
+			>
+				<input
+					on:focus={() => {
+						if (form) form.missingEmail = false;
+					}}
+					name="email"
+					placeholder="E-mail"
+					required
+					type="email"
+					maxlength={250}
+					value={form?.email ?? ''}
+				/>
+			</div>
+			<div
+				data-validate-missing="Please enter a Subject"
+				class:missing={form?.missingSubject}
+				data-validate-invalid="The subject cant be longer than 256 characters"
+				class:invalid-input={form?.subjectTooLong}
+				class="input-container"
+			>
+				<input
+					on:focus={() => {
+						if (form) form.missingSubject = false;
+					}}
+					name="subject"
+					placeholder="Subject"
+					required
+					type="text"
+					maxlength={255}
+					value={form?.subject ?? ''}
+				/>
+			</div>
+
+			<div
+				data-validate-missing="Please enter your Message"
+				class:missing={form?.missingMessage}
+				data-validate-invalid="Please enter a valid message"
+				class:invalid-input={form?.messageTooLong}
+				class="input-container"
+			>
+				<!-- svelte-ignore This if block is added to add the previously inputted data only if it exists -->
+				{#if form?.message}
+					<textarea
+						on:focus={() => {
+							if (form) form.missingMessage = false;
+						}}
+						name="message"
+						placeholder="Your Message"
+						required
+						maxlength={3500}
+					>
+						{form.message ?? ''}
+					</textarea>
+				{:else}
+					<textarea
+						on:focus={() => {
+							if (form) form.missingMessage = false;
+						}}
+						name="message"
+						placeholder="Your Message"
+						required
+						maxlength={5000}
+					/>
+				{/if}
+			</div>
+			<Button buttonType="submit" className="submit-button" isLink={false}>
+				<span>
+					<i class="send-icon" />
+					Send
+				</span>
+			</Button>
+		</form>
+	</section>
+{/if}
 
 <style lang="scss">
 	@use '../../mixins.scss' as mixin;
@@ -69,55 +159,24 @@
 			background-color: var(--button-color);
 			color: vars.$nord6;
 		}
-
-		input {
-			height: 62px;
-		}
-
-		textarea {
-			min-height: 169px;
-			padding: 19px 35px 0;
-		}
 	}
 
 	:global(.missing) {
-		&::before {
-			content: attr(data-validate);
-			position: absolute;
-			z-index: 1000;
-			max-width: 70%;
-			background-color: #fff;
-			border: 1px solid #c80000;
-			border-radius: 14px;
-			padding: 4px 25px 4px 10px;
-			top: 50%;
-			transform: translateY(-50%);
-			right: 10px;
-			pointer-events: none;
-			font-family: Inter, sans-serif;
-			color: #c80000;
-			font-size: 13px;
-			line-height: 1.4;
-			text-align: left;
-			visibility: hidden;
-			opacity: 0;
-			-webkit-transition: opacity 0.4s;
-			-o-transition: opacity 0.4s;
-			-moz-transition: opacity 0.4s;
-			transition: opacity 0.4s;
-		}
+		@include mixin.error-message-form(attr(data-validate-missing), vars.$nord11);
+	}
 
-		&::after {
-			content: '!';
-			display: block;
-			position: absolute;
-			z-index: 1100;
-			color: #c80000;
-			font-size: 16px;
-			top: 50%;
-			transform: translateY(-50%);
-			right: 16px;
-		}
+	:global(.invalid-input) {
+		@include mixin.error-message-form(attr(data-validate-invalid), vars.$nord11);
+	}
+
+	.input-container {
+		position: relative;
+		width: 100%;
+		border-radius: 31px;
+		margin-bottom: 16px;
+		position: relative;
+		z-index: 1;
+		padding: 0 35px;
 	}
 
 	input,
@@ -143,6 +202,15 @@
 		}
 	}
 
+	input {
+		height: 62px;
+	}
+
+	textarea {
+		min-height: 169px;
+		padding: 19px 35px 0;
+	}
+
 	span {
 		display: flex;
 		flex-direction: row;
@@ -155,5 +223,103 @@
 	.send-icon {
 		@include mixin.svg-in-text('/icons/paper-airplane.svg');
 		margin-right: 8px;
+	}
+
+	.success {
+		height: 70vh;
+		align-items: center;
+		justify-content: center;
+
+		// The icon specifics
+		// Variables
+		$green: #4BB543;
+		$icon-base-size: 20px;
+
+		// Structure
+		.success-icon {
+			display: inline-block;
+			width: 8em;
+			height: 8em;
+			font-size: $icon-base-size;
+			border-radius: 50%;
+			border: 4px solid lighten($green, 20%);
+			background-color: transparent;
+			position: relative;
+			overflow: hidden;
+			transform-origin: center;
+			animation: showSuccess 180ms ease-in-out;
+			transform: scale(1);
+		}
+
+		// Elements
+		.success-icon {
+			&__tip,
+			&__long {
+				display: block;
+				position: absolute;
+				height: 4px;
+				background-color: lighten($green, 20%);
+				border-radius: 10px;
+			}
+
+			&__tip {
+				width: 2.4em;
+				top: 4.5em;
+				left: 1.5em;
+				transform: rotate(45deg);
+				animation: tipInPlace 300ms ease-in-out;
+				animation-fill-mode: forwards;
+				animation-delay: 180ms;
+				visibility: hidden;
+			}
+
+			&__long {
+				width: 4em;
+				transform: rotate(-45deg);
+				top: 3.7em;
+				left: 2.75em;
+				animation: longInPlace 140ms ease-in-out;
+				animation-fill-mode: forwards;
+				visibility: hidden;
+				animation-delay: 300ms + 140ms;
+			}
+		}
+
+		@keyframes showSuccess {
+			from {
+				transform: scale(0);
+			}
+			to {
+				transform: scale(1);
+			}
+		}
+
+		@keyframes tipInPlace {
+			from {
+				width: 0em;
+				top: 0em;
+				left: -1.6em;
+			}
+			to {
+				width: 2.4em;
+				top: 4.3em;
+				left: 1.4em;
+				visibility: visible;
+			}
+		}
+
+		@keyframes longInPlace {
+			from {
+				width: 0em;
+				top: 5.1em;
+				left: 3.2em;
+			}
+			to {
+				width: 4em;
+				top: 3.7em;
+				left: 2.75em;
+				visibility: visible;
+			}
+		}
 	}
 </style>
