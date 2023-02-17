@@ -21,7 +21,6 @@
 <style lang="scss">
 	@use '../../variables' as var;
 
-
 	footer {
 		border-top: 1px solid;
 		height: 70px;
@@ -48,6 +47,6 @@
 	a {
 		color: var(--primary-text-color);
 		text-decoration: none;
-    text-align:center;
+		text-align: center;
 	}
 </style>

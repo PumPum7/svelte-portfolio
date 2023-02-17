@@ -4,21 +4,23 @@
 	/** @type {import("./$types").PageData} */
 	export let data;
 
-
 	/** @type {import("./$types").ActionData} */
 	export let form;
-
 </script>
 
 <!-- svelte-ignore TODO: The inputs have to be wrapped in divs -->
 
-
 <section>
 	<h1>Send me a message</h1>
 	<form action="?/sendMessage" method="post" novalidate="novalidate">
-		<input class:missing={form?.missingName} data-validate="Please enter your name" name="name" placeholder="Name"
-					 required
-					 type="text">
+		<input
+			class:missing={form?.missingName}
+			data-validate="Please enter your name"
+			name="name"
+			placeholder="Name"
+			required
+			type="text"
+		/>
 		<input name="email" placeholder="E-mail" required type="email" />
 		<input name="subject" placeholder="Subject" required type="text" />
 		<textarea name="message" placeholder="Your Message" required />
@@ -99,14 +101,14 @@
 			text-align: left;
 			visibility: hidden;
 			opacity: 0;
-			-webkit-transition: opacity .4s;
-			-o-transition: opacity .4s;
-			-moz-transition: opacity .4s;
-			transition: opacity .4s;
+			-webkit-transition: opacity 0.4s;
+			-o-transition: opacity 0.4s;
+			-moz-transition: opacity 0.4s;
+			transition: opacity 0.4s;
 		}
 
 		&::after {
-			content: "!";
+			content: '!';
 			display: block;
 			position: absolute;
 			z-index: 1100;
@@ -118,7 +120,8 @@
 		}
 	}
 
-	input, textarea {
+	input,
+	textarea {
 		margin-bottom: 16px;
 		border-radius: 30px;
 		position: relative;

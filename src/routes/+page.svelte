@@ -9,7 +9,7 @@
 	import profilePicture from "../lib/assets/FamousFox.png?run&height=300&width=300&fit=cover&normalize";
 
 	/** @type {import("./$types").PageData} */
-	export let data;
+  export let data;
 </script>
 
 <section>
@@ -23,10 +23,10 @@
 				@Officer_Pum
 				<i class="twitter-icon" />
 			</Button>
-			<Button className="contact" isLink={true} link="/contact"
-			>Contact
-				<i class="arrow-up-right-icon" />
-			</Button>
+      <Button className="contact" isLink={true} link="/contact"
+      >Contact
+        <i class="arrow-up-right-icon" />
+      </Button>
 		</div>
 	</div>
 	<Img alt="Profile Famous Fox Federation NFT" class="profile-picture" src={profilePicture} />

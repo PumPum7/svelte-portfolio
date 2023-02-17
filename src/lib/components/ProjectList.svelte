@@ -18,10 +18,7 @@
       </a>
     </li>
   {/each}
-
-
 </ul>
-
 
 <style lang="scss">
   ul {
@@ -35,7 +32,7 @@
 
   a {
     text-decoration: none;
-    color: var(--primary-text-color)
+    color: var(--primary-text-color);
   }
 
   .language-badge {

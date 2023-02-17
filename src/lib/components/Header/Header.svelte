@@ -55,12 +55,11 @@
 		gap: 1rem;
 
 		li {
-
 			&.active {
 				a {
-					text-decoration: underline;
-					color: var(--primary-text-color)
-				}
+          text-decoration: underline;
+          color: var(--primary-text-color);
+        }
 			}
 
 			a {

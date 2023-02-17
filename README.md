@@ -91,14 +91,15 @@ To setup and run this project locally, you will need to have NodeJS and NPM inst
 It is also recommended to use Yarn for package management.
 
 - npm
+
   ```sh
   npm install npm@latest -g
   ```
 
 - Yarn
-    ```sh
-    corepack prepare yarn@stable --activate
-    ```
+  ```sh
+  corepack prepare yarn@stable --activate
+  ```
 
 ### Installation
 
@@ -127,10 +128,10 @@ file. Consult the [documentation](https://kit.svelte.dev/docs/adapters) for more
 - [ ] i18 inclusion for German
 - [ ] Analytics
 - [ ] Improved projects section
-    - [ ] Add proper previews for every project
-    - [ ] Include all used technologies
-    - [ ] Allow filtering
-    - [ ] Own Page for all projects and only showcase specific projects on the main side
+  - [ ] Add proper previews for every project
+  - [ ] Include all used technologies
+  - [ ] Allow filtering
+  - [ ] Own Page for all projects and only showcase specific projects on the main side
 - [ ] Make the design more personal and unique
 
 See the [open issues](https://github.com/PumPum7/svelte-portfolio/issues) for a full list of proposed features (and
@@ -177,35 +178,19 @@ Project Link: [https://github.com/PumPum7/svelte-portfolio](https://github.com/P
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
 [contributors-shield]: https://img.shields.io/github/contributors/PumPum7/svelte-portfolio.svg?style=for-the-badge
-
 [contributors-url]: https://github.com/PumPum7/svelte-portfolio/graphs/contributors
-
 [forks-shield]: https://img.shields.io/github/forks/PumPum7/svelte-portfolio.svg?style=for-the-badge
-
 [forks-url]: https://github.com/PumPum7/svelte-portfolio/network/members
-
 [stars-shield]: https://img.shields.io/github/stars/PumPum7/svelte-portfolio.svg?style=for-the-badge
-
 [stars-url]: https://github.com/PumPum7/svelte-portfolio/stargazers
-
 [issues-shield]: https://img.shields.io/github/issues/PumPum7/svelte-portfolio.svg?style=for-the-badge
-
 [issues-url]: https://github.com/PumPum7/svelte-portfolio/issues
-
 [license-shield]: https://img.shields.io/github/license/PumPum7/svelte-portfolio.svg?style=for-the-badge
-
 [license-url]: https://github.com/PumPum7/svelte-portfolio/blob/master/LICENSE.txt
-
 [product-screenshot]: images/screenshot.png
-
 [svelte.dev]: https://img.shields.io/badge/Svelte-4A4A55?style=for-the-badge&logo=svelte&logoColor=FF3E00
-
 [svelte-url]: https://svelte.dev/
-
 [typescriptlang.org]: https://img.shields.io/badge/Typescript-4A4A55?style=for-the-badge&logo=typescript&logoColor=3077c5
-
 [typescript-url]: https://www.typescriptlang.org/
-
 [sass-lang.com]: https://img.shields.io/badge/SCSS-4A4A55?style=for-the-badge&logo=sass&logoColor=cc6699
-
 [sass-url]: https://sass-lang.com/
