@@ -2,7 +2,40 @@ import type { Actions } from "@sveltejs/kit";
 import { fail } from "@sveltejs/kit";
 import fetch from "node-fetch";
 
-import { SECRET_DISCORD_WEBHOOK } from "$env/static/private";
+import { SECRET_DISCORD_WEBHOOK, TURNSTILE_SECRET_KEY } from "$env/static/private";
+
+interface TokenValidateResponse {
+  "error-codes": string[];
+  success: boolean;
+  action: string;
+  cdata: string;
+}
+
+async function validateToken(token: string, secret: string) {
+  const response = await fetch(
+    "https://challenges.cloudflare.com/turnstile/v0/siteverify",
+    {
+      method: "POST",
+      headers: {
+        "content-type": "application/json"
+      },
+      body: JSON.stringify({
+        response: token,
+        secret: secret
+      })
+    }
+  );
+
+  const data = await response.json() as TokenValidateResponse;
+
+  return {
+    // Return the status
+    success: data.success,
+
+    // Return the first error if it exists
+    error: data["error-codes"]?.length ? data["error-codes"][0] : null
+  };
+}
 
 export const actions: Actions = {
   default: async ({ request }) => {
@@ -11,6 +44,16 @@ export const actions: Actions = {
     const email = data.get("email");
     const subject = data.get("subject");
     const message = data.get("message");
+    const token = data.get("cf-turnstile-response") as string;
+
+    const { success, error } = await validateToken(token, TURNSTILE_SECRET_KEY);
+
+    if (!success) {
+      return fail(400, {
+        error: error || "Invalid captcha"
+      });
+    }
+
 
     if (!name || !email || !subject || !message) {
       return fail(400, {

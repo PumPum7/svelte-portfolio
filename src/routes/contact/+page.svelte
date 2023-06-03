@@ -1,7 +1,10 @@
 <script lang="ts">
-	import type { ActionData } from './$types';
+	import type { ActionData } from "./$types";
 
-	import Button from '$lib/components/Button.svelte';
+	import Button from "$lib/components/Button.svelte";
+	import { Turnstile } from "svelte-turnstile";
+
+	import { PUBLIC_TURNSTILE_KEY } from "$env/static/public";
 
 	export let form: ActionData;
 </script>
@@ -22,7 +25,7 @@
 {:else}
 	<section>
 		<h1>Send me a message</h1>
-		<form method="post" novalidate={true}>
+		<form method="post" novalidate="novalidate">
 			<div
 				data-validate-missing="Please enter your name"
 				class:missing={form?.missingName}
@@ -113,6 +116,7 @@
 					/>
 				{/if}
 			</div>
+			<Turnstile siteKey={PUBLIC_TURNSTILE_KEY} />
 			<Button buttonType="submit" className="submit-button" isLink={false}>
 				<span>
 					<i class="send-icon" />
