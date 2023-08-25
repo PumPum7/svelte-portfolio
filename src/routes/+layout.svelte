@@ -14,7 +14,7 @@
 
 <style lang="scss">
 	main {
-		@media screen and (max-width: $breakpointMedium) {
+		@media screen and (max-width: $breakpointLarge) {
 			width: 75%;
 			margin: 5vh auto auto;
 		}
@@ -24,7 +24,7 @@
 			margin: 2vh auto auto;
 		}
 
-		width: 50%;
+		width: 60%;
 		margin: 10vh auto auto;
 	}
 </style>
