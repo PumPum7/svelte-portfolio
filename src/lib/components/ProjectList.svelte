@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { PageServerLoad } from "../../routes/$types";
+  import type { PageServerLoad } from "$lib/types"
   import Card from "$lib/components/Card.svelte";
 
   export let projectData: PageServerLoad;
@@ -9,10 +9,14 @@
 <ul>
   {#each projectData as project}
     <li>
-      <a href={project.link} target="_blank" rel="noopener noreferrer">
+      <a href={project.repo} target="_blank" rel="noopener noreferrer">
         <Card>
-          <h3>{project.repo}</h3>
-          <p class="language-badge">{project.language}</p>
+          <h3>{project.name}</h3>
+          {#if project.language.length > 0}
+          <p class="language-badge">{project.language[0].name}</p>
+          {:else}
+          <p class="language-badge">No language specified</p>
+          {/if}
           <p>{project.description}</p>
         </Card>
       </a>
