@@ -8,7 +8,7 @@
 	import ProjectList from "$lib/components/ProjectList.svelte";
 	import Button from "$lib/components/Button.svelte";
 
-	// @ts-ignore
+	// @ts-expect-error: This is a valid import
 	import profilePicture from "../lib/assets/FamousFox.png?run&height=300&width=300&fit=cover&normalize";
 
 	export let data: PageData;
