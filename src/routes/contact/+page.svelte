@@ -25,7 +25,7 @@
 {:else}
 	<section>
 		<h1>Send me a message</h1>
-		<form method="post" novalidate="novalidate">
+		<form method="post" novalidate={true}>
 			<div
 				data-validate-missing="Please enter your name"
 				class:missing={form?.missingName}
@@ -113,13 +113,13 @@
 						placeholder="Your Message"
 						required
 						maxlength={5000}
-					/>
+					></textarea>
 				{/if}
 			</div>
 			<Turnstile siteKey={PUBLIC_TURNSTILE_KEY} />
 			<Button buttonType="submit" className="submit-button" isLink={false}>
 				<span>
-					<i class="send-icon" />
+					<i class="send-icon"></i>
 					Send
 				</span>
 			</Button>
@@ -178,7 +178,6 @@
 		width: 100%;
 		border-radius: 31px;
 		margin-bottom: 16px;
-		position: relative;
 		z-index: 1;
 		padding: 0 35px;
 	}
@@ -300,8 +299,8 @@
 
 		@keyframes tipInPlace {
 			from {
-				width: 0em;
-				top: 0em;
+				width: 0;
+				top: 0;
 				left: -1.6em;
 			}
 			to {
@@ -314,7 +313,7 @@
 
 		@keyframes longInPlace {
 			from {
-				width: 0em;
+				width: 0;
 				top: 5.1em;
 				left: 3.2em;
 			}

@@ -19,13 +19,15 @@
 <Footer />
 
 <style lang="scss">
-	main {
-		@media screen and (max-width: $breakpointLarge) {
+  @use '../variables' as var;
+
+  main {
+		@media screen and (max-width: var.$breakpointLarge) {
 			width: 75%;
 			margin: 5vh auto auto;
 		}
 
-		@media screen and (max-width: $breakpointSmall) {
+		@media screen and (max-width: var.$breakpointSmall) {
 			width: 80%;
 			margin: 2vh auto auto;
 		}

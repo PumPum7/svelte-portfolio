@@ -23,11 +23,11 @@
 		<div class="links">
 			<Button className="twitter" isLink={true} link="https://twitter.com/Officer_Pum">
 				@Officer_Pum
-				<i class="twitter-icon" />
+				<i class="twitter-icon"></i>
 			</Button>
 			<Button className="contact" isLink={true} link="/contact"
 				>Contact
-				<i class="arrow-up-right-icon" />
+				<i class="arrow-up-right-icon"></i>
 			</Button>
 		</div>
 	</div>
@@ -39,7 +39,7 @@
 <ProjectList projectData={data.data} />
 <Button className="github" isLink={true} link="https://github.com/PumPum7">
 	@PumPum7
-	<i class="github-icon" />
+	<i class="github-icon"></i>
 </Button>
 
 <style lang="scss">
