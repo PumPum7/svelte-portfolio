@@ -1,15 +1,15 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 
-	import Img from "@zerodevx/svelte-img";
+	import Img from '@zerodevx/svelte-img';
 
-	import WavingHand from "$lib/components/WavingHand.svelte";
-	import AboutMe from "$lib/components/AboutMe.svelte";
-	import ProjectList from "$lib/components/ProjectList.svelte";
-	import Button from "$lib/components/Button.svelte";
+	import WavingHand from '$lib/components/WavingHand.svelte';
+	import AboutMe from '$lib/components/AboutMe.svelte';
+	import ProjectList from '$lib/components/ProjectList.svelte';
+	import Button from '$lib/components/Button.svelte';
 
 	// @ts-expect-error: This is a valid import
-	import profilePicture from "../lib/assets/FamousFox.png?run&height=300&width=300&fit=cover&normalize";
+	import profilePicture from '$lib/assets/FamousFox.png?h=300&w=300&fit=cover&normalize&as=run';
 
 	export let data: PageData;
 </script>
@@ -26,7 +26,7 @@
 				<i class="twitter-icon" />
 			</Button>
 			<Button className="contact" isLink={true} link="/contact"
-			>Contact
+				>Contact
 				<i class="arrow-up-right-icon" />
 			</Button>
 		</div>
