@@ -22,7 +22,7 @@ export interface Language {
   color: string
 }
 
-export const load = (async (): Promise<{data: Response[]}> => {
+export const load = (async ({fetch}): Promise<{data: Response[]}> => {
   try {
     const response = await fetch(`https://gh-pinned-repos-api.ysnirix.xyz/api/get?username=pumpum7`);
     const data: ResponseData = await response.json();
