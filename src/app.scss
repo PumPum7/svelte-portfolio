@@ -1,3 +1,11 @@
+h1 {
+  font-size: 2em;
+
+  @media screen and (max-width: $breakpointMedium) {
+    font-size: 1.4em;
+  }
+}
+
 body {
   font-family: Inter, sans-serif;
   transition: background-color 0.3s;
@@ -7,14 +15,22 @@ body {
   &.dark-mode {
     @include theme-colors($light-theme: false);
   }
+
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
-h1 {
-  font-size: 2em;
+main {
+  flex: 1 0 auto;
+}
 
-  @media screen and (max-width: $breakpointMedium) {
-    font-size: 1.4em;
-  }
+footer {
+  flex-shrink: 0;
+  border-top: 1px solid;
+  height: 70px;
+  padding: 1rem 0;
+  margin-top: 2rem;
 }
 
 @keyframes wave-animation {
