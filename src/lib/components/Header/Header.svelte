@@ -1,4 +1,4 @@
-<script>
+<script lang='ts'>
 	import ThemeSwitch from './ThemeSwitch.svelte';
 	import { page } from '$app/stores';
 </script>
@@ -16,18 +16,17 @@
 
 <style lang="scss">
 	@use '../../../variables' as var;
+	@use '../../../mixins' as mixins;
 
 	header {
-		border-bottom: 1px solid;
-		height: 70px;
+    border-bottom: 1px solid;
+    height: 70px;
 
-		position: sticky;
-		top: 0;
+    position: sticky;
+    top: 0;
 
-		z-index: 1;
-		backdrop-filter: blur(8px);
-
-		transition: background-color 0.5s ease 0s, border-color 0.5s ease 0s, height 0.5s;
+    z-index: 1;
+    backdrop-filter: blur(8px);
 	}
 
 	div {
