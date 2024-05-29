@@ -1,10 +1,10 @@
 <script lang="ts">
-	import type { ActionData } from "./$types";
+	import type { ActionData } from './$types';
 
-	import Button from "$lib/components/Button.svelte";
-	import { Turnstile } from "svelte-turnstile";
+	import Button from '$lib/components/Button.svelte';
+	import { Turnstile, PUBLIC_KEY_ALWAYS_PASSES } from '@feelinglovelynow/svelte-turnstile';
 
-	import { PUBLIC_TURNSTILE_KEY } from "$env/static/public";
+	import { PUBLIC_TURNSTILE_KEY, PUBLIC_ENVIRONMENT } from '$env/static/public';
 
 	export let form: ActionData;
 </script>
@@ -16,8 +16,8 @@
 {#if form?.success}
 	<section class="success">
 		<div class="success-icon">
-			<div class="success-icon__tip" />
-			<div class="success-icon__long" />
+			<div class="success-icon__tip"></div>
+			<div class="success-icon__long"></div>
 		</div>
 		<h1>Thank you!</h1>
 		<p>I will get back to you as soon as possible!</p>
@@ -116,7 +116,9 @@
 					></textarea>
 				{/if}
 			</div>
-			<Turnstile siteKey={PUBLIC_TURNSTILE_KEY} />
+			<Turnstile
+				sitekey={PUBLIC_ENVIRONMENT === 'local' ? PUBLIC_KEY_ALWAYS_PASSES : PUBLIC_TURNSTILE_KEY}
+			/>
 			<Button buttonType="submit" className="submit-button" isLink={false}>
 				<span>
 					<i class="send-icon"></i>
@@ -154,7 +156,9 @@
 			cursor: pointer;
 			padding: 0 40px;
 			height: 62px;
-			transition: all 0.4s, transform 0.3s !important;
+			transition:
+				all 0.4s,
+				transform 0.3s !important;
 
 			&:hover {
 				padding: 0 50px;
@@ -235,7 +239,7 @@
 
 		// The icon specifics
 		// Variables
-		$green: #4BB543;
+		$green: #4bb543;
 		$icon-base-size: 20px;
 
 		// Structure
