@@ -156,6 +156,7 @@
 			cursor: pointer;
 			padding: 0 40px;
 			height: 62px;
+			margin-top: 16px;
 			transition:
 				all 0.4s,
 				transform 0.3s !important;
