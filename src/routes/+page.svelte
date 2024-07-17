@@ -29,7 +29,8 @@
 			</Button>
 		</div>
 	</div>
-	<enhanced:img alt="Profile Famous Fox Federation NFT" class="profile-picture" src={profilePicture}></enhanced:img>
+	<enhanced:img alt="Profile Famous Fox Federation NFT" class="profile-picture" src={profilePicture}
+	></enhanced:img>
 </section>
 
 <AboutMe />

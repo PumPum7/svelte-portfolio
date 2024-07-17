@@ -1,6 +1,6 @@
 <script>
-	import Card from "$lib/components/Card.svelte";
-	import ArrowRight from "$lib/components/icons/ArrowRight.svelte";
+	import Card from '$lib/components/Card.svelte';
+	import ArrowRight from '$lib/components/icons/ArrowRight.svelte';
 </script>
 
 <Card title="About me">

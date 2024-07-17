@@ -2,7 +2,7 @@
 	let isLightMode = true;
 
 	function handleClick() {
-		window.document.body.classList.toggle("dark-mode");
+		window.document.body.classList.toggle('dark-mode');
 
 		isLightMode = !isLightMode;
 	}
