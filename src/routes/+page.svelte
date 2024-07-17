@@ -1,8 +1,6 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 
-	import Img from '@zerodevx/svelte-img';
-
 	import WavingHand from '$lib/components/WavingHand.svelte';
 	import AboutMe from '$lib/components/AboutMe.svelte';
 	import ProjectList from '$lib/components/ProjectList.svelte';
@@ -31,7 +29,7 @@
 			</Button>
 		</div>
 	</div>
-	<Img alt="Profile Famous Fox Federation NFT" class="profile-picture" src={profilePicture} />
+	<enhanced:img alt="Profile Famous Fox Federation NFT" class="profile-picture" src={profilePicture}></enhanced:img>
 </section>
 
 <AboutMe />

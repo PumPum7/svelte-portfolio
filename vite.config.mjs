@@ -1,10 +1,10 @@
 import { sveltekit } from '@sveltejs/kit/vite';
-import { imagetools } from '@zerodevx/svelte-img/vite';
 import { defineConfig } from 'vite';
+import { enhancedImages } from '@sveltejs/enhanced-img';
 
 /** @type {import('vite').UserConfig} */
 const config = {
-	plugins: [sveltekit(), imagetools()],
+	plugins: [enhancedImages(), sveltekit()],
 
 	css: {
 		preprocessorOptions: {
