@@ -6,8 +6,8 @@
 	import ProjectList from '$lib/components/ProjectList.svelte';
 	import Button from '$lib/components/Button.svelte';
 
-	// @ts-expect-error: This is a valid import
-	import profilePicture from '$lib/assets/FamousFox.png?h=300&w=300&fit=cover&normalize&as=run';
+	// @ts-expect-error: enhanced is required
+	import profilePicture from '$lib/assets/FamousFox.png?enhanced&w=300&h=300';
 
 	export let data: PageData;
 </script>
