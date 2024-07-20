@@ -59,6 +59,12 @@
 
 	section {
 		display: flex;
+
+
+		@media (max-width: var.$breakpointSmall) {
+			margin-top: 310px;
+			position: relative;
+		}
 	}
 
 	h1 {
@@ -73,16 +79,27 @@
 		.introduction {
 			color: var(--primary-text-color);
 		}
+
+		@media (max-width: var.$breakpointSmall) {
+			margin: 1rem 0;
+			text-align: center;
+		}
 	}
 
-	:global(.profile-picture) {
+	.profile-picture {
 		border-radius: 12px;
 
-		@media screen and (max-width: var.$breakpointSmall) {
-			display: none;
-		}
+    @media (max-width: var.$breakpointSmall) {
+      position: absolute;
+      top: -310px;
+      border-radius: 9999px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 0;
+      margin-left: 0;
+    }
 
-		@media screen and (max-width: var.$breakpointMedium) {
+		@media screen and (max-width: var.$breakpointMedium) and (min-width: var.$breakpointSmall) {
 			margin-left: 16px;
 		}
 	}
