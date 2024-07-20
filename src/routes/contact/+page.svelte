@@ -133,15 +133,22 @@
 	@use '../../mixins.scss' as mixin;
 	@use '../../variables.scss' as vars;
 
-	section {
-		display: flex;
-		flex-direction: column;
-		flex-wrap: wrap;
-		justify-content: center;
-		align-items: center;
-		width: 550px;
-		margin: auto;
-	}
+  section {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+
+    @media (max-width: vars.$breakpointSmall) {
+      width: 100%;
+    }
+
+    @media (min-width: vars.$breakpointLarge) {
+      width: 550px;
+      margin: auto;
+    }
+  }
 
 	form {
 		width: 100%;
@@ -185,14 +192,16 @@
 		margin-bottom: 16px;
 		z-index: 1;
 		padding: 0 35px;
+
+		@media (max-width: vars.$breakpointSmall) {
+			padding: 0;
+		}
 	}
 
 	input,
 	textarea {
 		margin-bottom: 16px;
 		border-radius: 30px;
-		position: relative;
-		display: block;
 		width: 100%;
 		background: var(--foreground-color);
 		font-family: Inter, sans-serif;
@@ -208,6 +217,12 @@
 			font-family: Inter, sans-serif;
 			opacity: 0.5;
 		}
+
+		@media (max-width: vars.$breakpointSmall) {
+			font-size: 16px;
+			width: 90%;
+			padding: 0 20px;
+		}
 	}
 
 	input {
@@ -217,6 +232,11 @@
 	textarea {
 		min-height: 169px;
 		padding: 19px 35px 0;
+
+		@media (max-width: vars.$breakpointSmall) {
+			min-height: 100px;
+			padding: 19px 20px 0;
+		}
 	}
 
 	span {

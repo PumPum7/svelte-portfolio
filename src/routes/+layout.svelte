@@ -29,7 +29,6 @@
 
 		@media screen and (max-width: var.$breakpointSmall) {
 			width: 80%;
-			margin: 2vh auto auto;
 		}
 
 		width: 60%;
