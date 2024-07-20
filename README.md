@@ -125,8 +125,8 @@ file. Consult the [documentation](https://kit.svelte.dev/docs/adapters) for more
 ## Roadmap
 
 - [x] Contact Feature
-- [ ] i18 inclusion for German
-- [ ] Analytics
+- [x] i18 inclusion for German
+- [x] Analytics
 - [ ] Improved projects section
   - [ ] Add proper previews for every project
   - [ ] Include all used technologies
@@ -170,7 +170,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 ## Contact
 
-Michael - [@Officer_Pum](https://twitter.com/Officer_Pum)
+Michael - [@Officer_Pum](https://pum.works/contact)
 
 Project Link: [https://github.com/PumPum7/svelte-portfolio](https://github.com/PumPum7/svelte-portfolio)
 
