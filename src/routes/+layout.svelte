@@ -1,4 +1,7 @@
 <script>
+	import { ParaglideJS } from '@inlang/paraglide-sveltekit';
+	import { i18n } from '$lib/i18n';
+
 	import '../app.scss';
 	import Header from '../lib/components/Header/Header.svelte';
 	import Footer from '../lib/components/Footer.svelte';
@@ -10,13 +13,15 @@
 	inject({ mode: dev ? 'development' : 'production' });
 </script>
 
-<Header />
+<ParaglideJS {i18n}>
+	<Header />
 
-<main>
-	<slot />
-</main>
+	<main>
+		<slot />
+	</main>
 
-<Footer />
+	<Footer />
+</ParaglideJS>
 
 <style lang="scss">
 	@use '../variables' as var;

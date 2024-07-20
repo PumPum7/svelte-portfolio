@@ -1,13 +1,18 @@
 <script lang="ts">
 	import ThemeSwitch from './ThemeSwitch.svelte';
 	import { page } from '$app/stores';
+	import { i18n } from '$lib/i18n';
+
+	import * as m from '$lib/paraglide/messages.js';
 </script>
 
 <header>
 	<div>
 		<ul>
-			<li class:active={$page.url.pathname === '/'}><a href="/">Home</a></li>
-			<li class:active={$page.url.pathname === '/contact'}><a href="/contact">Contact</a></li>
+			<li class:active={i18n.route($page.url.pathname) === '/'}><a href="/">{m.home()}</a></li>
+			<li class:active={i18n.route($page.url.pathname) === '/contact'}>
+				<a href="/contact">{m.contact()}</a>
+			</li>
 		</ul>
 
 		<ThemeSwitch />

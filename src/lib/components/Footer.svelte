@@ -1,8 +1,16 @@
+<script>
+	import * as m from '$lib/paraglide/messages.js';
+
+	import { availableLanguageTags, languageTag } from '$lib/paraglide/runtime.js';
+	import { i18n } from '$lib/i18n';
+	import { page } from '$app/stores';
+</script>
+
 <footer>
 	<div>
 		<ul class="links">
 			<li>
-				<a href="/">Home</a>
+				<a href="/">{m.home()}</a>
 			</li>
 			<li>
 				<a href="https://twitter.com/Officer_Pum" target="_blank" rel="noreferrer">Twitter</a>
@@ -10,10 +18,21 @@
 			<li><a href="https://github.com/PumPum7/" target="_blank" rel="noreferrer">Github</a></li>
 
 			<li>
-				<a href="contact">Contact me</a>
+				<a href="contact">{m.contact()}</a>
 			</li>
 			<li>Discord</li>
-			<li><a href="https://github.com/PumPum7/svelte-portfolio/">Source Code</a></li>
+			<li><a href="https://github.com/PumPum7/svelte-portfolio/">{m.sourceCode()}</a></li>
+			{#each availableLanguageTags as lang}
+				<li>
+					<a
+						href={i18n.route($page.url.pathname)}
+						hreflang={lang}
+						aria-current={lang === languageTag() ? 'page' : undefined}
+					>
+						{lang === 'en' ? 'English' : 'Deutsch'}
+					</a>
+				</li>
+			{/each}
 		</ul>
 	</div>
 </footer>
@@ -23,9 +42,9 @@
 
 	footer {
 		border-top: 1px solid;
-		height: 70px;
 		padding: 1rem 0;
 		margin-top: 2rem;
+		margin-bottom: 2rem;
 	}
 
 	ul.links {

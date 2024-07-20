@@ -1,0 +1,36 @@
+{
+    "$schema": "https://inlang.com/schema/inlang-message-format",
+
+    "introductionSpan": "Ich bin Michael (Pum),",
+    "introduction": "ein aus Österreich stammender Food-Enthusiast \uD83C\uDF72 und Fullstack-Entwickler \uD83D\uDC68\u200D\uD83D\uDCBB, der mit Typescript, React, GoLang und Python arbeitet.",
+
+    "aboutMeHeader": "Als Softwareentwickler aus Österreich bin ich darauf spezialisiert, eine Vielzahl von Technologien zu verwenden, um innovative Projekte zum Leben zu erwecken!",
+    "aboutMeWeb": "Versiert in Typescript, React, Next, TailwindCSS und Svelte für die Frontend-Entwicklung",
+    "aboutMeServer": "Erfahren in GoLang, Python und NodeJS für die Backend-Entwicklung",
+    "aboutMeDatabase": "Geübt im Umgang mit SQL- und NoSQL-Datenbanken wie PostgreSQL, MySQL und MongoDB",
+
+    "aboutMePersonalHeader": "Wenn ich nicht gerade am Coden bin, findest du mich bei einigen meiner Lieblingshobbys und Freizeitbeschäftigungen, darunter:",
+    "aboutMePersonal1": "Mahlzeiten zubereiten und neue Rezepte in der Küche ausprobieren",
+    "aboutMePersonal2": "Die Natur und Städte erkunden",
+    "aboutMePersonal3": "Videospiele spielen und Filme mit Freunden und Familie schauen",
+
+    "myProjectsHeader": "Meine Projekte",
+
+    "contact": "Kontaktiere mich",
+    "home": "Startseite",
+    "sourceCode": "Quellcode",
+
+    "contactHeader": "Sende mir eine Nachricht",
+    "contactName": "Name",
+    "contactEmail": "E-Mail",
+    "contactSubject": "Betreff",
+    "contactMessage": "Nachricht",
+    "contactSend": "Senden",
+    "contactSuccessHeader": "Vielen Dank für deine Nachricht!",
+    "contactSuccessMessage": "Ich werde mich so schnell wie möglich bei Ihnen melden.",
+
+    "contactMissing": "Bitte geben Sie {preWord} {field} ein",
+    "contactInvalidEmail": "Bitte geben Sie eine gültige E-Mail-Adresse ein",
+    "contactTooLong": "{preWord} {field} darf nicht länger als {maxLength} Zeichen sein",
+    "contactTooShort": "{preWord} {field} muss mindestens {minLength} Zeichen lang sein"
+}

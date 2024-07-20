@@ -1,43 +1,43 @@
 <script>
 	import Card from '$lib/components/Card.svelte';
 	import ArrowRight from '$lib/components/icons/ArrowRight.svelte';
+
+	import * as m from '$lib/paraglide/messages.js';
 </script>
 
 <Card title="About me">
 	<p>
-		As a software developer hailing from Austria, I am skilled in using a variety of technologies to
-		bring cutting-edge projects to life!
+		{m.aboutMeHeader()}
 	</p>
 	<ul>
 		<li>
 			<ArrowRight className="arrow-right-list" />
-			Proficient in Typescript, React, Next, TailwindCSS, and Svelte for front end development
+			{m.aboutMeWeb()}
 		</li>
 		<li>
 			<ArrowRight className="arrow-right-list" />
-			Experienced in GoLang, Python, and Typescript for backend work
+			{m.aboutMeServer()}
 		</li>
 		<li>
 			<ArrowRight className="arrow-right-list" />
-			Skilled in using MongoDB, SQL, and FaunaDB for databases
+			{m.aboutMeDatabase()}
 		</li>
 	</ul>
 	<p>
-		When I'm not busy coding, you can find me indulging in a few of my favorite hobbies and
-		pastimes, including:
+		{m.aboutMePersonalHeader()}
 	</p>
 	<ul>
 		<li>
 			<ArrowRight className="arrow-right-list" />
-			Cooking up delicious meals and trying out new recipes in the kitchen
+			{m.aboutMePersonal1()}
 		</li>
 		<li>
 			<ArrowRight className="arrow-right-list" />
-			Hitting the slopes and skiing to my heart's content in the great outdoors
+			{m.aboutMePersonal2()}
 		</li>
 		<li>
 			<ArrowRight className="arrow-right-list" />
-			Collecting NFTs and exploring the exciting world of digital art and collectibles
+			{m.aboutMePersonal3()}
 		</li>
 	</ul>
 </Card>

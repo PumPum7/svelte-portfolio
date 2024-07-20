@@ -2,9 +2,11 @@
 	import Card from '$lib/components/Card.svelte';
 	import type { Response } from '$lib/types';
 	export let projectData: Response[];
+
+	import * as m from '$lib/paraglide/messages.js';
 </script>
 
-<h2>Some of my work:</h2>
+<h2>{m.myProjectsHeader()}</h2>
 <ul>
 	{#each projectData as project}
 		<li>

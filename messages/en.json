@@ -1,0 +1,36 @@
+{
+    "$schema": "https://inlang.com/schema/inlang-message-format",
+
+    "introductionSpan": "I'm Michael (Pum),",
+    "introduction": "an Austrian based food enthusiast \uD83C\uDF72 and fullstack developer \uD83D\uDC68\u200D\uD83D\uDCBB working with Typescript, React, GoLang and Python.",
+
+    "aboutMeHeader": "As a software developer hailing from Austria, I am skilled in using a variety of technologies to bring cutting-edge projects to life!",
+    "aboutMeWeb": "Proficient in Typescript, React, Next, TailwindCSS, and Svelte for front end development",
+    "aboutMeServer": "Experienced in GoLang, Python, and NodeJS for backend development",
+    "aboutMeDatabase": "Skilled in using SQL and NoSQL databases such as PostgreSQL, MySQL, and MongoDB",
+
+    "aboutMePersonalHeader": "When I'm not busy coding, you can find me indulging in a few of my favorite hobbies and pastimes, including:",
+    "aboutMePersonal1": "Cooking up delicious meals and trying out new recipes in the kitchen",
+    "aboutMePersonal2": "Exploring the great outdoors and cities",
+    "aboutMePersonal3": "Playing video games and watching movies with friends and family",
+
+    "myProjectsHeader": "My Projects",
+
+    "contact": "Contact Me",
+    "home": "Home",
+    "sourceCode": "Source Code",
+
+    "contactHeader": "Send me a message",
+    "contactName": "Name",
+    "contactEmail": "Email",
+    "contactSubject": "Subject",
+    "contactMessage": "Message",
+    "contactSend": "Send",
+    "contactSuccessHeader": "Thank you for reaching out!",
+    "contactSuccessMessage": "I'll get back to you as soon as possible.",
+
+    "contactMissing": "Please enter your {field}",
+    "contactInvalidEmail": "Please enter a valid Email",
+    "contactTooLong": "Your {field} can't be longer than {maxLength} characters",
+    "contactTooShort": "Your {field} must be at least {minLength} characters long"
+}

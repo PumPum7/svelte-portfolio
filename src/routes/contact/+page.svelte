@@ -7,6 +7,8 @@
 	import { PUBLIC_TURNSTILE_KEY, PUBLIC_ENVIRONMENT } from '$env/static/public';
 
 	export let form: ActionData;
+
+	import * as m from '$lib/paraglide/messages.js';
 </script>
 
 <svelte:head>
@@ -19,17 +21,21 @@
 			<div class="success-icon__tip"></div>
 			<div class="success-icon__long"></div>
 		</div>
-		<h1>Thank you!</h1>
-		<p>I will get back to you as soon as possible!</p>
+		<h1>{m.contactSuccessHeader()}</h1>
+		<p>{m.contactSuccessMessage()}</p>
 	</section>
 {:else}
 	<section>
-		<h1>Send me a message</h1>
+		<h1>{m.contactHeader()}</h1>
 		<form method="post" novalidate={true}>
 			<div
-				data-validate-missing="Please enter your name"
+				data-validate-missing={m.contactMissing({ field: m.contactName(), preWord: 'Ihren' })}
 				class:missing={form?.missingName}
-				data-validate-invalid="Your name cant be longer than 255 characters"
+				data-validate-invalid={m.contactTooLong({
+					field: m.contactName(),
+					preWord: 'Ihr',
+					maxLength: 255
+				})}
 				class:invalid-input={form?.nameTooLong}
 				class="input-container"
 			>
@@ -38,7 +44,7 @@
 						if (form) form.missingName = false;
 					}}
 					name="name"
-					placeholder="Name"
+					placeholder={m.contactName()}
 					required
 					type="text"
 					maxlength={255}
@@ -46,9 +52,9 @@
 				/>
 			</div>
 			<div
-				data-validate-missing="Please enter your E-Mail"
+				data-validate-missing={m.contactMissing({ field: m.contactEmail(), preWord: 'Ihre' })}
 				class:missing={form?.missingEmail}
-				data-validate-invalid="Please enter a valid E-Mail"
+				data-validate-invalid={m.contactInvalidEmail()}
 				class:invalid-input={form?.emailTooLong}
 				class="input-container"
 			>
@@ -57,7 +63,7 @@
 						if (form) form.missingEmail = false;
 					}}
 					name="email"
-					placeholder="E-mail"
+					placeholder={m.contactEmail()}
 					required
 					type="email"
 					maxlength={250}
@@ -65,9 +71,13 @@
 				/>
 			</div>
 			<div
-				data-validate-missing="Please enter a Subject"
+				data-validate-missing={m.contactMissing({ field: m.contactSubject(), preWord: 'Ihr' })}
 				class:missing={form?.missingSubject}
-				data-validate-invalid="The subject cant be longer than 256 characters"
+				data-validate-invalid={m.contactTooLong({
+					field: m.contactSubject(),
+					preWord: 'Ihr',
+					maxLength: 255
+				})}
 				class:invalid-input={form?.subjectTooLong}
 				class="input-container"
 			>
@@ -76,7 +86,7 @@
 						if (form) form.missingSubject = false;
 					}}
 					name="subject"
-					placeholder="Subject"
+					placeholder={m.contactSubject()}
 					required
 					type="text"
 					maxlength={255}
@@ -85,9 +95,13 @@
 			</div>
 
 			<div
-				data-validate-missing="Please enter your Message"
+				data-validate-missing={m.contactMissing({ field: m.contactMessage(), preWord: 'Ihre' })}
 				class:missing={form?.missingMessage}
-				data-validate-invalid="Please enter a valid message"
+				data-validate-invalid={m.contactTooLong({
+					field: m.contactMessage(),
+					preWord: 'Ihre',
+					maxLength: 3500
+				})}
 				class:invalid-input={form?.messageTooLong}
 				class="input-container"
 			>
@@ -98,7 +112,7 @@
 							if (form) form.missingMessage = false;
 						}}
 						name="message"
-						placeholder="Your Message"
+						placeholder={m.contactMessage()}
 						required
 						maxlength={3500}
 					>
@@ -110,9 +124,9 @@
 							if (form) form.missingMessage = false;
 						}}
 						name="message"
-						placeholder="Your Message"
+						placeholder={m.contactMessage()}
 						required
-						maxlength={5000}
+						maxlength={3500}
 					></textarea>
 				{/if}
 			</div>
@@ -122,7 +136,7 @@
 			<Button buttonType="submit" className="submit-button" isLink={false}>
 				<span>
 					<i class="send-icon"></i>
-					Send
+					{m.contactSend()}
 				</span>
 			</Button>
 		</form>
@@ -133,22 +147,22 @@
 	@use '../../mixins.scss' as mixin;
 	@use '../../variables.scss' as vars;
 
-  section {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
+	section {
+		display: flex;
+		flex-direction: column;
+		flex-wrap: wrap;
+		justify-content: center;
+		align-items: center;
 
-    @media (max-width: vars.$breakpointSmall) {
-      width: 100%;
-    }
+		@media (max-width: vars.$breakpointSmall) {
+			width: 100%;
+		}
 
-    @media (min-width: vars.$breakpointLarge) {
-      width: 550px;
-      margin: auto;
-    }
-  }
+		@media (min-width: vars.$breakpointLarge) {
+			width: 550px;
+			margin: auto;
+		}
+	}
 
 	form {
 		width: 100%;
