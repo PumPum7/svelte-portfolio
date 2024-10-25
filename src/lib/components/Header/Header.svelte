@@ -1,10 +1,26 @@
 <script lang="ts">
 	import ThemeSwitch from './ThemeSwitch.svelte';
 	import { page } from '$app/stores';
+	import { onMount } from 'svelte';
+
+	let scrollY: number;
+	let isScrolled: boolean = false;
+
+	onMount(() => {
+		const updateScroll = () => {
+			scrollY = window.scrollY;
+			isScrolled = scrollY > 50;
+		};
+
+		window.addEventListener('scroll', updateScroll);
+		return () => {
+			window.removeEventListener('scroll', updateScroll);
+		};
+	});
 </script>
 
-<header>
-	<div>
+<header class:scrolled={isScrolled}>
+	<div class="header-content">
 		<ul>
 			<li class:active={$page.url.pathname === '/'}><a href="/">Home</a></li>
 			<li class:active={$page.url.pathname === '/contact'}><a href="/contact">Contact</a></li>
@@ -19,39 +35,39 @@
 	@use '../../../mixins' as mixins;
 
 	header {
-		border-bottom: 1px solid;
-		height: 70px;
-
-		position: sticky;
-		top: 0;
-
-		z-index: 1;
+		position: fixed;
+		top: 20px;
+		left: 50%;
+		transform: translateX(-50%);
+		width: 95%;
+		max-width: 1200px;
+		height: 60px;
+		background-color: rgba(var(--background-color-rgb), 0.8);
 		backdrop-filter: blur(8px);
+		border-radius: 30px;
+		transition: all 0.3s ease;
+		z-index: 1000;
+
+		&.scrolled {
+			box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+			border: 1px solid var(--border-color);
+			box-shadow: 0 2px 10px rgba(var(--shadow-color-rgb), 0.1);
+		}
 	}
 
-	div {
-		@media screen and (max-width: var.$breakpointSmall) {
-			width: 100%;
-		}
-
-		@media screen and (max-width: var.$breakpointMedium) {
-			width: 80%;
-		}
-
+	.header-content {
 		height: 100%;
-		width: 50%;
-		margin: auto;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
+		padding: 0 30px;
 	}
 
 	ul {
 		list-style: none;
 		padding: 0;
-
 		display: flex;
-		gap: 1rem;
+		gap: 1.5rem;
 
 		li {
 			display: inline-block;
@@ -66,6 +82,12 @@
 			a {
 				color: var(--secondary-text-color);
 				text-decoration: none;
+				font-weight: 500;
+				transition: color 0.2s ease;
+
+				&:hover {
+					color: var(--primary-text-color);
+				}
 			}
 
 			&::after {
@@ -74,19 +96,32 @@
 				width: 100%;
 				transform: scaleX(0);
 				height: 2px;
-				bottom: 0;
+				bottom: -5px;
 				left: 0;
 				background-color: var(--primary-text-color);
 				transform-origin: bottom right;
 				transition: transform 0.25s ease-out;
 			}
 
-			&:hover {
-				&::after {
-					transform: scaleX(1);
-					transform-origin: bottom left;
-				}
+			&:hover::after {
+				transform: scaleX(1);
+				transform-origin: bottom left;
 			}
+		}
+	}
+
+	@media screen and (max-width: var.$breakpointSmall) {
+		header {
+			width: 90%;
+			top: 10px;
+		}
+
+		.header-content {
+			padding: 0 20px;
+		}
+
+		ul {
+			gap: 1rem;
 		}
 	}
 </style>
