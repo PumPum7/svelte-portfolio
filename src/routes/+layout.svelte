@@ -22,6 +22,9 @@
 	@use '../variables' as var;
 
 	main {
+		width: 60%;
+		margin: 10vh auto auto;
+
 		@media screen and (max-width: var.$breakpointLarge) {
 			width: 75%;
 			margin: 5vh auto auto;
@@ -30,8 +33,5 @@
 		@media screen and (max-width: var.$breakpointSmall) {
 			width: 80%;
 		}
-
-		width: 60%;
-		margin: 10vh auto auto;
 	}
 </style>
