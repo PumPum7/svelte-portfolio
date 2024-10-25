@@ -6,7 +6,7 @@
 	import ProjectList from '$lib/components/ProjectList.svelte';
 	import Button from '$lib/components/Button.svelte';
 
-	// @ts-expect-error: enhanced is required
+	// @ts-expect-error: enhanced is required but not liked by typescript
 	import profilePicture from '$lib/assets/FamousFox.png?enhanced&w=300&h=300';
 
 	export let data: PageData;
@@ -23,14 +23,13 @@
 				@Officer_Pum
 				<i class="twitter-icon"></i>
 			</Button>
-			<Button className="contact" isLink={true} link="/contact"
-				>Contact
+			<Button className="contact" isLink={true} link="/contact">
+				Contact
 				<i class="arrow-up-right-icon"></i>
 			</Button>
 		</div>
 	</div>
-	<enhanced:img alt="Profile Famous Fox Federation NFT" class="profile-picture" src={profilePicture}
-	></enhanced:img>
+	<enhanced:img alt="Profile Famous Fox Federation NFT" class="profile-picture" src={profilePicture} />
 </section>
 
 <AboutMe />

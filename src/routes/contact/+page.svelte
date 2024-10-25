@@ -6,7 +6,7 @@
 
 	import { PUBLIC_TURNSTILE_KEY, PUBLIC_ENVIRONMENT } from '$env/static/public';
 
-	export let form: ActionData;
+	let form: ActionData | undefined = $state();
 </script>
 
 <svelte:head>
@@ -34,7 +34,7 @@
 				class="input-container"
 			>
 				<input
-					on:focus={() => {
+					onfocus={() => {
 						if (form) form.missingName = false;
 					}}
 					name="name"
@@ -53,7 +53,7 @@
 				class="input-container"
 			>
 				<input
-					on:focus={() => {
+					onfocus={() => {
 						if (form) form.missingEmail = false;
 					}}
 					name="email"
@@ -72,7 +72,7 @@
 				class="input-container"
 			>
 				<input
-					on:focus={() => {
+					onfocus={() => {
 						if (form) form.missingSubject = false;
 					}}
 					name="subject"
@@ -91,30 +91,15 @@
 				class:invalid-input={form?.messageTooLong}
 				class="input-container"
 			>
-				<!-- svelte-ignore This if block is added to add the previously inputted data only if it exists -->
-				{#if form?.message}
-					<textarea
-						on:focus={() => {
-							if (form) form.missingMessage = false;
-						}}
-						name="message"
-						placeholder="Your Message"
-						required
-						maxlength={3500}
-					>
-						{form.message ?? ''}
-					</textarea>
-				{:else}
-					<textarea
-						on:focus={() => {
-							if (form) form.missingMessage = false;
-						}}
-						name="message"
-						placeholder="Your Message"
-						required
-						maxlength={5000}
-					></textarea>
-				{/if}
+				<textarea
+					onfocus={() => {
+						if (form) form.missingMessage = false;
+					}}
+					name="message"
+					placeholder="Your Message"
+					required
+					maxlength={3500}
+				>{form?.message ?? ''}</textarea>
 			</div>
 			<Turnstile
 				sitekey={PUBLIC_ENVIRONMENT === 'local' ? PUBLIC_KEY_ALWAYS_PASSES : PUBLIC_TURNSTILE_KEY}
@@ -133,22 +118,22 @@
 	@use '../../mixins.scss' as mixin;
 	@use '../../variables.scss' as vars;
 
-  section {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
+	section {
+		display: flex;
+		flex-direction: column;
+		flex-wrap: wrap;
+		justify-content: center;
+		align-items: center;
 
-    @media (max-width: vars.$breakpointSmall) {
-      width: 100%;
-    }
+		@media (max-width: vars.$breakpointSmall) {
+			width: 100%;
+		}
 
-    @media (min-width: vars.$breakpointLarge) {
-      width: 550px;
-      margin: auto;
-    }
-  }
+		@media (min-width: vars.$breakpointLarge) {
+			width: 550px;
+			margin: auto;
+		}
+	}
 
 	form {
 		width: 100%;

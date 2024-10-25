@@ -20,6 +20,11 @@ $breakpointSmall: 767px;
 $breakpointMedium: 992px;
 $breakpointLarge: 1200px;
 
+$header-background-opacity: 0.8;
+$header-blur: 8px;
+$header-shadow-opacity: 0.1;
+$header-border-radius: 30px;
+
 $fa-font-path: '../webfonts';
 
 @mixin theme-colors($light-theme: true) {
@@ -30,6 +35,9 @@ $fa-font-path: '../webfonts';
 		--primary-text-color: #{$nord0};
 		--secondary-text-color: #{$nord3};
 		--button-color: #{$nord9};
+		--background-color-rgb: 236, 239, 244; // $nord6 in RGB
+		--border-color: #{$nord4};
+		--shadow-color-rgb: 0, 0, 0;
 	} @else {
 		background-color: $nord0;
 		color: $nord6;
@@ -37,5 +45,8 @@ $fa-font-path: '../webfonts';
 		--primary-text-color: #{$nord6};
 		--secondary-text-color: #{$nord4};
 		--button-color: #{$nord10};
+		--background-color-rgb: 46, 52, 64; // $nord0 in RGB
+		--border-color: #{$nord2};
+		--shadow-color-rgb: 0, 0, 0;
 	}
 }
