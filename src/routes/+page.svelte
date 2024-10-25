@@ -15,7 +15,7 @@
 <section>
 	<div>
 		<h1>
-			<span class="introduction">Hi <WavingHand /> I'm Michael (Pum)</span>, an Austrian based food
+			<span class="introduction">Servus <WavingHand /> I'm Michael (Pum)</span>, an Austrian based food
 			enthusiast 🍲 and fullstack developer 👨‍💻 working with Typescript, React, GoLang and Python.
 		</h1>
 		<div class="links">
