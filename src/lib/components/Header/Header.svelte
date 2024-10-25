@@ -36,7 +36,6 @@
 
 	header {
 		position: fixed;
-		top: 20px;
 		left: 50%;
 		transform: translateX(-50%);
 		width: 95%;
@@ -113,7 +112,7 @@
 	@media screen and (max-width: var.$breakpointSmall) {
 		header {
 			width: 90%;
-			top: 10px;
+			bottom: 10px;
 		}
 
 		.header-content {

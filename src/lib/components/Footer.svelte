@@ -26,6 +26,10 @@
 		height: 70px;
 		padding: 1rem 0;
 		margin-top: 2rem;
+
+		@media screen and (max-width: var.$breakpointSmall) {
+			padding-bottom: 100px;
+		}
 	}
 
 	ul.links {
