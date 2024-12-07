@@ -126,11 +126,11 @@ file. Consult the [documentation](https://kit.svelte.dev/docs/adapters) for more
 
 - [x] Contact Feature
 - [ ] i18 inclusion for German
-- [ ] Analytics
-- [ ] Improved projects section
+- [X] Analytics
+- [X] Improved projects section
   - [ ] Add proper previews for every project
-  - [ ] Include all used technologies
-  - [ ] Allow filtering
+  - [X] Include all used technologies
+  - [X] Allow filtering
   - [ ] Own Page for all projects and only showcase specific projects on the main side
 - [ ] Make the design more personal and unique
 
