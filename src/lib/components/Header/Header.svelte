@@ -23,6 +23,7 @@
 	<div class="header-content">
 		<ul>
 			<li class:active={$page.url.pathname === '/'}><a href="/">Home</a></li>
+			<li class:active={$page.url.pathname === '/projects'}><a href="/projects">Projects</a></li>
 			<li class:active={$page.url.pathname === '/contact'}><a href="/contact">Contact</a></li>
 		</ul>
 
@@ -41,16 +42,15 @@
 		width: 95%;
 		max-width: 1200px;
 		height: 60px;
-		background-color: rgba(var(--background-color-rgb), 0.8);
-		backdrop-filter: blur(8px);
-		border-radius: 30px;
+		background-color: rgba(var(--background-color-rgb), var.$header-background-opacity);
+		backdrop-filter: blur(var.$header-blur);
+		border-radius: var.$header-border-radius;
 		transition: all 0.3s ease;
 		z-index: 1000;
 
 		&.scrolled {
-			box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+			box-shadow: 0 4px 20px rgba(46, 41, 38, 0.15);
 			border: 1px solid var(--border-color);
-			box-shadow: 0 2px 10px rgba(var(--shadow-color-rgb), 0.1);
 		}
 	}
 

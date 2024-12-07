@@ -21,10 +21,10 @@
 
 	a,
 	button {
-		color: var.$nord10;
+		color: var.$lighter-wood;
 		padding: 11px 16px;
 		border-radius: 12px;
-		background-color: rgb(var.$nord10, 10%);
+		background-color: rgb(var.$lighter-wood, 10%);
 		text-decoration: none;
 		font-weight: 500;
 
@@ -34,7 +34,7 @@
 		&:hover {
 			transform: scale(1.05);
 			transition: transform 0.3s;
-			box-shadow: 0 2px 40px -4px var.$nord9;
+			box-shadow: 0 2px 40px -4px var.$wood-brown;
 		}
 
 		&.github {

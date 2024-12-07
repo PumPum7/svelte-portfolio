@@ -51,18 +51,31 @@
 		width: calc(var(--size) * 1.5);
 		height: calc(var(--size) * 1.5);
 		cursor: pointer;
+		transition: transform 0.3s ease, box-shadow 0.3s ease;
 
 		&:hover {
-			border: 1px solid var.$nord9;
-			box-shadow: 0 2px 40px -4px var.$nord9;
+			transform: scale(1.05);
+			border: 1px solid var.$wood-brown;
+			box-shadow: 0 2px 40px -4px var.$wood-brown;
+		}
+
+		.dark-icon,
+		.light-icon {
+			transition: transform 0.3s ease;
 		}
 
 		.dark-icon {
-			stroke: var.$nord4;
+			stroke: var.$off-white;
+			&:hover {
+				transform: rotate(-12deg);
+			}
 		}
 
 		.light-icon {
-			stroke: var.$nord3;
+			stroke: var.$light-wood;
+			&:hover {
+				transform: rotate(12deg);
+			}
 		}
 	}
 </style>

@@ -19,7 +19,7 @@
 		backdrop-filter: blur(1);
 		box-shadow: 0.5px 1px 1px hsl(223deg 5% 80% / 0.333);
 		border-radius: 16px;
-		border: 0.5px solid rgba(var.$nord9, 5%);
+		border: 0.5px solid rgba(var.$wood-brown, 5%);
 		padding: 16px 22px;
 		background-color: var(--foreground-color);
 	}

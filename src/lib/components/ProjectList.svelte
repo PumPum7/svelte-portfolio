@@ -1,6 +1,8 @@
 <script lang="ts">
 	import Card from '$lib/components/Card.svelte';
+	import LanguageBadge from '$lib/components/LanguageBadge.svelte';
 	import type { Response } from '$lib/types';
+
 	export let projectData: Response[];
 </script>
 
@@ -12,7 +14,7 @@
 				<Card hasAnimation>
 					<h3>{project.name}</h3>
 					{#if project?.language}
-						<p class="language-badge">{project.language.name}</p>
+						<LanguageBadge language={project.language} />
 					{/if}
 					<p>{project.description}</p>
 				</Card>
@@ -34,15 +36,5 @@
 	a {
 		text-decoration: none;
 		color: var(--primary-text-color);
-	}
-
-	.language-badge {
-		font-size: 14px;
-		font-weight: 600;
-		border-radius: 18px;
-		background-color: #5e81ac;
-		color: #d8dee9;
-		width: fit-content;
-		padding: 8px 14px;
 	}
 </style>

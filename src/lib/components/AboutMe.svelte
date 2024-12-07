@@ -33,7 +33,7 @@
 		</li>
 		<li>
 			<ArrowRight className="arrow-right-list" />
-			Hitting the slopes and skiing to my heart's content in the great outdoors
+			Exploring the Alpine peaks and skiing the pristine slopes of our mountains
 		</li>
 		<li>
 			<ArrowRight className="arrow-right-list" />
@@ -58,7 +58,7 @@
 	}
 
 	:global(.arrow-right-list) {
-		color: var.$nord8;
+		color: var.$light-red;
 		height: 22px;
 		margin-right: 10px;
 	}

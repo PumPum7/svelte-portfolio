@@ -31,6 +31,15 @@ export const load = (async (): Promise<{ data: Response[] }> => {
                         }
                       }
                     }
+                    repositoryTopics(first: 10) {
+                      nodes {
+                        topic {
+                          name
+                        }
+                      }
+                    }
+                    stargazerCount
+                    openGraphImageUrl
                   }
                 }
               }

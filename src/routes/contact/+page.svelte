@@ -158,7 +158,7 @@
 			}
 
 			background-color: var(--button-color);
-			color: vars.$nord6;
+			color: vars.$light-cream;
 		}
 	}
 

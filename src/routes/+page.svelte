@@ -15,8 +15,9 @@
 <section>
 	<div>
 		<h1>
-			<span class="introduction">Servus <WavingHand /> I'm Michael (Pum)</span>, an Austrian based food
-			enthusiast 🍲 and fullstack developer 👨‍💻 working with Typescript, React, GoLang and Python.
+			<span class="introduction">Servus <WavingHand /> I'm Michael (Pum)</span>, a fullstack developer 👨‍💻 
+			from the heart of the Austrian Alps 🏔️, where I combine my passion for coding with my love for 
+			traditional cuisine 🍖 and Alpine culture.
 		</h1>
 		<div class="links">
 			<Button className="twitter" isLink={true} link="https://twitter.com/Officer_Pum">

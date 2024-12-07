@@ -21,6 +21,9 @@ export interface Response {
 	language: Language;
 	stars: number;
 	forks: number;
+	technologies?: string[];
+	featured?: boolean;
+	previewImage?: string;
 }
 
 export interface Language {
