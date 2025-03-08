@@ -3,11 +3,11 @@
 	import Header from '../lib/components/Header/Header.svelte';
 	import Footer from '../lib/components/Footer.svelte';
 	import { dev } from '$app/environment';
-	import { inject } from '@vercel/analytics';
+	import { injectAnalytics } from '@vercel/analytics/sveltekit';
 	import { injectSpeedInsights } from '@vercel/speed-insights/sveltekit';
 
 	injectSpeedInsights();
-	inject({ mode: dev ? 'development' : 'production' });
+	injectAnalytics({ mode: dev ? 'development' : 'production' });
 </script>
 
 <Header />
