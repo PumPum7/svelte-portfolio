@@ -2,9 +2,8 @@
 	import type { ActionData } from './$types';
 
 	import Button from '$lib/components/Button.svelte';
-	import { Turnstile, PUBLIC_KEY_ALWAYS_PASSES } from '@feelinglovelynow/svelte-turnstile';
-
-	import { PUBLIC_TURNSTILE_KEY, PUBLIC_ENVIRONMENT } from '$env/static/public';
+	import { PUBLIC_CAPTCHA_SITE_KEY } from '$env/static/public';
+	import FriendlyCaptcha from '$lib/components/FriendlyCaptcha.svelte';
 
 	let form: ActionData | undefined = $state();
 </script>
@@ -98,12 +97,10 @@
 					name="message"
 					placeholder="Your Message"
 					required
-					maxlength={3500}
-				>{form?.message ?? ''}</textarea>
+					maxlength={3500}>{form?.message ?? ''}</textarea
+				>
 			</div>
-			<Turnstile
-				sitekey={PUBLIC_ENVIRONMENT === 'local' ? PUBLIC_KEY_ALWAYS_PASSES : PUBLIC_TURNSTILE_KEY}
-			/>
+			<FriendlyCaptcha sitekey={PUBLIC_CAPTCHA_SITE_KEY} />
 			<Button buttonType="submit" className="submit-button" isLink={false}>
 				<span>
 					<i class="send-icon"></i>
@@ -117,6 +114,7 @@
 <style lang="scss">
 	@use '../../mixins.scss' as mixin;
 	@use '../../variables.scss' as vars;
+	@use 'sass:color';
 
 	section {
 		display: flex;
@@ -255,7 +253,7 @@
 			height: 8em;
 			font-size: $icon-base-size;
 			border-radius: 50%;
-			border: 4px solid lighten($green, 20%);
+			border: 4px solid color.adjust($green, $lightness: 20%);
 			background-color: transparent;
 			position: relative;
 			overflow: hidden;
@@ -271,7 +269,7 @@
 				display: block;
 				position: absolute;
 				height: 4px;
-				background-color: lighten($green, 20%);
+				background-color: color.adjust($green, $lightness: 20%);
 				border-radius: 10px;
 			}
 

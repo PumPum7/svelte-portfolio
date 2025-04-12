@@ -2,19 +2,39 @@ import type { Actions } from '@sveltejs/kit';
 import { fail } from '@sveltejs/kit';
 import fetch from 'node-fetch';
 
-import { SECRET_DISCORD_WEBHOOK, TURNSTILE_SECRET_KEY } from '$env/static/private';
-import {
-	validate,
-	CLOUDFLARE_TURNSTILE_PRIVATE_KEY_ALWAYS_PASSES
-} from '@feelinglovelynow/svelte-turnstile';
-import { PUBLIC_ENVIRONMENT } from '$env/static/public';
+import { SECRET_DISCORD_WEBHOOK, CAPTCHA_API_KEY } from '$env/static/private';
+import { PUBLIC_CAPTCHA_SITE_KEY } from '$env/static/public';
 
 async function validateToken(token: string) {
-	const secret =
-		PUBLIC_ENVIRONMENT === 'local'
-			? CLOUDFLARE_TURNSTILE_PRIVATE_KEY_ALWAYS_PASSES
-			: TURNSTILE_SECRET_KEY;
-	await validate(token, secret);
+	const verifyResponse = await fetch('https://global.frcapi.com/api/v2/captcha/siteverify', {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+			'X-API-Key': CAPTCHA_API_KEY
+		},
+		body: JSON.stringify({
+			response: token,
+			sitekey: PUBLIC_CAPTCHA_SITE_KEY
+		})
+	});
+
+	const result = (await verifyResponse.json()) as {
+		success: boolean;
+		data?: {
+			challenge: {
+				timestamp: string;
+				origin: string;
+			};
+		};
+		error?: {
+			error_code: string;
+			detail: string;
+		};
+	};
+
+	if (!result.success) {
+		throw new Error('Captcha verification failed');
+	}
 }
 
 export const actions: Actions = {
@@ -24,7 +44,7 @@ export const actions: Actions = {
 		const email = data.get('email') as string;
 		const subject = data.get('subject') as string;
 		const message = data.get('message') as string;
-		const token = data.get('cf-turnstile-response') as string;
+		const token = data.get('frc-captcha-response') as string;
 
 		try {
 			await validateToken(token);
