@@ -1,4 +1,6 @@
 ---
+import SpeedInsights from '@vercel/speed-insights/astro';
+
 import '../styles/global.css';
 
 interface Props {
@@ -41,6 +43,8 @@ const {
 		<meta property="twitter:title" content={title} />
 		<meta property="twitter:description" content={description} />
 		<meta property="twitter:image" content="/og-image.png" />
+
+		<SpeedInsights />
 	</head>
 	<body>
 		<slot />
