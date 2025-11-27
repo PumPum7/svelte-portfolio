@@ -9,14 +9,14 @@ import VintageBackground from '../components/VintageBackground.svelte';
 		<VintageBackground client:load />
 
 		<!-- Navigation back link -->
-		<nav class="fixed top-0 right-0 left-0 z-50 py-6 bg-transparent">
-			<div class="mx-auto max-w-6xl px-6">
+		<nav class="fixed top-0 right-0 left-0 z-50 py-4 sm:py-6 bg-transparent">
+			<div class="mx-auto max-w-6xl px-4 sm:px-6">
 				<a
 					href="/"
-					class="group flex w-fit items-center gap-2 text-2xl font-bold tracking-tight font-heading text-sepia-dark"
+					class="group flex w-fit items-center gap-2 text-xl sm:text-2xl font-bold tracking-tight font-heading text-sepia-dark"
 				>
 					<svg
-						class="h-6 w-6 transition-transform group-hover:-rotate-12 text-forest-green"
+						class="h-5 w-5 sm:h-6 sm:w-6 transition-transform group-hover:-rotate-12 text-forest-green"
 						xmlns="http://www.w3.org/2000/svg"
 						width="24"
 						height="24"
@@ -37,12 +37,12 @@ import VintageBackground from '../components/VintageBackground.svelte';
 		</nav>
 
 		<!-- Main content -->
-		<main class="relative z-10 px-6 pt-32 pb-20">
+		<main class="relative z-10 px-4 sm:px-6 pt-24 sm:pt-32 pb-12 sm:pb-20">
 			<ContactForm client:load />
 		</main>
 
 		<!-- Footer -->
-		<footer class="relative z-10 py-8 text-center text-sepia-light">
+		<footer class="relative z-10 py-6 sm:py-8 text-center text-sm sm:text-base text-sepia-light">
 			<p class="font-heading">
 				&copy; {new Date().getFullYear()} Michael (Pum). Made in the Alps.
 			</p>

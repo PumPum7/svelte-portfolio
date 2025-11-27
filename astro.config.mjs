@@ -19,8 +19,7 @@ export default defineConfig({
     },
     integrations: [svelte()],
     site: 'https://www.pum.works/',
-    base: '/',
-    trailingSlash: 'always',
+    trailingSlash: 'never',
     experimental: {
         fonts: [{
             provider: fontProviders.bunny(),

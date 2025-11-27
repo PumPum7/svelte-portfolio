@@ -53,25 +53,25 @@
       style:opacity={1 - scrollY / 600}
     >
       <div 
-        class="inline-block mb-6 px-6 py-2 rounded-sm border-2 border-sepia-light text-forest-green font-mono bg-background"
+        class="inline-block mb-4 sm:mb-6 px-4 sm:px-6 py-2 rounded-sm border-2 border-sepia-light text-forest-green font-mono bg-background text-sm sm:text-base"
       >
         Servus, I'm Michael <span class="animate-wave inline-block origin-bottom-left">👋</span>
       </div>
       <h1 
-        class="text-6xl md:text-8xl font-bold tracking-tight mb-8 font-heading text-sepia-dark"
+        class="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-bold tracking-tight mb-6 sm:mb-8 font-heading text-sepia-dark leading-tight"
         style="text-shadow: 2px 2px 0px var(--color-parchment)"
       >
         Fullstack Developer<br />
         <span class="text-forest-green">& Creative Coder</span>
       </h1>
-      <p class="text-xl md:text-2xl max-w-2xl mx-auto leading-relaxed mb-12 text-sepia-light">
+      <p class="text-lg sm:text-xl md:text-2xl max-w-2xl mx-auto leading-relaxed mb-8 sm:mb-12 text-sepia-light px-4">
         Building modern applications from the Austrian Alps with a focus on performance and design.
       </p>
       
-      <div class="flex justify-center gap-6 flex-wrap">
+      <div class="flex justify-center gap-4 sm:gap-6 flex-wrap px-4">
         <button 
           onclick={() => scrollTo('projects')}
-          class="px-10 py-4 rounded-sm font-bold transition-all flex items-center gap-2 group relative overflow-hidden bg-forest-green text-parchment font-heading shadow-lg"
+          class="px-6 sm:px-10 py-3 sm:py-4 text-base sm:text-lg rounded-sm font-bold transition-all flex items-center gap-2 group relative overflow-hidden bg-forest-green text-parchment font-heading shadow-lg"
         >
           <span class="relative z-10">View Projects</span>
           <Icon name="arrow-down" />
@@ -79,14 +79,14 @@
         </button>
         <a 
           href="/contact"
-          class="px-10 py-4 rounded-sm font-bold transition-all flex items-center gap-2 hover:bg-black/5 border-3 border-sepia-dark text-sepia-dark font-heading bg-transparent"
+          class="px-6 sm:px-10 py-3 sm:py-4 text-base sm:text-lg rounded-sm font-bold transition-all flex items-center gap-2 hover:bg-black/5 border-3 border-sepia-dark text-sepia-dark font-heading bg-transparent"
         >
           Contact Me
         </a>
       </div>
     </div>
 
-    <div class="absolute bottom-12 left-1/2 -translate-x-1/2 z-10 animate-bounce text-sepia-light">
+    <div class="absolute bottom-8 sm:bottom-12 left-1/2 -translate-x-1/2 z-10 animate-bounce text-sepia-light">
       <Icon name="arrow-down-bounce" />
     </div>
   </div>
