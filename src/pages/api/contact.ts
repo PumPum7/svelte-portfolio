@@ -6,16 +6,19 @@ export const prerender = false;
 export const POST: APIRoute = async ({ request }) => {
 	try {
 		const data = await request.json();
-		
+
 		const validationResult = contactSchema.safeParse(data);
 
 		if (!validationResult.success) {
-			return new Response(JSON.stringify({ success: false, error: validationResult.error.issues[0].message }), {
-				status: 400,
-				headers: { 'Content-Type': 'application/json' }
-			});
+			return new Response(
+				JSON.stringify({ success: false, error: validationResult.error.issues[0].message }),
+				{
+					status: 400,
+					headers: { 'Content-Type': 'application/json' }
+				}
+			);
 		}
-		
+
 		const { name, email, subject, message, captchaSolution } = validationResult.data;
 
 		// Verify captcha solution with Friendly Captcha API
@@ -34,10 +37,13 @@ export const POST: APIRoute = async ({ request }) => {
 
 			const verifyResult = await verifyResponse.json();
 			if (!verifyResult.success) {
-				return new Response(JSON.stringify({ success: false, error: 'Captcha verification failed' }), {
-					status: 400,
-					headers: { 'Content-Type': 'application/json' }
-				});
+				return new Response(
+					JSON.stringify({ success: false, error: 'Captcha verification failed' }),
+					{
+						status: 400,
+						headers: { 'Content-Type': 'application/json' }
+					}
+				);
 			}
 		}
 
@@ -93,4 +99,3 @@ export const POST: APIRoute = async ({ request }) => {
 		});
 	}
 };
-
