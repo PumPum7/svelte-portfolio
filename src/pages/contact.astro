@@ -1,0 +1,53 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ContactForm from '../components/ContactForm.svelte';
+import VintageBackground from '../components/VintageBackground.svelte';
+---
+
+<Layout title="Contact | Michael (Pum)">
+	<div class="relative min-h-screen" style="font-family: 'Lora', serif;">
+		<VintageBackground client:load />
+
+		<!-- Navigation back link -->
+		<nav class="fixed top-0 right-0 left-0 z-50 py-6" style="background-color: transparent;">
+			<div class="mx-auto max-w-6xl px-6">
+				<a
+					href="/"
+					class="group flex w-fit items-center gap-2 text-2xl font-bold tracking-tight"
+					style="font-family: 'Playfair Display', serif; color: #4a3b2a;"
+				>
+					<svg
+						class="h-6 w-6 transition-transform group-hover:-rotate-12"
+						style="color: #2c5f2d;"
+						xmlns="http://www.w3.org/2000/svg"
+						width="24"
+						height="24"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					>
+						<path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"></path>
+						<line x1="16" y1="8" x2="2" y2="22"></line>
+						<line x1="17.5" y1="15" x2="9" y2="15"></line>
+					</svg>
+					<span>PUM<span style="color: #2c5f2d;">.WORKS</span></span>
+				</a>
+			</div>
+		</nav>
+
+		<!-- Main content -->
+		<main class="relative z-10 px-6 pt-32 pb-20">
+			<ContactForm client:load />
+		</main>
+
+		<!-- Footer -->
+		<footer class="relative z-10 py-8 text-center" style="color: #6b5b4a;">
+			<p style="font-family: 'Playfair Display', serif;">
+				&copy; {new Date().getFullYear()} Michael (Pum). Made in the Alps.
+			</p>
+		</footer>
+	</div>
+</Layout>
