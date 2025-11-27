@@ -1,17 +1,22 @@
 import type { APIRoute } from 'astro';
+import { contactSchema } from '../../lib/validation';
+
+export const prerender = false;
 
 export const POST: APIRoute = async ({ request }) => {
 	try {
 		const data = await request.json();
-		const { name, email, subject, message, captchaSolution } = data;
+		
+		const validationResult = contactSchema.safeParse(data);
 
-		// Validate captcha solution
-		if (!captchaSolution) {
-			return new Response(JSON.stringify({ success: false, error: 'Captcha verification is required' }), {
+		if (!validationResult.success) {
+			return new Response(JSON.stringify({ success: false, error: validationResult.error.issues[0].message }), {
 				status: 400,
 				headers: { 'Content-Type': 'application/json' }
 			});
 		}
+		
+		const { name, email, subject, message, captchaSolution } = validationResult.data;
 
 		// Verify captcha solution with Friendly Captcha API
 		const friendlyCaptchaSecret = import.meta.env.CAPTCHA_API_KEY;
@@ -36,50 +41,14 @@ export const POST: APIRoute = async ({ request }) => {
 			}
 		}
 
-		// Validate required fields
-		if (!name || !email || !subject || !message) {
-			return new Response(JSON.stringify({ success: false, error: 'All fields are required' }), {
-				status: 400,
-				headers: { 'Content-Type': 'application/json' }
-			});
-		}
-
-		// Validate field lengths
-		if (name.length > 256) {
-			return new Response(JSON.stringify({ success: false, error: 'Name is too long' }), {
-				status: 400,
-				headers: { 'Content-Type': 'application/json' }
-			});
-		}
-
-		if (email.length > 250 || !email.includes('@') || !email.includes('.')) {
-			return new Response(JSON.stringify({ success: false, error: 'Invalid email address' }), {
-				status: 400,
-				headers: { 'Content-Type': 'application/json' }
-			});
-		}
-
-		if (subject.length > 256) {
-			return new Response(JSON.stringify({ success: false, error: 'Subject is too long' }), {
-				status: 400,
-				headers: { 'Content-Type': 'application/json' }
-			});
-		}
-
-		if (message.length > 4000) {
-			return new Response(JSON.stringify({ success: false, error: 'Message is too long' }), {
-				status: 400,
-				headers: { 'Content-Type': 'application/json' }
-			});
-		}
-
 		// Send to Discord webhook if configured
 		const discordWebhook = import.meta.env.SECRET_DISCORD_WEBHOOK;
+		const discordUserId = import.meta.env.DISCORD_USER_ID;
 
 		if (discordWebhook) {
 			const webhookPayload = {
 				username: 'Portfolio Message Service',
-				content: 'New message <@274561812664549376>',
+				content: `New message <@${discordUserId}>`,
 				embeds: [
 					{
 						author: {
@@ -124,3 +93,4 @@ export const POST: APIRoute = async ({ request }) => {
 		});
 	}
 };
+

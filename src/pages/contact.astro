@@ -5,20 +5,18 @@ import VintageBackground from '../components/VintageBackground.svelte';
 ---
 
 <Layout title="Contact | Michael (Pum)">
-	<div class="relative min-h-screen" style="font-family: 'Lora', serif;">
+	<div class="relative min-h-screen font-body">
 		<VintageBackground client:load />
 
 		<!-- Navigation back link -->
-		<nav class="fixed top-0 right-0 left-0 z-50 py-6" style="background-color: transparent;">
+		<nav class="fixed top-0 right-0 left-0 z-50 py-6 bg-transparent">
 			<div class="mx-auto max-w-6xl px-6">
 				<a
 					href="/"
-					class="group flex w-fit items-center gap-2 text-2xl font-bold tracking-tight"
-					style="font-family: 'Playfair Display', serif; color: #4a3b2a;"
+					class="group flex w-fit items-center gap-2 text-2xl font-bold tracking-tight font-heading text-sepia-dark"
 				>
 					<svg
-						class="h-6 w-6 transition-transform group-hover:-rotate-12"
-						style="color: #2c5f2d;"
+						class="h-6 w-6 transition-transform group-hover:-rotate-12 text-forest-green"
 						xmlns="http://www.w3.org/2000/svg"
 						width="24"
 						height="24"
@@ -33,7 +31,7 @@ import VintageBackground from '../components/VintageBackground.svelte';
 						<line x1="16" y1="8" x2="2" y2="22"></line>
 						<line x1="17.5" y1="15" x2="9" y2="15"></line>
 					</svg>
-					<span>PUM<span style="color: #2c5f2d;">.WORKS</span></span>
+					<span>PUM<span class="text-forest-green">.WORKS</span></span>
 				</a>
 			</div>
 		</nav>
@@ -44,8 +42,8 @@ import VintageBackground from '../components/VintageBackground.svelte';
 		</main>
 
 		<!-- Footer -->
-		<footer class="relative z-10 py-8 text-center" style="color: #6b5b4a;">
-			<p style="font-family: 'Playfair Display', serif;">
+		<footer class="relative z-10 py-8 text-center text-sepia-light">
+			<p class="font-heading">
 				&copy; {new Date().getFullYear()} Michael (Pum). Made in the Alps.
 			</p>
 		</footer>

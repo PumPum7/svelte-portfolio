@@ -1,6 +1,7 @@
 <script lang="ts">
   import Icon from './Icon.svelte';
   import FriendlyCaptcha from './FriendlyCaptcha.svelte';
+  import { contactSchema } from '../lib/validation';
   
   let name = $state('');
   let email = $state('');
@@ -22,50 +23,29 @@
   });
   
   function validate(): boolean {
-    let isValid = true;
     errors = { name: '', email: '', subject: '', message: '', captcha: '' };
     
-    if (!name.trim()) {
-      errors.name = 'Please enter your name';
-      isValid = false;
-    } else if (name.length > 255) {
-      errors.name = 'Name cannot exceed 255 characters';
-      isValid = false;
+    const result = contactSchema.safeParse({
+      name,
+      email,
+      subject,
+      message,
+      captchaSolution
+    });
+
+    if (!result.success) {
+      result.error.issues.forEach(issue => {
+        const key = issue.path[0] as keyof typeof errors;
+        if (key === 'captcha') {
+          errors.captcha = issue.message;
+        } else if (key) {
+          errors[key] = issue.message;
+        }
+      });
+      return false;
     }
     
-    if (!email.trim()) {
-      errors.email = 'Please enter your email';
-      isValid = false;
-    } else if (!email.includes('@') || !email.includes('.')) {
-      errors.email = 'Please enter a valid email';
-      isValid = false;
-    } else if (email.length > 250) {
-      errors.email = 'Email cannot exceed 250 characters';
-      isValid = false;
-    }
-    
-    if (!subject.trim()) {
-      errors.subject = 'Please enter a subject';
-      isValid = false;
-    } else if (subject.length > 255) {
-      errors.subject = 'Subject cannot exceed 255 characters';
-      isValid = false;
-    }
-    
-    if (!message.trim()) {
-      errors.message = 'Please enter your message';
-      isValid = false;
-    } else if (message.length > 3500) {
-      errors.message = 'Message cannot exceed 3500 characters';
-      isValid = false;
-    }
-    
-    if (!captchaSolution) {
-      errors.captcha = 'Please complete the captcha verification';
-      isValid = false;
-    }
-    
-    return isValid;
+    return true;
   }
   
   function handleCaptchaSolved(solution: string) {
@@ -139,7 +119,9 @@
     {/if}
     
     <div class="space-y-2">
+      <label for="name" class="sr-only">Name</label>
       <input
+        id="name"
         type="text"
         bind:value={name}
         placeholder="Name"
@@ -152,7 +134,9 @@
     </div>
     
     <div class="space-y-2">
+      <label for="email" class="sr-only">E-mail</label>
       <input
+        id="email"
         type="email"
         bind:value={email}
         placeholder="E-mail"
@@ -165,7 +149,9 @@
     </div>
     
     <div class="space-y-2">
+      <label for="subject" class="sr-only">Subject</label>
       <input
+        id="subject"
         type="text"
         bind:value={subject}
         placeholder="Subject"
@@ -178,7 +164,9 @@
     </div>
     
     <div class="space-y-2">
+      <label for="message" class="sr-only">Message</label>
       <textarea
+        id="message"
         bind:value={message}
         placeholder="Your Message"
         maxlength={3500}

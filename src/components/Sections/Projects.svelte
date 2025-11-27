@@ -66,7 +66,7 @@
           </div>
           
           <h3 class="text-2xl font-bold mb-3 font-heading">{project.title}</h3>
-          <p class="text-lg mb-6 flex-grow leading-relaxed text-sepia-light">
+          <p class="text-lg mb-6 grow leading-relaxed text-sepia-light">
             {project.desc}
           </p>
           
