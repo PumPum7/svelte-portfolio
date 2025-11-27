@@ -1,9 +1,7 @@
 // @ts-check
-import { defineConfig } from 'astro/config';
+import { defineConfig, fontProviders } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import svelte from '@astrojs/svelte';
-import node from '@astrojs/node';
-
 import vercel from '@astrojs/vercel';
 
 // https://astro.build/config
@@ -22,5 +20,22 @@ export default defineConfig({
     integrations: [svelte()],
     site: 'https://www.pum.works/',
     base: '/',
-    trailingSlash: 'always'
+    trailingSlash: 'always',
+    experimental: {
+        fonts: [{
+            provider: fontProviders.bunny(),
+            name: 'Playfair Display',
+            cssVariable: '--font-heading',
+            weights: [400, 700],
+        }, {
+            provider: fontProviders.bunny(),
+            name: 'Lora',
+            cssVariable: '--font-body',
+            weights: [400, 500, 700],
+        }, {
+            provider: fontProviders.bunny(),
+            name: 'Anonymous Pro',
+            cssVariable: '--font-mono',
+        }]
+    }
 });

@@ -1,5 +1,6 @@
 ---
 import SpeedInsights from '@vercel/speed-insights/astro';
+import { Font } from 'astro:assets';
 
 import '../styles/global.css';
 
@@ -45,6 +46,10 @@ const {
 		<meta property="twitter:image" content="/og-image.png" />
 
 		<SpeedInsights />
+
+		<Font cssVariable="--font-heading" preload />
+		<Font cssVariable="--font-body" preload />
+		<Font cssVariable="--font-mono" preload />
 	</head>
 	<body>
 		<slot />
