@@ -1,0 +1,22 @@
+@import 'tailwindcss';
+
+@theme {
+	--color-parchment: #f4e4bc;
+	--color-sepia-dark: #4a3b2a;
+	--color-sepia-light: #6b5b4a;
+	--color-forest-green: #2c5f2d;
+	--color-deep-red: #a63d40;
+	--color-gold: #c0a060;
+	--color-card-bg: #fdf6e3;
+	--color-background: #fdf6e3;
+	--color-deep-red-background: #a63d4010;
+	--color-box-shadow: #6b5b4a40;
+
+	--font-heading: 'Playfair Display', serif;
+	--font-body: 'Lora', serif;
+	--font-mono: 'Courier New', monospace;
+}
+
+html {
+	scroll-behavior: smooth;
+}

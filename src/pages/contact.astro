@@ -1,0 +1,51 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ContactForm from '../components/ContactForm.svelte';
+import VintageBackground from '../components/VintageBackground.svelte';
+---
+
+<Layout title="Contact | Michael (Pum)">
+	<div class="font-body relative min-h-screen">
+		<VintageBackground client:load />
+
+		<!-- Navigation back link -->
+		<nav class="fixed top-0 right-0 left-0 z-50 bg-transparent py-4 sm:py-6">
+			<div class="mx-auto max-w-6xl px-4 sm:px-6">
+				<a
+					href="/"
+					class="group font-heading text-sepia-dark flex w-fit items-center gap-2 text-xl font-bold tracking-tight sm:text-2xl"
+				>
+					<svg
+						class="text-forest-green h-5 w-5 transition-transform group-hover:-rotate-12 sm:h-6 sm:w-6"
+						xmlns="http://www.w3.org/2000/svg"
+						width="24"
+						height="24"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					>
+						<path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"></path>
+						<line x1="16" y1="8" x2="2" y2="22"></line>
+						<line x1="17.5" y1="15" x2="9" y2="15"></line>
+					</svg>
+					<span>PUM<span class="text-forest-green">.WORKS</span></span>
+				</a>
+			</div>
+		</nav>
+
+		<!-- Main content -->
+		<main class="relative z-10 px-4 pt-24 pb-12 sm:px-6 sm:pt-32 sm:pb-20">
+			<ContactForm client:load />
+		</main>
+
+		<!-- Footer -->
+		<footer class="text-sepia-light relative z-10 py-6 text-center text-sm sm:py-8 sm:text-base">
+			<p class="font-heading">
+				&copy; {new Date().getFullYear()} Michael (Pum). Made in the Alps.
+			</p>
+		</footer>
+	</div>
+</Layout>

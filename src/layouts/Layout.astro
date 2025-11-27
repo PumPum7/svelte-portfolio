@@ -1,0 +1,57 @@
+---
+import SpeedInsights from '@vercel/speed-insights/astro';
+import { Font } from 'astro:assets';
+
+import '../styles/global.css';
+
+interface Props {
+	title?: string;
+	description?: string;
+}
+
+const {
+	title = 'Portfolio | Michael (Pum)',
+	description = 'Explore my software developer portfolio and learn about my skills in front-end, backend, and database management.'
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+		<!-- Favicons -->
+		<link rel="icon" href="/favicon.ico" sizes="32x32" />
+		<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+		<!-- Primary Meta Tags -->
+		<title>{title}</title>
+		<meta name="title" content={title} />
+		<meta name="description" content={description} />
+
+		<!-- Open Graph / Facebook -->
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content="https://www.pum.works/" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content="/og-image.png" />
+		<meta property="og:site_name" content="Pum's Portfolio" />
+
+		<!-- Twitter -->
+		<meta property="twitter:card" content="summary_large_image" />
+		<meta property="twitter:url" content="https://www.pum.works/" />
+		<meta property="twitter:title" content={title} />
+		<meta property="twitter:description" content={description} />
+		<meta property="twitter:image" content="/og-image.png" />
+
+		<SpeedInsights />
+
+		<Font cssVariable="--font-heading" preload />
+		<Font cssVariable="--font-body" preload />
+		<Font cssVariable="--font-mono" preload />
+	</head>
+	<body>
+		<slot />
+	</body>
+</html>
