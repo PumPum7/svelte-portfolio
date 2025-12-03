@@ -43,8 +43,9 @@
 	<VintageBackground />
 	<Navbar {activeSection} />
 
-	<!-- HERO SECTION -->
-	<div id="home" class="relative flex h-screen items-center justify-center overflow-hidden">
+	<main>
+		<!-- HERO SECTION -->
+		<div id="home" class="relative flex h-screen items-center justify-center overflow-hidden">
 		<VintageMountains {scrollY} />
 
 		<div
@@ -97,16 +98,17 @@
 		</div>
 	</div>
 
-	<div class="bg-parchment relative z-20 shadow-[0_-30px_60px_rgba(74,59,42,0.1)]">
-		<!-- ABOUT SECTION -->
-		<AboutMe></AboutMe>
+		<div class="bg-parchment relative z-20 shadow-[0_-30px_60px_rgba(74,59,42,0.1)]">
+			<!-- ABOUT SECTION -->
+			<AboutMe></AboutMe>
 
-		<!-- PROJECTS SECTION -->
-		<Projects></Projects>
+			<!-- PROJECTS SECTION -->
+			<Projects></Projects>
 
-		<!-- CONTACT SECTION -->
-		<ContactOptions></ContactOptions>
-	</div>
+			<!-- CONTACT SECTION -->
+			<ContactOptions></ContactOptions>
+		</div>
+	</main>
 </div>
 
 <style>

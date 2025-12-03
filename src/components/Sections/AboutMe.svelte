@@ -26,13 +26,13 @@
 	};
 
 	const interests = [
-		{ icon: 'utensils', title: 'Cuisine', desc: 'Cooking & Recipes', color: 'text-deep-red' },
-		{ icon: 'mountain', title: 'Alpinist', desc: 'Skiing & Hiking', color: 'text-forest-green' },
+		{ icon: 'utensils', title: 'Cuisine', desc: 'Cooking', color: 'text-deep-red' },
+		{ icon: 'mountain', title: 'Alpinist', desc: 'Skiing', color: 'text-forest-green' },
 		{ icon: 'code', title: 'Developer', desc: 'Fullstack', color: 'text-gold' },
 		{
 			icon: 'database',
 			title: 'Collector',
-			desc: 'Sneakers & Digital Art',
+			desc: 'Sneakers & Art',
 			color: 'text-sepia-dark'
 		}
 	];
