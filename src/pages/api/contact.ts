@@ -47,44 +47,40 @@ export const POST: APIRoute = async ({ request }) => {
 			}
 		}
 
-		// Send to Discord webhook if configured
-		const discordWebhook = import.meta.env.SECRET_DISCORD_WEBHOOK;
-		const discordUserId = import.meta.env.DISCORD_USER_ID;
+		// Send to Pageclip REST API
+		const pageclipApiKey = import.meta.env.PAGECLIP_API_KEY;
+		const pageclipFormId = import.meta.env.PAGECLIP_FORM_ID || 'contact';
 
-		if (discordWebhook) {
-			const webhookPayload = {
-				username: 'Portfolio Message Service',
-				content: `New message <@${discordUserId}>`,
-				embeds: [
-					{
-						author: {
-							name: name
-						},
-						title: subject,
-						description: `**E-Mail:** ${email}\n\n**Message:** ${message}`,
-						color: 10731148
-					}
-				]
-			};
-
-			const webhookResponse = await fetch(discordWebhook, {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify(webhookPayload)
+		if (!pageclipApiKey) {
+			return new Response(JSON.stringify({ success: false, error: 'Pageclip not configured' }), {
+				status: 500,
+				headers: { 'Content-Type': 'application/json' }
 			});
+		}
 
-			if (!webhookResponse.ok) {
-				console.error('Discord webhook failed:', await webhookResponse.text());
-				return new Response(JSON.stringify({ success: false, error: 'Failed to send message' }), {
-					status: 500,
-					headers: { 'Content-Type': 'application/json' }
-				});
-			}
-		} else {
-			// Log to console if no webhook configured (for development)
-			console.log('Contact form submission:', { name, email, subject, message });
+		const pageclipUrl = `https://api.pageclip.co/data/${pageclipFormId}`;
+		const authHeader = `Basic ${Buffer.from(`${pageclipApiKey}:`).toString('base64')}`;
+
+		const pageclipResponse = await fetch(pageclipUrl, {
+			method: 'PUT',
+			headers: {
+				'Content-Type': 'text/plain',
+				Authorization: authHeader
+			},
+			body: JSON.stringify({
+				name,
+				email,
+				subject,
+				message
+			})
+		});
+
+		if (!pageclipResponse.ok) {
+			console.error('Pageclip request failed:', await pageclipResponse.text());
+			return new Response(JSON.stringify({ success: false, error: 'Failed to send message' }), {
+				status: 500,
+				headers: { 'Content-Type': 'application/json' }
+			});
 		}
 
 		return new Response(JSON.stringify({ success: true, message: 'Message sent successfully' }), {
