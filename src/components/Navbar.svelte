@@ -54,7 +54,7 @@
 
 			<!-- Desktop Navigation -->
 			<div class="hidden items-center gap-8 md:flex">
-				{#each navLinks as link}
+				{#each navLinks as link (link.id)}
 					{#if link.href}
 						<a
 							href={link.href}
@@ -115,7 +115,7 @@
 		{#if isMobileMenuOpen}
 			<div class="border-sepia-light/30 mt-4 border-t pt-4 pb-6 md:hidden">
 				<div class="flex flex-col gap-4">
-					{#each navLinks as link}
+					{#each navLinks as link (link.id)}
 						{#if link.href}
 							<a
 								href={link.href}

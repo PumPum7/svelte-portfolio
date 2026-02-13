@@ -34,11 +34,18 @@
 		});
 
 		if (!result.success) {
+			const fieldMap: Record<string, keyof typeof errors> = {
+				name: 'name',
+				email: 'email',
+				subject: 'subject',
+				message: 'message',
+				captchaSolution: 'captcha'
+			};
+
 			result.error.issues.forEach((issue) => {
-				const key = issue.path[0] as keyof typeof errors;
-				if (key === 'captcha') {
-					errors.captcha = issue.message;
-				} else if (key) {
+				const field = issue.path[0];
+				const key = typeof field === 'string' ? fieldMap[field] : undefined;
+				if (key) {
 					errors[key] = issue.message;
 				}
 			});
@@ -84,7 +91,7 @@
 			} else {
 				submitError = result.error || 'Something went wrong. Please try again.';
 			}
-		} catch (err) {
+		} catch {
 			submitError = 'Failed to send message. Please try again later.';
 		} finally {
 			isSubmitting = false;

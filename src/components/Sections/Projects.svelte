@@ -54,7 +54,7 @@
 		</h2>
 
 		<div class="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-8 lg:grid-cols-3 lg:gap-10">
-			{#each PROJECTS as project}
+			{#each PROJECTS as project (project.title)}
 				<Card class="group flex flex-col hover:-translate-y-2">
 					<div class="mb-4 flex items-start justify-between sm:mb-6">
 						<div class="bg-sepia-dark/10 text-sepia-dark rounded-sm p-2 transition-colors sm:p-3">
@@ -81,7 +81,7 @@
 					<div
 						class="border-sepia-light/40 mt-auto flex flex-wrap gap-2 border-t pt-3 sm:gap-3 sm:pt-4"
 					>
-						{#each project.tags as tag}
+						{#each project.tags as tag (tag)}
 							<span
 								class="bg-forest-green/20 text-forest-green rounded-sm px-2 py-1 font-mono text-xs font-bold sm:px-3 sm:text-sm"
 							>

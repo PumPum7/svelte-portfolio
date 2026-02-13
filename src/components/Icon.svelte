@@ -14,9 +14,9 @@
 		import: 'default'
 	});
 
-	const icon = icons[`./icons/${name}.svg`];
+	const icon = icons[`./icons/${name}.svg`] as string | undefined;
 </script>
 
 <div class="inline-block {className}" {...rest}>
-	{@html icon}
+	{@html icon ?? ''}
 </div>

@@ -74,7 +74,7 @@
 			</div>
 			<!-- Personal Interests Grid -->
 			<div class="mt-8 grid grid-cols-1 gap-4 sm:mt-10 sm:grid-cols-2 sm:gap-6">
-				{#each interests as item}
+				{#each interests as item (item.title)}
 					<Card class="flex items-center gap-4 p-4 sm:gap-5 sm:p-5">
 						<div class="bg-opacity-20 rounded-sm p-3 sm:p-4 {item.color} shrink-0">
 							<Icon name={item.icon} />
@@ -96,7 +96,7 @@
 			</h3>
 
 			<div class="space-y-8 sm:space-y-10">
-				{#each skillCategories as category}
+				{#each skillCategories as category (category.title)}
 					<div>
 						<div
 							class="text-forest-green border-forest-green/40 mb-3 flex items-center gap-2 border-b pb-2 sm:mb-4 sm:gap-3"
@@ -105,7 +105,7 @@
 							<span class="font-heading text-lg font-bold sm:text-xl">{category.title}</span>
 						</div>
 						<div class="flex flex-wrap gap-2 sm:gap-3">
-							{#each category.skills as skill}
+							{#each category.skills as skill (skill.name)}
 								<span
 									class="bg-parchment border-sepia-light text-sepia-dark rounded-sm border-2 px-3 py-1.5 font-mono text-xs font-bold shadow-sm transition-all hover:-translate-y-1 sm:px-4 sm:py-2 sm:text-sm"
 								>
