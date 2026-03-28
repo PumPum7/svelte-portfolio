@@ -71,6 +71,20 @@
 		errors.captcha = error;
 	}
 
+	function resetForm() {
+		name = '';
+		email = '';
+		subject = '';
+		message = '';
+		website = '';
+		captchaSolution = '';
+		captchaError = '';
+		submitError = '';
+		errors = { name: '', email: '', subject: '', message: '', captcha: '' };
+		submittedAt = Date.now();
+		submitSuccess = false;
+	}
+
 	async function handleSubmit(e: Event) {
 		e.preventDefault();
 
@@ -112,7 +126,7 @@
 </script>
 
 {#if submitSuccess}
-	<div class="py-12 text-center sm:py-20">
+	<div class="py-12 text-center sm:py-20" role="status" aria-live="polite">
 		<div class="success-icon mx-auto mb-6 sm:mb-8">
 			<Icon name="exclamation-circle" />
 		</div>
@@ -122,12 +136,21 @@
 		<p class="text-sepia-light px-4 text-base sm:text-lg">
 			I will get back to you as soon as possible!
 		</p>
-		<a
-			href="/"
-			class="bg-forest-green text-parchment font-heading mt-6 inline-block rounded-sm px-6 py-2.5 text-base font-bold transition-all hover:-translate-y-1 sm:mt-8 sm:px-8 sm:py-3 sm:text-lg"
-		>
-			Back to Home
-		</a>
+		<div class="mt-6 flex flex-wrap justify-center gap-4 sm:mt-8">
+			<button
+				type="button"
+				onclick={resetForm}
+				class="border-sepia-dark text-sepia-dark font-heading inline-block rounded-sm border-2 px-6 py-2.5 text-base font-bold transition-all hover:-translate-y-1 sm:px-8 sm:py-3 sm:text-lg"
+			>
+				Send Another Message
+			</button>
+			<a
+				href="/"
+				class="bg-forest-green text-parchment font-heading inline-block rounded-sm px-6 py-2.5 text-base font-bold transition-all hover:-translate-y-1 sm:px-8 sm:py-3 sm:text-lg"
+			>
+				Back to Home
+			</a>
+		</div>
 	</div>
 {:else}
 	<form onsubmit={handleSubmit} class="mx-auto max-w-lg space-y-5 sm:space-y-6">
@@ -139,9 +162,31 @@
 
 		{#if submitError}
 			<div
+				role="alert"
+				aria-live="assertive"
 				class="bg-deep-red-background border-deep-red text-deep-red mb-4 rounded-sm border-2 p-3 text-sm sm:mb-6 sm:p-4 sm:text-base"
 			>
 				{submitError}
+				<p class="mt-2 text-xs sm:text-sm">
+					If the form keeps failing, reach out via
+					<a
+						href="https://github.com/PumPum7"
+						target="_blank"
+						rel="noreferrer"
+						class="underline underline-offset-2"
+					>
+						GitHub
+					</a>
+					or
+					<a
+						href="https://x.com/Officer_Pum"
+						target="_blank"
+						rel="noreferrer"
+						class="underline underline-offset-2"
+					>
+						X
+					</a>.
+				</p>
 			</div>
 		{/if}
 
@@ -153,6 +198,8 @@
 				bind:value={name}
 				placeholder="Name"
 				maxlength={255}
+				autocomplete="name"
+				autocapitalize="words"
 				class="bg-background w-full rounded-full border-2 px-4 py-3 text-base transition-all outline-none focus:ring-2 sm:px-6 sm:py-4 sm:text-lg {errors.name
 					? 'border-deep-red'
 					: 'border-sepia-light'} text-sepia-dark font-body"
@@ -170,6 +217,9 @@
 				bind:value={email}
 				placeholder="E-mail"
 				maxlength={250}
+				autocomplete="email"
+				autocapitalize="off"
+				spellcheck="false"
 				class="bg-background w-full rounded-full border-2 px-4 py-3 text-base transition-all outline-none focus:ring-2 sm:px-6 sm:py-4 sm:text-lg {errors.email
 					? 'border-deep-red'
 					: 'border-sepia-light'} text-sepia-dark font-body"
@@ -187,6 +237,8 @@
 				bind:value={subject}
 				placeholder="Subject"
 				maxlength={255}
+				autocomplete="off"
+				autocapitalize="sentences"
 				class="bg-background w-full rounded-full border-2 px-4 py-3 text-base transition-all outline-none focus:ring-2 sm:px-6 sm:py-4 sm:text-lg {errors.subject
 					? 'border-deep-red'
 					: 'border-sepia-light'} text-sepia-dark font-body"
@@ -204,6 +256,9 @@
 				placeholder="Your Message"
 				maxlength={3500}
 				rows={6}
+				autocomplete="off"
+				autocapitalize="sentences"
+				spellcheck="true"
 				class="bg-background w-full resize-none rounded-3xl border-2 px-4 py-3 text-base transition-all outline-none focus:ring-2 sm:px-6 sm:py-4 sm:text-lg {errors.message
 					? 'border-deep-red'
 					: 'border-sepia-light'} text-sepia-dark font-body"

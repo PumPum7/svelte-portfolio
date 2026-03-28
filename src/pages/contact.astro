@@ -9,7 +9,7 @@ import VintageBackground from '../components/VintageBackground.svelte';
 	description="Get in touch with Michael (Pum) for freelance work, collaborations, or software engineering conversations."
 >
 	<div class="font-body relative min-h-screen">
-		<VintageBackground client:load />
+		<VintageBackground />
 
 		<!-- Navigation back link -->
 		<nav class="fixed top-0 right-0 left-0 z-50 bg-transparent py-4 sm:py-6">
@@ -41,7 +41,71 @@ import VintageBackground from '../components/VintageBackground.svelte';
 
 		<!-- Main content -->
 		<main id="main-content" tabindex="-1" class="relative z-10 px-4 pt-24 pb-12 sm:px-6 sm:pt-32 sm:pb-20">
-			<ContactForm client:load />
+			<div class="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(22rem,0.9fr)] lg:gap-16">
+				<section class="order-2 lg:order-1">
+					<ContactForm client:load />
+				</section>
+
+				<aside class="hidden lg:order-2 lg:block">
+					<div class="bg-background border-sepia-light sticky top-28 space-y-8 rounded-sm border-2 p-6 shadow-lg sm:p-8">
+						<div>
+							<p class="text-forest-green font-mono text-sm font-bold tracking-[0.2em] uppercase">
+								Reach Out
+							</p>
+							<h2 class="font-heading text-sepia-dark mt-4 text-3xl font-bold sm:text-4xl">
+								Best for projects, product ideas, and interesting technical problems.
+							</h2>
+							<p class="text-sepia-light mt-4 text-base leading-relaxed sm:text-lg">
+								I usually reply within one or two days. If your message is time-sensitive, use one
+								of the direct links below as a fallback.
+							</p>
+						</div>
+
+						<div class="grid gap-4">
+							<a
+								href="https://github.com/PumPum7"
+								target="_blank"
+								rel="noreferrer"
+								class="border-sepia-light hover:border-forest-green hover:bg-forest-green/5 flex items-center justify-between rounded-sm border p-4 transition-colors"
+							>
+								<div>
+									<p class="font-heading text-sepia-dark text-lg font-bold">GitHub</p>
+									<p class="text-sepia-light text-sm sm:text-base">Open source work and project history</p>
+								</div>
+								<span class="text-forest-green font-mono text-sm font-bold">/PumPum7</span>
+							</a>
+
+							<a
+								href="https://x.com/Officer_Pum"
+								target="_blank"
+								rel="noreferrer"
+								class="border-sepia-light hover:border-forest-green hover:bg-forest-green/5 flex items-center justify-between rounded-sm border p-4 transition-colors"
+							>
+								<div>
+									<p class="font-heading text-sepia-dark text-lg font-bold">X</p>
+									<p class="text-sepia-light text-sm sm:text-base">Fastest public fallback for a quick nudge</p>
+								</div>
+								<span class="text-forest-green font-mono text-sm font-bold">@Officer_Pum</span>
+							</a>
+						</div>
+
+						<div class="border-sepia-light/40 grid gap-4 border-t pt-6 sm:grid-cols-2">
+							<div>
+								<p class="text-sepia-dark font-mono text-xs font-bold tracking-[0.18em] uppercase">
+									Based In
+								</p>
+								<p class="text-sepia-light mt-2 text-base">Munich / Austrian Alps</p>
+							</div>
+							<div>
+								<p class="text-sepia-dark font-mono text-xs font-bold tracking-[0.18em] uppercase">
+									Time Zone
+								</p>
+								<p class="text-sepia-light mt-2 text-base">Central European Time</p>
+							</div>
+						</div>
+					</div>
+				</aside>
+			</div>
 		</main>
 
 		<!-- Footer -->
