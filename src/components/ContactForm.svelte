@@ -13,6 +13,8 @@
 	let submitError = $state('');
 	let captchaSolution = $state('');
 	let captchaError = $state('');
+	let website = $state('');
+	let submittedAt = $state(Date.now());
 
 	let errors = $state({
 		name: '',
@@ -30,7 +32,9 @@
 			email,
 			subject,
 			message,
-			captchaSolution
+			captchaSolution,
+			website,
+			submittedAt
 		});
 
 		if (!result.success) {
@@ -81,7 +85,15 @@
 				headers: {
 					'Content-Type': 'application/json'
 				},
-				body: JSON.stringify({ name, email, subject, message, captchaSolution })
+				body: JSON.stringify({
+					name,
+					email,
+					subject,
+					message,
+					captchaSolution,
+					website,
+					submittedAt
+				})
 			});
 
 			const result = await response.json();
@@ -202,6 +214,17 @@
 		</div>
 
 		<div class="space-y-2">
+			<div class="absolute -left-[100vw] top-auto h-px w-px overflow-hidden" aria-hidden="true">
+				<label for="website">Website</label>
+				<input
+					id="website"
+					type="text"
+					bind:value={website}
+					tabindex="-1"
+					autocomplete="off"
+				/>
+			</div>
+
 			<FriendlyCaptcha
 				sitekey={import.meta.env.PUBLIC_CAPTCHA_SITE_KEY || ''}
 				onSolved={handleCaptchaSolved}

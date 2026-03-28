@@ -22,7 +22,9 @@ export const contactSchema = z.object({
 		.trim()
 		.min(1, 'Please enter your message')
 		.max(3500, 'Message cannot exceed 3500 characters'),
-	captchaSolution: z.string().trim().min(1, 'Please complete the captcha verification')
+	captchaSolution: z.string().trim().min(1, 'Please complete the captcha verification'),
+	website: z.string().trim().max(0, 'Spam detected').optional().default(''),
+	submittedAt: z.coerce.number().int().positive('Form timing is invalid')
 });
 
 export type ContactFormData = z.infer<typeof contactSchema>;
