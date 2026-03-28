@@ -20,25 +20,23 @@ export default defineConfig({
 	integrations: [svelte()],
 	site: 'https://www.pum.works/',
 	trailingSlash: 'never',
-	experimental: {
-		fonts: [
-			{
-				provider: fontProviders.bunny(),
-				name: 'Playfair Display',
-				cssVariable: '--font-heading',
-				weights: [400, 700]
-			},
-			{
-				provider: fontProviders.bunny(),
-				name: 'Lora',
-				cssVariable: '--font-body',
-				weights: [400, 500, 700]
-			},
-			{
-				provider: fontProviders.bunny(),
-				name: 'Anonymous Pro',
-				cssVariable: '--font-mono'
-			}
-		]
-	}
+	fonts: [
+		{
+			provider: fontProviders.bunny(),
+			name: 'Playfair Display',
+			cssVariable: '--font-heading',
+			weights: [400, 700]
+		},
+		{
+			provider: fontProviders.bunny(),
+			name: 'Lora',
+			cssVariable: '--font-body',
+			weights: [400, 500, 700]
+		},
+		{
+			provider: fontProviders.bunny(),
+			name: 'Anonymous Pro',
+			cssVariable: '--font-mono'
+		}
+	]
 });

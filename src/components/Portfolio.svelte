@@ -13,10 +13,17 @@
 
 	let scrollY = $state(0);
 	let activeSection = $state('home');
+	let reducedMotion = $state(false);
 
 	onMount(() => {
+		const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+		const updateMotionPreference = () => {
+			reducedMotion = mediaQuery.matches;
+			scrollY = reducedMotion ? 0 : window.scrollY;
+		};
+
 		const handleScroll = () => {
-			scrollY = window.scrollY;
+			scrollY = reducedMotion ? 0 : window.scrollY;
 
 			const sections = ['home', 'about', 'projects', 'contact'];
 			for (const section of sections) {
@@ -29,29 +36,49 @@
 				}
 			}
 		};
+
+		updateMotionPreference();
+		handleScroll();
+
 		window.addEventListener('scroll', handleScroll, { passive: true });
-		return () => window.removeEventListener('scroll', handleScroll);
+
+		if (typeof mediaQuery.addEventListener === 'function') {
+			mediaQuery.addEventListener('change', updateMotionPreference);
+		} else {
+			mediaQuery.addListener(updateMotionPreference);
+		}
+
+		return () => {
+			window.removeEventListener('scroll', handleScroll);
+			if (typeof mediaQuery.removeEventListener === 'function') {
+				mediaQuery.removeEventListener('change', updateMotionPreference);
+			} else {
+				mediaQuery.removeListener(updateMotionPreference);
+			}
+		};
 	});
 
 	function scrollTo(id: string) {
 		const element = document.getElementById(id);
-		if (element) element.scrollIntoView({ behavior: 'smooth' });
+		if (element) {
+			element.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth' });
+		}
 	}
 </script>
 
 <div class="text-sepia-dark font-body relative min-h-screen">
 	<VintageBackground />
-	<Navbar {activeSection} />
+	<Navbar {activeSection} {reducedMotion} />
 
-	<main>
+	<main id="main-content" tabindex="-1">
 		<!-- HERO SECTION -->
 		<div id="home" class="relative flex h-screen items-center justify-center overflow-hidden">
 			<VintageMountains {scrollY} />
 
 			<div
 				class="relative z-10 mx-auto mt-[-5vh] max-w-4xl px-4 text-center"
-				style:transform="translateY({scrollY * 0.3}px)"
-				style:opacity={1 - scrollY / 600}
+				style:transform={reducedMotion ? 'none' : `translateY(${scrollY * 0.3}px)`}
+				style:opacity={reducedMotion ? 1 : Math.max(0, 1 - scrollY / 600)}
 			>
 				<div
 					class="border-sepia-light text-forest-green bg-background mb-4 inline-block rounded-sm border-2 px-4 py-2 font-mono text-sm sm:mb-6 sm:px-6 sm:text-base"
@@ -74,6 +101,7 @@
 
 				<div class="flex flex-wrap justify-center gap-4 px-4 sm:gap-6">
 					<button
+						type="button"
 						onclick={() => scrollTo('projects')}
 						class="group bg-forest-green text-parchment font-heading relative flex items-center gap-2 overflow-hidden rounded-sm px-6 py-3 text-base font-bold shadow-lg transition-all sm:px-10 sm:py-4 sm:text-lg"
 					>
@@ -93,7 +121,9 @@
 			</div>
 
 			<div
-				class="text-sepia-light absolute bottom-8 left-1/2 z-10 -translate-x-1/2 animate-bounce sm:bottom-12"
+				class="text-sepia-light absolute bottom-8 left-1/2 z-10 -translate-x-1/2 sm:bottom-12"
+				class:animate-bounce={!reducedMotion}
+				aria-hidden="true"
 			>
 				<Icon name="arrow-down-bounce" />
 			</div>

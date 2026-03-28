@@ -20,3 +20,52 @@
 html {
 	scroll-behavior: smooth;
 }
+
+body {
+	background-color: var(--color-parchment);
+	color: var(--color-sepia-dark);
+}
+
+section[id] {
+	scroll-margin-top: 6rem;
+}
+
+:focus-visible {
+	outline: 3px solid var(--color-gold);
+	outline-offset: 4px;
+}
+
+.skip-link {
+	position: fixed;
+	top: 1rem;
+	left: 1rem;
+	z-index: 100;
+	transform: translateY(-200%);
+	border: 2px solid var(--color-sepia-dark);
+	background: var(--color-card-bg);
+	padding: 0.75rem 1rem;
+	font-family: var(--font-heading);
+	font-weight: 700;
+	color: var(--color-sepia-dark);
+	box-shadow: 0 8px 20px color-mix(in srgb, var(--color-sepia-dark) 16%, transparent);
+	transition: transform 200ms ease;
+}
+
+.skip-link:focus {
+	transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	html {
+		scroll-behavior: auto;
+	}
+
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+		scroll-behavior: auto !important;
+	}
+}
