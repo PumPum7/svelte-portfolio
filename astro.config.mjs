@@ -22,7 +22,7 @@ export default defineConfig({
 			provider: fontProviders.bunny(),
 			name: 'Instrument Sans',
 			cssVariable: '--font-sans',
-			weights: [400, 500, 600, 700],
+			weights: [400, 500, 600],
 			styles: ['normal']
 		},
 		{

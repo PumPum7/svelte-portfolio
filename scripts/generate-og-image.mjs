@@ -50,7 +50,7 @@ async function generateMovieFavesVisual({ outputPath, visualHeight, transparent 
 	const scale = visualHeight / 800;
 	const screenshotHeights = [660, 560, 500].map((value) => Math.round(value * scale));
 	const screenshots = await Promise.all(
-		['home.png', 'discover.png', 'details.png'].map((name, index) =>
+		['home.webp', 'discover.webp', 'details.webp'].map((name, index) =>
 			sharp(path.join(movieFavesDir, name))
 				.resize({ height: screenshotHeights[index] })
 				.png()

@@ -4,41 +4,12 @@ import { contactSchema } from '../../lib/validation';
 export const prerender = false;
 
 const MIN_FORM_FILL_MS = 2500;
-const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;
-const RATE_LIMIT_MAX_REQUESTS = 5;
-const recentSubmissions = new Map<string, number[]>();
 
 function jsonResponse(body: Record<string, string | boolean>, status: number) {
 	return new Response(JSON.stringify(body), {
 		status,
 		headers: { 'Content-Type': 'application/json' }
 	});
-}
-
-function getClientIdentifier(request: Request) {
-	const forwardedFor = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim();
-	return (
-		forwardedFor ||
-		request.headers.get('x-real-ip') ||
-		request.headers.get('cf-connecting-ip') ||
-		'unknown'
-	);
-}
-
-function isRateLimited(identifier: string) {
-	const now = Date.now();
-	const timestamps = (recentSubmissions.get(identifier) || []).filter(
-		(timestamp) => now - timestamp < RATE_LIMIT_WINDOW_MS
-	);
-
-	if (timestamps.length >= RATE_LIMIT_MAX_REQUESTS) {
-		recentSubmissions.set(identifier, timestamps);
-		return true;
-	}
-
-	timestamps.push(now);
-	recentSubmissions.set(identifier, timestamps);
-	return false;
 }
 
 function looksRandomToken(value: string) {
@@ -84,7 +55,6 @@ export const POST: APIRoute = async ({ request }) => {
 
 		const { name, email, subject, message, captchaSolution, website, submittedAt } =
 			validationResult.data;
-		const clientIdentifier = getClientIdentifier(request);
 
 		if (website) {
 			return jsonResponse({ success: false, error: 'Spam detected' }, 400);
@@ -93,13 +63,6 @@ export const POST: APIRoute = async ({ request }) => {
 		const elapsedMs = Date.now() - submittedAt;
 		if (elapsedMs < MIN_FORM_FILL_MS || elapsedMs < -60_000) {
 			return jsonResponse({ success: false, error: 'Submission rejected' }, 400);
-		}
-
-		if (isRateLimited(clientIdentifier)) {
-			return jsonResponse(
-				{ success: false, error: 'Too many attempts. Please try again later.' },
-				429
-			);
 		}
 
 		if (isSuspiciousSubmission(name, email, subject, message)) {

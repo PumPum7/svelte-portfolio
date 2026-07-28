@@ -19,6 +19,8 @@ coverAlt: Assetix battle victory screen surrounded by pixel-art financial asset 
 ogImage: /work/assetix-og.png
 ---
 
+import CaseMediaGrid from '../../components/ui/CaseMediaGrid.astro';
+
 ## Product
 
 Assetix was built during StartHack 2026 as a financial-literacy game. Stocks, bonds, currencies, indices, crypto, and real assets become collectible **FinMons** with their own stats and abilities. Players learn the underlying concepts, build a team, and test those choices through battles and portfolio simulations.
@@ -27,6 +29,10 @@ Assetix was built during StartHack 2026 as a financial-literacy game. Stocks, bo
 	<img
 		src="/work/assetix-cover.webp"
 		alt="Assetix case-study visual with a battle victory screen and six FinMon sprites"
+		width="1200"
+		height="800"
+		loading="lazy"
+		decoding="async"
 	/>
 	<figcaption>Assetix / financial concepts turned into game systems.</figcaption>
 </figure>
@@ -37,32 +43,74 @@ The product combines a guided learning journey, collectible progression, team se
 
 The stack spans a Next.js interface, a FastAPI service, PostgreSQL persistence, and a Docker-based development and deployment setup.
 
-<div class="assetix-sprites" aria-label="Selected Assetix FinMon sprites">
+<CaseMediaGrid variant="sprites" label="Selected Assetix FinMon sprites">
 	<figure>
-		<img src="/work/assetix/palantir.png" alt="Palantir equity FinMon sprite" />
+		<img
+			src="/work/assetix/palantir.png"
+			alt="Palantir equity FinMon sprite"
+			width="128"
+			height="128"
+			loading="lazy"
+			decoding="async"
+		/>
 		<figcaption>Equity</figcaption>
 	</figure>
 	<figure>
-		<img src="/work/assetix/us-treasury.png" alt="US Treasury bond FinMon sprite" />
+		<img
+			src="/work/assetix/us-treasury.png"
+			alt="US Treasury bond FinMon sprite"
+			width="128"
+			height="128"
+			loading="lazy"
+			decoding="async"
+		/>
 		<figcaption>Bond</figcaption>
 	</figure>
 	<figure>
-		<img src="/work/assetix/gold-bar.png" alt="Gold bar real-asset FinMon sprite" />
+		<img
+			src="/work/assetix/gold-bar.png"
+			alt="Gold bar real-asset FinMon sprite"
+			width="128"
+			height="128"
+			loading="lazy"
+			decoding="async"
+		/>
 		<figcaption>Real asset</figcaption>
 	</figure>
 	<figure>
-		<img src="/work/assetix/doge-coin.png" alt="Doge Coin crypto FinMon sprite" />
+		<img
+			src="/work/assetix/doge-coin.png"
+			alt="Doge Coin crypto FinMon sprite"
+			width="128"
+			height="128"
+			loading="lazy"
+			decoding="async"
+		/>
 		<figcaption>Crypto</figcaption>
 	</figure>
 	<figure>
-		<img src="/work/assetix/sp-500.png" alt="S and P 500 index FinMon sprite" />
+		<img
+			src="/work/assetix/sp-500.png"
+			alt="S and P 500 index FinMon sprite"
+			width="128"
+			height="128"
+			loading="lazy"
+			decoding="async"
+		/>
 		<figcaption>Index</figcaption>
 	</figure>
 	<figure>
-		<img src="/work/assetix/smart-contract.png" alt="Smart Contract crypto FinMon sprite" />
+		<img
+			src="/work/assetix/smart-contract.png"
+			alt="Smart Contract crypto FinMon sprite"
+			width="128"
+			height="128"
+			loading="lazy"
+			decoding="async"
+		/>
 		<figcaption>Crypto</figcaption>
 	</figure>
-</div>
+</CaseMediaGrid>
 
 ## The Rust battle engine
 
@@ -72,10 +120,14 @@ The backend supplies validated teams, battle mode, and a deterministic seed. The
 
 This boundary kept the simulation separate from React state and gave the battle rules one compact runtime. The server remains responsible for user collections, matchmaking inputs, progression, rewards, and recording the final result.
 
-<figure class="case-figure assetix-engine">
+<figure class="case-figure case-figure--product">
 	<img
 		src="/work/assetix-engine.webp"
 		alt="Assetix battle engine diagram showing two FinMon teams connected through a Rust and WebAssembly round resolver"
+		width="1200"
+		height="800"
+		loading="lazy"
+		decoding="async"
 	/>
 	<figcaption>
 		Battle boundary / validated teams, deterministic round state, and persisted result.

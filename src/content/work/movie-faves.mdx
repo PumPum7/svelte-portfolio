@@ -19,33 +19,47 @@ coverAlt: MovieFaves Flutter application shown across its home, discovery, and m
 ogImage: /work/movie-faves-og.png
 ---
 
+import CaseMediaGrid from '../../components/ui/CaseMediaGrid.astro';
+
 ## Product
 
 MovieFaves is a personal mobile project for finding films and television releases. It brings current titles, discovery, ratings, trailers, and related recommendations into one compact Flutter interface.
 
-<div class="movie-screenshots" aria-label="MovieFaves application screens">
+<CaseMediaGrid variant="screens" label="MovieFaves application screens">
 	<figure>
 		<img
-			src="/work/movie-faves/home.png"
+			src="/work/movie-faves/home.webp"
 			alt="MovieFaves home screen with current releases and trending films"
+			width="387"
+			height="784"
+			loading="lazy"
+			decoding="async"
 		/>
 		<figcaption>Home / releases and trending titles</figcaption>
 	</figure>
 	<figure>
 		<img
-			src="/work/movie-faves/discover.png"
+			src="/work/movie-faves/discover.webp"
 			alt="MovieFaves discovery screen with a responsive movie poster grid"
+			width="387"
+			height="784"
+			loading="lazy"
+			decoding="async"
 		/>
 		<figcaption>Discover / catalogue grid</figcaption>
 	</figure>
 	<figure>
 		<img
-			src="/work/movie-faves/details.png"
+			src="/work/movie-faves/details.webp"
 			alt="MovieFaves detail screen with score, trailer, overview, and similar films"
+			width="387"
+			height="784"
+			loading="lazy"
+			decoding="async"
 		/>
 		<figcaption>Details / score, trailer, and related films</figcaption>
 	</figure>
-</div>
+</CaseMediaGrid>
 
 ## Built independently
 

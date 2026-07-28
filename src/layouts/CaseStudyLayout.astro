@@ -238,73 +238,6 @@ const links = [
 		object-fit: contain;
 	}
 
-	.case-content :global(.movie-screenshots) {
-		display: grid;
-		grid-template-columns: repeat(3, minmax(0, 1fr));
-		gap: 1rem;
-		width: min(78vw, 70rem);
-		margin: 5rem 0 6rem;
-	}
-
-	.case-content :global(.movie-screenshots figure) {
-		margin: 0;
-	}
-
-	.case-content :global(.movie-screenshots img) {
-		width: 100%;
-		border: 1px solid var(--line-strong);
-	}
-
-	.case-content :global(.movie-screenshots figcaption) {
-		border-bottom: 1px solid var(--line);
-		padding-block: 0.7rem;
-		color: var(--muted);
-		font-family: var(--font-mono);
-		font-size: 0.62rem;
-		letter-spacing: 0.07em;
-		text-transform: uppercase;
-	}
-
-	.case-content :global(.assetix-sprites) {
-		display: grid;
-		grid-template-columns: repeat(6, minmax(0, 1fr));
-		width: min(78vw, 70rem);
-		margin: 4rem 0 6rem;
-		border: 1px solid var(--line-strong);
-		background: var(--surface);
-	}
-
-	.case-content :global(.assetix-sprites figure) {
-		display: grid;
-		place-items: center;
-		margin: 0;
-		border-right: 1px solid var(--line);
-		padding: 1.2rem 0.6rem 0.7rem;
-	}
-
-	.case-content :global(.assetix-sprites figure:last-child) {
-		border-right: 0;
-	}
-
-	.case-content :global(.assetix-sprites img) {
-		width: 100%;
-		max-width: 7rem;
-		image-rendering: pixelated;
-	}
-
-	.case-content :global(.assetix-sprites figcaption) {
-		margin-top: 0.45rem;
-		color: var(--accent);
-		font-family: var(--font-mono);
-		font-size: 0.58rem;
-		letter-spacing: 0.06em;
-		text-transform: uppercase;
-	}
-
-	.case-content :global(.assetix-engine) {
-		background: var(--surface);
-	}
-
 	@media (max-width: 800px) {
 		.case-index {
 			grid-column: 1 / -1;
@@ -338,25 +271,9 @@ const links = [
 			grid-column: 1 / -1;
 		}
 
-		.case-content :global(.case-figure),
-		.case-content :global(.movie-screenshots),
-		.case-content :global(.assetix-sprites) {
+		.case-content :global(.case-figure) {
 			width: 100%;
 			margin-block: 3.5rem;
-		}
-
-		.case-content :global(.assetix-sprites) {
-			grid-template-columns: repeat(3, minmax(0, 1fr));
-		}
-
-		.case-content :global(.assetix-sprites figure) {
-			border-bottom: 1px solid var(--line);
-		}
-	}
-
-	@media (max-width: 560px) {
-		.case-content :global(.movie-screenshots) {
-			grid-template-columns: 1fr;
 		}
 	}
 </style>
