@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.pum.works/sitemap.xml
+Sitemap: https://pum.works/sitemap.xml
