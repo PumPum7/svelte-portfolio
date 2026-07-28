@@ -85,12 +85,28 @@ const isEven = index % 2 === 0;
 
 <style>
 	.project-preview {
+		position: relative;
 		display: grid;
 		grid-template-columns: repeat(12, minmax(0, 1fr));
 		gap: clamp(1.5rem, 4vw, 4.5rem);
 		align-items: center;
 		border-top: 1px solid var(--line);
 		padding-block: clamp(3rem, 7vw, 6.5rem);
+	}
+
+	.project-preview::before {
+		position: absolute;
+		top: -1px;
+		left: 0;
+		width: 0;
+		height: 1px;
+		background: var(--accent);
+		content: '';
+		transition: width 700ms cubic-bezier(0.2, 0.8, 0.2, 1);
+	}
+
+	.project-preview:hover::before {
+		width: 100%;
 	}
 
 	.project-copy {

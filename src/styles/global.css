@@ -49,6 +49,42 @@ body::before {
 	pointer-events: none;
 }
 
+body > :not(.grid-effects) {
+	position: relative;
+	z-index: 1;
+}
+
+.grid-effects {
+	--pointer-x: 50vw;
+	--pointer-y: 30vh;
+	position: fixed;
+	inset: 0;
+	z-index: 0;
+	background:
+		linear-gradient(90deg, transparent calc(100% - 1px), rgba(33, 85, 255, 0.5) calc(100% - 1px)) 0
+			0 / calc((100vw - (2 * var(--page-gutter))) / 6) 100%,
+		linear-gradient(transparent calc(100% - 1px), rgba(33, 85, 255, 0.22) calc(100% - 1px)) 0 0 /
+			100% 4rem;
+	-webkit-mask-image: radial-gradient(
+		circle 12rem at var(--pointer-x) var(--pointer-y),
+		black,
+		transparent 72%
+	);
+	mask-image: radial-gradient(
+		circle 12rem at var(--pointer-x) var(--pointer-y),
+		black,
+		transparent 72%
+	);
+	opacity: 0;
+	content: '';
+	pointer-events: none;
+	transition: opacity 220ms ease;
+}
+
+.grid-effects.is-active {
+	opacity: 1;
+}
+
 main {
 	overflow: clip;
 }
@@ -206,6 +242,10 @@ textarea {
 
 	body {
 		background: var(--canvas);
+	}
+
+	.grid-effects {
+		display: none;
 	}
 
 	.page-grid {

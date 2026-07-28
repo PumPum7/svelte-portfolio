@@ -143,8 +143,8 @@ const projects = (await getCollection('work', ({ data }) => data.featured)).sort
 					</article>
 					<article>
 						<span class="meta">Independent</span>
-						<h3>MovieFaves and technical experiments</h3>
-						<p>Self-directed mobile development, Rust systems work, and focused utilities.</p>
+						<h3>Technical experiments</h3>
+						<p>Rust systems work, mobile prototypes, and focused utilities.</p>
 					</article>
 				</div>
 			</div>
@@ -316,9 +316,13 @@ const projects = (await getCollection('work', ({ data }) => data.featured)).sort
 		border-top: 1px solid var(--line);
 	}
 
-	.experiments > header,
-	.capabilities > header {
+	.experiments > header {
 		grid-column: 1 / span 3;
+	}
+
+	.capabilities > header {
+		grid-column: 1 / span 5;
+		padding-right: 3rem;
 	}
 
 	.experiments h2,
@@ -333,9 +337,12 @@ const projects = (await getCollection('work', ({ data }) => data.featured)).sort
 		line-height: 0.95;
 	}
 
-	.experiment-list,
-	.capability-list {
+	.experiment-list {
 		grid-column: 4 / -1;
+	}
+
+	.capability-list {
+		grid-column: 6 / -1;
 	}
 
 	.experiment-list a {
@@ -344,9 +351,14 @@ const projects = (await getCollection('work', ({ data }) => data.featured)).sort
 		gap: 1rem;
 		align-items: baseline;
 		border-top: 1px solid var(--line);
-		padding-block: 1.15rem;
+		padding: 1.25rem;
+		background: linear-gradient(90deg, var(--accent-soft), transparent 58%) no-repeat;
+		background-position: 0.45rem center;
+		background-size: 0 calc(100% - 0.7rem);
 		text-decoration: none;
-		transition: color 160ms ease;
+		transition:
+			background-size 500ms cubic-bezier(0.2, 0.8, 0.2, 1),
+			color 160ms ease;
 	}
 
 	.experiment-list a:last-child {
@@ -354,6 +366,7 @@ const projects = (await getCollection('work', ({ data }) => data.featured)).sort
 	}
 
 	.experiment-list a:hover {
+		background-size: calc(100% - 0.9rem) calc(100% - 0.7rem);
 		color: var(--accent);
 	}
 
@@ -385,6 +398,14 @@ const projects = (await getCollection('work', ({ data }) => data.featured)).sort
 		gap: 1rem;
 		border-bottom: 1px solid var(--line);
 		padding-block: clamp(1.5rem, 3vw, 2.5rem);
+		background: linear-gradient(90deg, transparent, var(--accent-soft), transparent) no-repeat;
+		background-position: 50% 100%;
+		background-size: 0 1px;
+		transition: background-size 500ms cubic-bezier(0.2, 0.8, 0.2, 1);
+	}
+
+	.capability-list article:hover {
+		background-size: 100% 1px;
 	}
 
 	.capability-number {
@@ -565,6 +586,7 @@ const projects = (await getCollection('work', ({ data }) => data.featured)).sort
 		.capabilities > header {
 			grid-column: 1 / -1;
 			margin-bottom: 3rem;
+			padding-right: 0;
 		}
 
 		.experiment-list,

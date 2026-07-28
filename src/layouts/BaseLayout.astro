@@ -57,8 +57,33 @@ const ogImageUrl = new URL(ogImage, siteUrl);
 	</head>
 	<body>
 		<a href="#main-content" class="skip-link">Skip to content</a>
+		<div class="grid-effects" data-grid-effects aria-hidden="true"></div>
 		<SiteHeader />
 		<slot />
 		<SiteFooter />
+		<script is:inline>
+			const gridEffects = document.querySelector('[data-grid-effects]');
+			const canTrackPointer = window.matchMedia('(pointer: fine)').matches;
+			const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+			if (gridEffects && canTrackPointer && !reduceMotion) {
+				let frame;
+				window.addEventListener(
+					'pointermove',
+					(event) => {
+						cancelAnimationFrame(frame);
+						frame = requestAnimationFrame(() => {
+							gridEffects.style.setProperty('--pointer-x', `${event.clientX}px`);
+							gridEffects.style.setProperty('--pointer-y', `${event.clientY}px`);
+							gridEffects.classList.add('is-active');
+						});
+					},
+					{ passive: true }
+				);
+				document.documentElement.addEventListener('mouseleave', () => {
+					gridEffects.classList.remove('is-active');
+				});
+			}
+		</script>
 	</body>
 </html>

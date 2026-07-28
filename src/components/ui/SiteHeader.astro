@@ -49,6 +49,7 @@ const path = Astro.url.pathname;
 	}
 
 	nav a {
+		position: relative;
 		font-family: var(--font-mono);
 		font-size: 0.68rem;
 		font-weight: 500;
@@ -57,8 +58,23 @@ const path = Astro.url.pathname;
 		text-transform: uppercase;
 	}
 
+	nav a::after {
+		position: absolute;
+		bottom: -0.45rem;
+		left: 0;
+		width: 0;
+		height: 1px;
+		background: var(--accent);
+		content: '';
+		transition: width 220ms ease;
+	}
+
 	nav a:hover {
 		color: var(--accent);
+	}
+
+	nav a:hover::after {
+		width: 100%;
 	}
 
 	@media (max-width: 800px) {
