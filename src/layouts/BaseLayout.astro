@@ -1,0 +1,64 @@
+---
+import SpeedInsights from '@vercel/speed-insights/astro';
+import { Font } from 'astro:assets';
+import SiteFooter from '../components/ui/SiteFooter.astro';
+import SiteHeader from '../components/ui/SiteHeader.astro';
+import '../styles/global.css';
+
+interface Props {
+	readonly title?: string;
+	readonly description?: string;
+	readonly ogImage?: string;
+	readonly ogType?: 'website' | 'article';
+}
+
+const {
+	title = 'Michael — Software Engineer',
+	description = 'Portfolio of Michael, a software engineer working across mobile applications, backend systems, infrastructure, and product architecture.',
+	ogImage = '/og-image.png',
+	ogType = 'website'
+} = Astro.props;
+const siteUrl = Astro.site ?? new URL('https://pum.works');
+const canonicalUrl = new URL(Astro.url.pathname, siteUrl);
+const ogImageUrl = new URL(ogImage, siteUrl);
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="theme-color" content="#F2F1EC" />
+		<link rel="icon" href="/favicon.ico" sizes="32x32" />
+		<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		<link rel="canonical" href={canonicalUrl} />
+
+		<meta property="og:type" content={ogType} />
+		<meta property="og:url" content={canonicalUrl} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content={ogImageUrl} />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+		<meta property="og:image:alt" content={`Technical portfolio preview for ${title}`} />
+		<meta property="og:site_name" content="pum.works" />
+
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={ogImageUrl} />
+
+		<Font cssVariable="--font-sans" preload />
+		<Font cssVariable="--font-mono" preload />
+		<SpeedInsights />
+	</head>
+	<body>
+		<a href="#main-content" class="skip-link">Skip to content</a>
+		<SiteHeader />
+		<slot />
+		<SiteFooter />
+	</body>
+</html>

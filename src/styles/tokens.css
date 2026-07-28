@@ -1,0 +1,18 @@
+:root {
+	--canvas: #f2f1ec;
+	--surface: #e9e8e1;
+	--ink: #161817;
+	--muted: #60635f;
+	--line: rgba(22, 24, 23, 0.14);
+	--line-strong: rgba(22, 24, 23, 0.32);
+	--accent: #2155ff;
+	--accent-soft: rgba(33, 85, 255, 0.09);
+	--white: #fbfbf8;
+	--font-sans: 'Instrument Sans', 'Helvetica Neue', sans-serif;
+	--font-mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
+	--page-gutter: clamp(1rem, 3vw, 3rem);
+	--page-width: 90rem;
+	--section-space: clamp(5rem, 10vw, 10rem);
+	--radius: 0.25rem;
+	--header-height: 4.5rem;
+}

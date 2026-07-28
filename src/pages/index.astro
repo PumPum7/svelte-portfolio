@@ -1,11 +1,669 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Portfolio from '../components/Portfolio.svelte';
+import { getCollection } from 'astro:content';
+import ProjectPreview from '../components/ProjectPreview.astro';
+import SystemMap from '../components/ui/SystemMap.astro';
+import { capabilities, currentFocus, experiments } from '../data/site';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const projects = (await getCollection('work', ({ data }) => data.featured)).sort(
+	(a, b) => a.data.order - b.data.order
+);
 ---
 
-<Layout
-	title="Michael (Pum) | Full-Stack Developer"
-	description="Full-stack developer portfolio showcasing fast, design-focused web apps, creative coding projects, and selected software work by Michael (Pum)."
->
-	<Portfolio client:load />
-</Layout>
+<BaseLayout>
+	<main id="main-content">
+		<section class="hero page-grid" aria-labelledby="hero-title">
+			<div class="hero-copy">
+				<p class="eyebrow">Michael / Software Engineer</p>
+				<h1 id="hero-title">I build products from interface to infrastructure.</h1>
+				<p class="hero-intro">
+					Software engineer working across mobile applications, backend systems, infrastructure, and
+					product architecture.
+				</p>
+				<div class="hero-actions">
+					<a class="button-link" href="#work">View selected work</a>
+					<a
+						class="button-link secondary"
+						href="https://github.com/PumPum7"
+						target="_blank"
+						rel="noreferrer">GitHub</a
+					>
+					<a class="button-link secondary" href="#contact">Contact</a>
+				</div>
+			</div>
+			<div class="hero-map">
+				<SystemMap />
+			</div>
+			<div class="hero-meta meta">
+				<span>Munich, DE</span>
+				<span>Software engineering</span>
+				<span>TypeScript / Rust</span>
+				<span>48.1351° N / 11.5820° E</span>
+			</div>
+		</section>
+
+		<section id="work" class="work-section page-grid" aria-labelledby="work-title">
+			<header class="section-heading">
+				<p class="eyebrow">01 / Selected work</p>
+				<h2 id="work-title">Products and systems, shown through their constraints.</h2>
+				<p>
+					Three projects across mobile product work, full-stack game systems, and systems-level
+					exploration.
+				</p>
+			</header>
+
+			<div class="work-list">
+				{
+					projects.map((project, index) => (
+						<ProjectPreview
+							index={index + 1}
+							title={project.data.title}
+							summary={project.data.summary}
+							role={project.data.role}
+							technologies={project.data.technologies}
+							status={project.data.status}
+							coverImage={project.data.coverImage}
+							coverAlt={project.data.coverAlt}
+							liveUrl={project.data.liveUrl}
+							sourceUrl={project.data.sourceUrl}
+							slug={project.id}
+						/>
+					))
+				}
+			</div>
+		</section>
+
+		<section class="experiments page-grid" aria-labelledby="experiments-title">
+			<header>
+				<p class="eyebrow">02 / Experiments and utilities</p>
+				<h2 id="experiments-title">Smaller builds.</h2>
+			</header>
+			<div class="experiment-list">
+				{
+					experiments.map((project, index) => (
+						<a href={project.href} target="_blank" rel="noreferrer">
+							<span class="meta">{String(index + 1).padStart(2, '0')}</span>
+							<strong>{project.name}</strong>
+							<span>{project.description}</span>
+							<small class="meta">{project.technology}</small>
+							<b aria-hidden="true">↗</b>
+						</a>
+					))
+				}
+				<a
+					class="all-work"
+					href="https://github.com/PumPum7?tab=repositories"
+					target="_blank"
+					rel="noreferrer"
+				>
+					<span class="meta">Archive</span>
+					<strong>All public repositories</strong>
+					<span>Older utilities, prototypes, and experiments remain available on GitHub.</span>
+					<small class="meta">GitHub / PumPum7</small>
+					<b aria-hidden="true">↗</b>
+				</a>
+			</div>
+		</section>
+
+		<section class="capabilities page-grid" aria-labelledby="capabilities-title">
+			<header>
+				<p class="eyebrow">03 / Capabilities</p>
+				<h2 id="capabilities-title">Engineering across the product boundary.</h2>
+			</header>
+			<div class="capability-list">
+				{
+					capabilities.map((capability, index) => (
+						<article>
+							<span class="capability-number">{String(index + 1).padStart(2, '0')}</span>
+							<div>
+								<h3>{capability.title}</h3>
+								<p>{capability.description}</p>
+								<small class="meta">{capability.technologies}</small>
+							</div>
+						</article>
+					))
+				}
+			</div>
+		</section>
+
+		<section class="profile page-grid" aria-label="Experience and current focus">
+			<div class="experience">
+				<p class="eyebrow">04 / Experience</p>
+				<h2>Work in progress.</h2>
+				<div class="timeline">
+					<article>
+						<span class="meta">Now</span>
+						<h3>Product engineering and backend systems</h3>
+						<p>Technical product work across interfaces, services, workflows, and operations.</p>
+					</article>
+					<article>
+						<span class="meta">Ongoing</span>
+						<h3>Informatics studies in Munich</h3>
+						<p>Computer science foundations alongside applied engineering work.</p>
+					</article>
+					<article>
+						<span class="meta">Independent</span>
+						<h3>MovieFaves and technical experiments</h3>
+						<p>Self-directed mobile development, Rust systems work, and focused utilities.</p>
+					</article>
+				</div>
+			</div>
+			<aside class="now">
+				<p class="eyebrow">Current focus / Now</p>
+				<ul>
+					{
+						currentFocus.map((item, index) => (
+							<li>
+								<span class="meta">0{index + 1}</span>
+								{item}
+							</li>
+						))
+					}
+				</ul>
+				<p class="now-note meta">Updated as the work changes.</p>
+			</aside>
+		</section>
+
+		<section id="about" class="about page-grid" aria-labelledby="about-title">
+			<p class="eyebrow">05 / About</p>
+			<div>
+				<h2 id="about-title">Michael, also known as Pum.</h2>
+				<p class="about-lede">
+					I’m a software engineer based in Munich. I work across mobile applications, backend
+					systems, infrastructure, and product architecture.
+				</p>
+				<p>
+					I enjoy projects where technical constraints, product decisions, and interface quality all
+					matter. Away from the screen, that usually means cooking, skiing, and time in the Alps.
+				</p>
+			</div>
+			<div class="contours" aria-hidden="true">
+				<svg viewBox="0 0 500 260">
+					<path d="M-30 220C60 118 122 212 206 104S361 35 536 78"></path>
+					<path d="M-22 244C64 145 136 230 218 128S375 58 530 102"></path>
+					<path d="M-16 270C80 176 147 254 230 151S388 83 522 128"></path>
+					<path d="M35 18C105 72 143 33 196 51S280 110 355 66 450 22 518 49"></path>
+				</svg>
+			</div>
+		</section>
+
+		<section id="contact" class="contact page-grid" aria-labelledby="contact-title">
+			<p class="eyebrow">06 / Contact</p>
+			<div>
+				<h2 id="contact-title">Let’s talk.</h2>
+				<p>
+					For questions, technical discussions, or anything related to the projects shown here, send
+					a message through the contact page or GitHub.
+				</p>
+				<div class="contact-links">
+					<a class="button-link" href="/contact">Contact form</a>
+					<a
+						class="button-link secondary"
+						href="https://github.com/PumPum7"
+						target="_blank"
+						rel="noreferrer">GitHub</a
+					>
+				</div>
+			</div>
+		</section>
+	</main>
+</BaseLayout>
+
+<style>
+	.hero {
+		min-height: calc(100svh - var(--header-height));
+		align-content: center;
+		gap: 2rem 0;
+		padding-block: clamp(4rem, 9vw, 8rem) 1.5rem;
+	}
+
+	.hero-copy {
+		grid-column: 1 / span 7;
+		align-self: center;
+	}
+
+	.hero-copy .eyebrow {
+		margin: 0 0 1.25rem;
+	}
+
+	h1 {
+		max-width: 10ch;
+		margin: 0;
+		font-size: clamp(4.1rem, 8.7vw, 9rem);
+		font-weight: 520;
+		letter-spacing: -0.075em;
+		line-height: 0.87;
+	}
+
+	.hero-intro {
+		max-width: 41rem;
+		margin: clamp(2rem, 4vw, 3.5rem) 0 0;
+		color: var(--muted);
+		font-size: clamp(1.1rem, 1.8vw, 1.45rem);
+		line-height: 1.45;
+	}
+
+	.hero-actions {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.65rem;
+		margin-top: 2rem;
+	}
+
+	.hero-map {
+		grid-column: 8 / -1;
+		align-self: center;
+		padding-left: clamp(1rem, 3vw, 3rem);
+	}
+
+	.hero-meta {
+		display: flex;
+		grid-column: 1 / -1;
+		justify-content: space-between;
+		align-self: end;
+		border-top: 1px solid var(--line);
+		padding-top: 0.85rem;
+		color: var(--muted);
+	}
+
+	.work-section,
+	.experiments,
+	.capabilities,
+	.profile,
+	.about,
+	.contact {
+		padding-block: var(--section-space);
+	}
+
+	.section-heading {
+		display: grid;
+		grid-column: 1 / -1;
+		grid-template-columns: repeat(12, minmax(0, 1fr));
+		margin-bottom: clamp(4rem, 8vw, 8rem);
+	}
+
+	.section-heading .eyebrow {
+		grid-column: 1 / span 3;
+		margin: 0;
+	}
+
+	.section-heading h2 {
+		grid-column: 4 / span 6;
+		margin: 0;
+		font-size: clamp(2.8rem, 6vw, 6.4rem);
+		font-weight: 520;
+		letter-spacing: -0.065em;
+		line-height: 0.93;
+	}
+
+	.section-heading > p:last-child {
+		grid-column: 10 / -1;
+		align-self: end;
+		margin: 0;
+		color: var(--muted);
+		font-size: 0.9rem;
+	}
+
+	.work-list {
+		grid-column: 1 / -1;
+	}
+
+	.experiments,
+	.capabilities,
+	.profile,
+	.about,
+	.contact {
+		border-top: 1px solid var(--line);
+	}
+
+	.experiments > header,
+	.capabilities > header {
+		grid-column: 1 / span 3;
+	}
+
+	.experiments h2,
+	.capabilities h2,
+	.profile h2,
+	.about h2,
+	.contact h2 {
+		margin: 0.8rem 0 0;
+		font-size: clamp(2.4rem, 5vw, 5rem);
+		font-weight: 520;
+		letter-spacing: -0.06em;
+		line-height: 0.95;
+	}
+
+	.experiment-list,
+	.capability-list {
+		grid-column: 4 / -1;
+	}
+
+	.experiment-list a {
+		display: grid;
+		grid-template-columns: 3rem 1.2fr 2.2fr 1.4fr 1rem;
+		gap: 1rem;
+		align-items: baseline;
+		border-top: 1px solid var(--line);
+		padding-block: 1.15rem;
+		text-decoration: none;
+		transition: color 160ms ease;
+	}
+
+	.experiment-list a:last-child {
+		border-bottom: 1px solid var(--line);
+	}
+
+	.experiment-list a:hover {
+		color: var(--accent);
+	}
+
+	.experiment-list strong {
+		font-size: 1.05rem;
+	}
+
+	.experiment-list span:nth-child(3) {
+		color: var(--muted);
+		font-size: 0.86rem;
+	}
+
+	.experiment-list small {
+		color: var(--muted);
+	}
+
+	.experiment-list b {
+		justify-self: end;
+		font-weight: 400;
+	}
+
+	.capability-list {
+		border-top: 1px solid var(--line);
+	}
+
+	.capability-list article {
+		display: grid;
+		grid-template-columns: 6rem 1fr;
+		gap: 1rem;
+		border-bottom: 1px solid var(--line);
+		padding-block: clamp(1.5rem, 3vw, 2.5rem);
+	}
+
+	.capability-number {
+		font-family: var(--font-mono);
+		font-size: 1.1rem;
+		color: var(--accent);
+	}
+
+	.capability-list h3 {
+		margin: 0;
+		font-size: clamp(1.5rem, 3vw, 2.8rem);
+		font-weight: 520;
+		letter-spacing: -0.04em;
+	}
+
+	.capability-list p {
+		max-width: 44rem;
+		margin: 0.75rem 0 1.5rem;
+		color: var(--muted);
+	}
+
+	.capability-list small {
+		color: var(--muted);
+	}
+
+	.experience {
+		grid-column: 1 / span 7;
+	}
+
+	.timeline {
+		margin-top: clamp(3rem, 6vw, 6rem);
+		border-top: 1px solid var(--line);
+	}
+
+	.timeline article {
+		display: grid;
+		grid-template-columns: 7rem 1fr;
+		border-bottom: 1px solid var(--line);
+		padding-block: 1.3rem;
+	}
+
+	.timeline h3,
+	.timeline p {
+		grid-column: 2;
+		margin: 0;
+	}
+
+	.timeline h3 {
+		font-size: 1.1rem;
+	}
+
+	.timeline p {
+		margin-top: 0.35rem;
+		color: var(--muted);
+		font-size: 0.85rem;
+	}
+
+	.now {
+		grid-column: 9 / -1;
+		align-self: end;
+		border: 1px solid var(--line-strong);
+		background: var(--accent);
+		color: white;
+		padding: clamp(1.25rem, 3vw, 2.25rem);
+	}
+
+	.now .eyebrow,
+	.now .meta {
+		color: white;
+	}
+
+	.now ul {
+		margin: 2rem 0 3.5rem;
+		padding: 0;
+		list-style: none;
+	}
+
+	.now li {
+		display: grid;
+		grid-template-columns: 2.5rem 1fr;
+		border-top: 1px solid rgba(255, 255, 255, 0.3);
+		padding-block: 0.8rem;
+	}
+
+	.now li:last-child {
+		border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+	}
+
+	.now-note {
+		margin: 0;
+		opacity: 0.65;
+	}
+
+	.about > .eyebrow,
+	.contact > .eyebrow {
+		grid-column: 1 / span 3;
+		margin: 0;
+	}
+
+	.about > div:nth-child(2),
+	.contact > div {
+		grid-column: 4 / span 6;
+	}
+
+	.about-lede,
+	.contact p {
+		margin: 2rem 0 0;
+		color: var(--muted);
+		font-size: clamp(1.1rem, 1.8vw, 1.4rem);
+		line-height: 1.5;
+	}
+
+	.about div > p:last-child {
+		max-width: 38rem;
+		color: var(--muted);
+	}
+
+	.contours {
+		grid-column: 10 / -1;
+		align-self: end;
+	}
+
+	.contours svg {
+		width: 100%;
+		fill: none;
+		stroke: var(--line-strong);
+		stroke-width: 1;
+	}
+
+	.contact {
+		padding-bottom: clamp(7rem, 14vw, 14rem);
+	}
+
+	.contact > div {
+		grid-column-end: 11;
+	}
+
+	.contact-links {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.65rem;
+		margin-top: 2rem;
+	}
+
+	@media (max-width: 900px) {
+		.hero {
+			align-content: start;
+		}
+
+		.hero-copy,
+		.hero-map {
+			grid-column: 1 / -1;
+		}
+
+		.hero-map {
+			max-width: 40rem;
+			padding: 2rem 0 0;
+		}
+
+		.hero-meta span:last-child {
+			display: none;
+		}
+
+		.section-heading .eyebrow {
+			grid-column: 1 / -1;
+			margin-bottom: 2rem;
+		}
+
+		.section-heading h2 {
+			grid-column: 1 / span 8;
+		}
+
+		.section-heading > p:last-child {
+			grid-column: 9 / -1;
+		}
+
+		.experiments > header,
+		.capabilities > header {
+			grid-column: 1 / -1;
+			margin-bottom: 3rem;
+		}
+
+		.experiment-list,
+		.capability-list {
+			grid-column: 1 / -1;
+		}
+
+		.experience {
+			grid-column: 1 / span 7;
+		}
+
+		.now {
+			grid-column: 8 / -1;
+		}
+	}
+
+	@media (max-width: 800px) {
+		.hero {
+			gap: 3rem;
+		}
+
+		h1 {
+			font-size: clamp(3.7rem, 17vw, 6rem);
+		}
+
+		.hero-meta {
+			grid-column: 1 / -1;
+			flex-wrap: wrap;
+			gap: 0.5rem 1rem;
+		}
+
+		.hero-meta span:nth-child(3) {
+			display: none;
+		}
+
+		.section-heading {
+			grid-template-columns: repeat(4, minmax(0, 1fr));
+		}
+
+		.section-heading h2,
+		.section-heading > p:last-child {
+			grid-column: 1 / -1;
+		}
+
+		.section-heading > p:last-child {
+			margin-top: 1.5rem;
+		}
+
+		.experiment-list a {
+			grid-template-columns: 2rem 1fr 1rem;
+			gap: 0.75rem;
+		}
+
+		.experiment-list a > span:nth-child(3),
+		.experiment-list a > small {
+			grid-column: 2 / span 1;
+		}
+
+		.experiment-list a > b {
+			grid-column: 3;
+			grid-row: 1;
+		}
+
+		.capability-list article {
+			grid-template-columns: 3rem 1fr;
+		}
+
+		.experience,
+		.now,
+		.about > .eyebrow,
+		.about > div:nth-child(2),
+		.contact > .eyebrow,
+		.contact > div {
+			grid-column: 1 / -1;
+		}
+
+		.now {
+			margin-top: 4rem;
+		}
+
+		.about > .eyebrow,
+		.contact > .eyebrow {
+			margin-bottom: 2rem;
+		}
+
+		.contours {
+			display: none;
+		}
+	}
+
+	@media (max-width: 520px) {
+		.timeline article {
+			grid-template-columns: 1fr;
+			gap: 0.6rem;
+		}
+
+		.timeline h3,
+		.timeline p {
+			grid-column: 1;
+		}
+	}
+</style>

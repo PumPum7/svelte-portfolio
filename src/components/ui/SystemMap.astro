@@ -1,0 +1,108 @@
+<figure class="system-map" aria-labelledby="system-map-caption">
+	<figcaption id="system-map-caption" class="meta">Product system / operating layers</figcaption>
+	<div class="map-frame">
+		<svg
+			viewBox="0 0 640 390"
+			role="img"
+			aria-label="System map linking mobile and web interfaces to APIs, events, data, and infrastructure"
+		>
+			<g class="paths" fill="none" stroke="currentColor" stroke-width="1">
+				<path d="M130 91H276V195H390"></path>
+				<path d="M130 299H276V195"></path>
+				<path d="M390 195H516V91"></path>
+				<path d="M390 195H516V299"></path>
+			</g>
+			<g class="nodes">
+				<rect x="34" y="50" width="96" height="82"></rect>
+				<rect x="34" y="258" width="96" height="82"></rect>
+				<rect class="accent-node" x="276" y="154" width="114" height="82"></rect>
+				<rect x="516" y="50" width="90" height="82"></rect>
+				<rect x="516" y="258" width="90" height="82"></rect>
+			</g>
+			<g class="labels">
+				<text x="50" y="84">01</text><text class="node-title" x="50" y="108">MOBILE</text>
+				<text x="50" y="292">02</text><text class="node-title" x="50" y="316">WEB</text>
+				<text x="292" y="188">03</text><text class="node-title" x="292" y="212">PRODUCT API</text>
+				<text x="532" y="84">04</text><text class="node-title" x="532" y="108">EVENTS</text>
+				<text x="532" y="292">05</text><text class="node-title" x="532" y="316">DATA</text>
+			</g>
+			<circle class="pulse" cx="390" cy="195" r="5"></circle>
+		</svg>
+		<div class="axis meta"><span>Interface</span><span>Infrastructure</span></div>
+	</div>
+</figure>
+
+<style>
+	.system-map {
+		margin: 0;
+	}
+
+	figcaption {
+		margin-bottom: 0.75rem;
+		color: var(--muted);
+	}
+
+	.map-frame {
+		border: 1px solid var(--line-strong);
+		background: color-mix(in srgb, var(--canvas) 82%, transparent);
+	}
+
+	svg {
+		width: 100%;
+		color: var(--line-strong);
+	}
+
+	.nodes rect {
+		fill: var(--canvas);
+		stroke: var(--line-strong);
+	}
+
+	.nodes .accent-node {
+		fill: var(--accent);
+		stroke: var(--accent);
+	}
+
+	.labels {
+		font-family: var(--font-mono);
+		font-size: 10px;
+		fill: var(--muted);
+		letter-spacing: 0.08em;
+	}
+
+	.labels .node-title {
+		font-size: 11px;
+		font-weight: 600;
+		fill: var(--ink);
+	}
+
+	.labels text:nth-of-type(5),
+	.labels text:nth-of-type(6) {
+		fill: white;
+	}
+
+	.pulse {
+		fill: var(--accent);
+		transform-origin: 390px 195px;
+		animation: pulse 2.8s ease-out infinite;
+	}
+
+	.axis {
+		display: flex;
+		justify-content: space-between;
+		border-top: 1px solid var(--line);
+		padding: 0.6rem 0.75rem;
+		color: var(--muted);
+	}
+
+	@keyframes pulse {
+		0%,
+		100% {
+			opacity: 1;
+			transform: scale(1);
+		}
+		50% {
+			opacity: 0.3;
+			transform: scale(1.8);
+		}
+	}
+</style>

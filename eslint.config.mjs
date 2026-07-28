@@ -12,6 +12,8 @@ export default [
 			'**/dist/**',
 			'**/node_modules/**',
 			'**/.astro/**',
+			'**/.vercel/**',
+			'**/output/**',
 			'**/build/**',
 			'**/.svelte-kit/**',
 			'**/package/**',

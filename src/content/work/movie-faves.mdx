@@ -1,0 +1,67 @@
+---
+title: MovieFaves
+summary: A self-made Flutter app for browsing current releases, discovering films, and opening detailed movie pages.
+role:
+  - Product design
+  - Mobile development
+status: shipped
+year: '2023'
+technologies:
+  - Flutter
+  - Dart
+  - Firebase
+  - TMDB API
+sourceUrl: https://github.com/PumPum7/Movie-App-Flutter
+featured: true
+order: 1
+coverImage: /work/movie-faves-cover.webp
+coverAlt: MovieFaves Flutter application shown across its home, discovery, and movie detail screens
+ogImage: /work/movie-faves-og.png
+---
+
+## Product
+
+MovieFaves is a personal mobile project for finding films and television releases. It brings current titles, discovery, ratings, trailers, and related recommendations into one compact Flutter interface.
+
+<div class="movie-screenshots" aria-label="MovieFaves application screens">
+	<figure>
+		<img
+			src="/work/movie-faves/home.png"
+			alt="MovieFaves home screen with current releases and trending films"
+		/>
+		<figcaption>Home / releases and trending titles</figcaption>
+	</figure>
+	<figure>
+		<img
+			src="/work/movie-faves/discover.png"
+			alt="MovieFaves discovery screen with a responsive movie poster grid"
+		/>
+		<figcaption>Discover / catalogue grid</figcaption>
+	</figure>
+	<figure>
+		<img
+			src="/work/movie-faves/details.png"
+			alt="MovieFaves detail screen with score, trailer, overview, and similar films"
+		/>
+		<figcaption>Details / score, trailer, and related films</figcaption>
+	</figure>
+</div>
+
+## Built independently
+
+I designed and built the project end-to-end. The work includes the Flutter interface, navigation, remote data handling, account flow, profile features, and platform setup for iOS and Android.
+
+## System shape
+
+- Typed Dart models and request helpers turn TMDB responses into application data.
+- Flutter screens handle releases, discovery, movie details, loading states, and responsive grids.
+- GoRouter connects onboarding, authentication, tab navigation, and nested detail routes.
+- Firebase provides account and profile services.
+
+## Interface decisions
+
+The home screen separates current cinema and television releases, then uses a sliding panel for trending media. Detail pages keep the score, trailer, overview, and similar titles in one vertical reading flow. The layout uses the same navigation model across the main product screens.
+
+## Reflection
+
+MovieFaves was a focused way to build a complete mobile product around asynchronous data, image-heavy interfaces, nested navigation, and account state. The source remains public as a record of the full implementation.

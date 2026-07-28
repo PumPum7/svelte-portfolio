@@ -1,0 +1,362 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+	readonly project: CollectionEntry<'work'>;
+}
+
+const { project } = Astro.props;
+const { data } = project;
+const links = [
+	data.liveUrl ? { label: 'Live product', href: data.liveUrl } : undefined,
+	data.sourceUrl ? { label: 'Source', href: data.sourceUrl } : undefined
+].filter((link) => link !== undefined);
+---
+
+<BaseLayout
+	title={`${data.title} — Michael`}
+	description={data.summary}
+	ogImage={data.ogImage}
+	ogType="article"
+>
+	<main id="main-content">
+		<header class="case-header page-grid">
+			<div class="case-index">
+				<p class="eyebrow">Case study / {String(data.order).padStart(2, '0')}</p>
+				<a href="/#work">← Selected work</a>
+			</div>
+			<div class="case-title">
+				<p class="meta">{data.status} / {data.role.join(' · ')}</p>
+				<h1>{data.title}</h1>
+				<p class="lede">{data.summary}</p>
+				{
+					links.length > 0 && (
+						<div class="case-links">
+							{links.map((link) => (
+								<a class="button-link" href={link.href} target="_blank" rel="noreferrer">
+									{link.label}
+								</a>
+							))}
+						</div>
+					)
+				}
+			</div>
+		</header>
+
+		<section class="case-meta page-grid" aria-label="Project metadata">
+			<div>
+				<p class="meta">Role</p>
+				<p>{data.role.join(' · ')}</p>
+			</div>
+			<div>
+				<p class="meta">Status</p>
+				<p>{data.status}</p>
+			</div>
+			<div>
+				<p class="meta">System</p>
+				<p>{data.technologies.join(' · ')}</p>
+			</div>
+		</section>
+
+		<article class="case-body page-grid">
+			<div class="case-rail" aria-hidden="true">
+				<span class="meta">Read / {data.title}</span>
+			</div>
+			<div class="case-content">
+				<slot />
+			</div>
+		</article>
+	</main>
+</BaseLayout>
+
+<style>
+	.case-header {
+		padding-block: clamp(4rem, 9vw, 8rem);
+	}
+
+	.case-index {
+		grid-column: 1 / span 3;
+		display: flex;
+		min-height: 26rem;
+		flex-direction: column;
+		justify-content: space-between;
+	}
+
+	.case-index p {
+		margin: 0;
+	}
+
+	.case-index a {
+		width: fit-content;
+		font-family: var(--font-mono);
+		font-size: 0.7rem;
+		text-decoration: none;
+		text-transform: uppercase;
+	}
+
+	.case-title {
+		grid-column: 4 / -1;
+	}
+
+	.case-title > .meta {
+		margin: 0 0 1.2rem;
+		color: var(--muted);
+	}
+
+	h1 {
+		max-width: 12ch;
+		margin: 0;
+		font-size: clamp(4rem, 11vw, 10rem);
+		font-weight: 520;
+		letter-spacing: -0.075em;
+		line-height: 0.86;
+	}
+
+	.lede {
+		max-width: 48rem;
+		margin: clamp(2rem, 5vw, 4rem) 0 0;
+		color: var(--muted);
+		font-size: clamp(1.25rem, 2.4vw, 2rem);
+		line-height: 1.35;
+	}
+
+	.case-links {
+		display: flex;
+		gap: 0.75rem;
+		margin-top: 2rem;
+	}
+
+	.case-meta {
+		border-block: 1px solid var(--line);
+		padding-block: 1.2rem;
+	}
+
+	.case-meta > div:nth-child(1) {
+		grid-column: 1 / span 3;
+	}
+
+	.case-meta > div:nth-child(2) {
+		grid-column: 4 / span 2;
+	}
+
+	.case-meta > div:nth-child(3) {
+		grid-column: 7 / -1;
+	}
+
+	.case-meta p {
+		margin: 0;
+	}
+
+	.case-meta .meta {
+		margin-bottom: 0.25rem;
+		color: var(--muted);
+	}
+
+	.case-meta p:last-child {
+		font-size: 0.85rem;
+		text-transform: capitalize;
+	}
+
+	.case-body {
+		padding-block: var(--section-space);
+	}
+
+	.case-rail {
+		grid-column: 1 / span 3;
+	}
+
+	.case-rail span {
+		position: sticky;
+		top: calc(var(--header-height) + 2rem);
+		color: var(--muted);
+		writing-mode: vertical-rl;
+	}
+
+	.case-content {
+		grid-column: 4 / span 7;
+		max-width: 47rem;
+	}
+
+	.case-content :global(h2) {
+		margin: 6rem 0 1.5rem;
+		font-size: clamp(2.2rem, 5vw, 4.5rem);
+		font-weight: 520;
+		letter-spacing: -0.055em;
+		line-height: 0.95;
+	}
+
+	.case-content :global(h2:first-child) {
+		margin-top: 0;
+	}
+
+	.case-content :global(h3) {
+		margin: 3.5rem 0 0.75rem;
+		font-size: 1.35rem;
+		font-weight: 600;
+		letter-spacing: -0.02em;
+	}
+
+	.case-content :global(p),
+	.case-content :global(li) {
+		color: var(--muted);
+		font-size: clamp(1rem, 1.3vw, 1.1rem);
+		line-height: 1.75;
+	}
+
+	.case-content :global(ul) {
+		margin-block: 1.5rem 2.5rem;
+		padding-left: 1.2rem;
+	}
+
+	.case-content :global(.case-figure) {
+		width: min(78vw, 70rem);
+		margin: 5rem 0 6rem;
+	}
+
+	.case-content :global(.case-figure img) {
+		width: 100%;
+		border: 1px solid var(--line-strong);
+	}
+
+	.case-content :global(.case-figure figcaption) {
+		border-bottom: 1px solid var(--line);
+		padding-block: 0.7rem;
+		color: var(--muted);
+		font-family: var(--font-mono);
+		font-size: 0.66rem;
+		letter-spacing: 0.07em;
+		text-transform: uppercase;
+	}
+
+	.case-content :global(.case-figure--product) {
+		background: var(--surface);
+	}
+
+	.case-content :global(.case-figure--product img) {
+		max-height: 40rem;
+		object-fit: contain;
+	}
+
+	.case-content :global(.movie-screenshots) {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 1rem;
+		width: min(78vw, 70rem);
+		margin: 5rem 0 6rem;
+	}
+
+	.case-content :global(.movie-screenshots figure) {
+		margin: 0;
+	}
+
+	.case-content :global(.movie-screenshots img) {
+		width: 100%;
+		border: 1px solid var(--line-strong);
+	}
+
+	.case-content :global(.movie-screenshots figcaption) {
+		border-bottom: 1px solid var(--line);
+		padding-block: 0.7rem;
+		color: var(--muted);
+		font-family: var(--font-mono);
+		font-size: 0.62rem;
+		letter-spacing: 0.07em;
+		text-transform: uppercase;
+	}
+
+	.case-content :global(.assetix-sprites) {
+		display: grid;
+		grid-template-columns: repeat(6, minmax(0, 1fr));
+		width: min(78vw, 70rem);
+		margin: 4rem 0 6rem;
+		border: 1px solid var(--line-strong);
+		background: var(--surface);
+	}
+
+	.case-content :global(.assetix-sprites figure) {
+		display: grid;
+		place-items: center;
+		margin: 0;
+		border-right: 1px solid var(--line);
+		padding: 1.2rem 0.6rem 0.7rem;
+	}
+
+	.case-content :global(.assetix-sprites figure:last-child) {
+		border-right: 0;
+	}
+
+	.case-content :global(.assetix-sprites img) {
+		width: 100%;
+		max-width: 7rem;
+		image-rendering: pixelated;
+	}
+
+	.case-content :global(.assetix-sprites figcaption) {
+		margin-top: 0.45rem;
+		color: var(--accent);
+		font-family: var(--font-mono);
+		font-size: 0.58rem;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+	}
+
+	.case-content :global(.assetix-engine) {
+		background: var(--surface);
+	}
+
+	@media (max-width: 800px) {
+		.case-index {
+			grid-column: 1 / -1;
+			min-height: auto;
+			margin-bottom: 3rem;
+		}
+
+		.case-index a {
+			display: none;
+		}
+
+		.case-title {
+			grid-column: 1 / -1;
+		}
+
+		.case-meta {
+			gap: 1.5rem;
+		}
+
+		.case-meta > div:nth-child(1),
+		.case-meta > div:nth-child(2),
+		.case-meta > div:nth-child(3) {
+			grid-column: span 2;
+		}
+
+		.case-rail {
+			display: none;
+		}
+
+		.case-content {
+			grid-column: 1 / -1;
+		}
+
+		.case-content :global(.case-figure),
+		.case-content :global(.movie-screenshots),
+		.case-content :global(.assetix-sprites) {
+			width: 100%;
+			margin-block: 3.5rem;
+		}
+
+		.case-content :global(.assetix-sprites) {
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+		}
+
+		.case-content :global(.assetix-sprites figure) {
+			border-bottom: 1px solid var(--line);
+		}
+	}
+
+	@media (max-width: 560px) {
+		.case-content :global(.movie-screenshots) {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

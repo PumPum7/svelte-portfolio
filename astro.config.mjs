@@ -1,43 +1,36 @@
 // @ts-check
-import { defineConfig, fontProviders } from 'astro/config';
-import tailwindcss from '@tailwindcss/vite';
+import mdx from '@astrojs/mdx';
 import svelte from '@astrojs/svelte';
 import vercel from '@astrojs/vercel';
+import tailwindcss from '@tailwindcss/vite';
+import { defineConfig, fontProviders } from 'astro/config';
 
-// https://astro.build/config
 export default defineConfig({
 	compressHTML: true,
 	output: 'static',
+	site: 'https://pum.works',
+	trailingSlash: 'never',
 	adapter: vercel({
-		webAnalytics: {
-			enabled: true
-		},
+		webAnalytics: { enabled: true },
 		imageService: true,
 		edgeMiddleware: true
 	}),
-	vite: {
-		plugins: [tailwindcss()]
-	},
-	integrations: [svelte()],
-	site: 'https://www.pum.works/',
-	trailingSlash: 'never',
+	vite: { plugins: [tailwindcss()] },
+	integrations: [mdx(), svelte()],
 	fonts: [
 		{
 			provider: fontProviders.bunny(),
-			name: 'Playfair Display',
-			cssVariable: '--font-heading',
-			weights: [400, 700]
+			name: 'Instrument Sans',
+			cssVariable: '--font-sans',
+			weights: [400, 500, 600, 700],
+			styles: ['normal']
 		},
 		{
 			provider: fontProviders.bunny(),
-			name: 'Lora',
-			cssVariable: '--font-body',
-			weights: [400, 500, 700]
-		},
-		{
-			provider: fontProviders.bunny(),
-			name: 'Anonymous Pro',
-			cssVariable: '--font-mono'
+			name: 'IBM Plex Mono',
+			cssVariable: '--font-mono',
+			weights: [400, 500, 600],
+			styles: ['normal']
 		}
 	]
 });

@@ -1,0 +1,72 @@
+---
+title: Rust Database
+summary: A small client-server database built to explore storage, networking, transactions, and failure recovery in Rust.
+role:
+  - Systems exploration
+  - Protocol design
+status: experiment
+technologies:
+  - Rust
+  - TCP
+  - MVCC
+  - Write-ahead log
+  - B-tree
+sourceUrl: https://github.com/PumPum7/rust-database
+featured: true
+order: 3
+coverImage: /work/rust-database.svg
+coverAlt: Layered Rust database architecture from TCP client through transactions and MVCC to storage and write-ahead logging
+ogImage: /work/rust-database-og.png
+---
+
+## Problem
+
+Database clients make persistence look like a single call. This project works in the other direction: build the path from a TCP request to indexed pages and recovery records to understand where database guarantees come from.
+
+It is an exploration project, not a production database.
+
+## Constraints
+
+- A client and server need an unambiguous binary protocol.
+- Concurrent work needs visible transaction and snapshot rules.
+- Data changes must survive process failure without corrupting stored state.
+- Page caching, indexing, and logging have to agree on write order.
+- The implementation has to stay small enough to inspect and change.
+
+<figure class="case-figure">
+	<img
+		src="/work/rust-database.svg"
+		alt="Rust database layers showing TCP protocol, transaction manager, MVCC, B-tree, buffer pool, disk manager, and write-ahead log"
+	/>
+	<figcaption>Exploration architecture / client protocol to durable storage.</figcaption>
+</figure>
+
+## System
+
+A TCP server decodes commands from an interactive client. The transaction layer manages active work, committed work, and snapshots. MVCC stores version metadata with values so reads can apply visibility rules. A B-tree provides indexed lookup and range scans above a buffer pool, disk manager, and write-ahead log.
+
+## Decisions
+
+### Binary client protocol
+
+Framed messages make request boundaries explicit and avoid coupling the server to terminal input. The command layer translates protocol messages before database work begins.
+
+### MVCC for isolation experiments
+
+Versioned values make read-committed and repeatable-read behaviour visible in the data model. The project can demonstrate snapshot reads and cleanup without relying on a hidden storage library.
+
+### Logging before data pages
+
+The write-ahead log records changes before dirty pages reach durable storage. The recovery path follows analysis, redo, and undo phases, including compensation log records for work reversed during recovery.
+
+## Implementation
+
+The current project includes key-value commands, typed values, range queries, transactions, a B-tree, a buffer pool, write-ahead logging, checkpoints, and crash recovery. The client can begin, commit, and roll back work across a TCP connection.
+
+## Outcome
+
+The result is a working study of database internals with tests around the index, transactions, MVCC, and recovery paths. It exposes the trade-offs between simpler code, stronger guarantees, and more state to coordinate.
+
+## Reflection
+
+The project made durability and isolation concrete. Both depend on ordering rules that cross module boundaries. The next useful work is less about adding query syntax and more about testing failure injection, tightening the on-disk format, and documenting unsupported concurrency cases.

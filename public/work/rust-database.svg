@@ -1,0 +1,8 @@
+<svg width="1200" height="800" viewBox="0 0 1200 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="1200" height="800" fill="#E9E8E1" fill-opacity=".78"/>
+<g fill="#F2F1EC" stroke="#161817"><rect x="110" y="90" width="980" height="110"/><rect x="110" y="235" width="980" height="110" fill="#2155FF" stroke="#2155FF"/><rect x="110" y="380" width="980" height="110"/><rect x="110" y="525" width="300" height="110"/><rect x="450" y="525" width="300" height="110"/><rect x="790" y="525" width="300" height="110"/></g>
+<g font-family="monospace" font-size="14" fill="#60635F"><text x="136" y="122">01 / CLIENT BOUNDARY</text><text x="136" y="267" fill="white">02 / CONSISTENCY</text><text x="136" y="412">03 / VISIBILITY</text><text x="136" y="557">04A / INDEX</text><text x="476" y="557">04B / MEMORY</text><text x="816" y="557">04C / DURABILITY</text></g>
+<g font-family="Arial,sans-serif" font-size="27" font-weight="600" fill="#161817"><text x="136" y="168">TCP protocol + command layer</text><text x="136" y="313" fill="white">Transaction manager + snapshots</text><text x="136" y="458">MVCC / versioned values</text><text x="136" y="607">B-tree</text><text x="476" y="607">Buffer pool</text><text x="816" y="607">Disk + WAL</text></g>
+<g stroke="#161817" stroke-width="2"><path d="M600 200V235M600 345V380M600 490V525"/></g>
+<g font-family="monospace" font-size="12" fill="#60635F"><text x="110" y="700">RUST DATABASE / EXPLORATION ARCHITECTURE</text><text x="870" y="700">CLIENT → STORAGE</text></g>
+</svg>

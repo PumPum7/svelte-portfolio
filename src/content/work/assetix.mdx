@@ -1,0 +1,101 @@
+---
+title: Assetix
+summary: A hackathon financial-literacy product that turns assets into collectible characters, portfolio choices, and Rust-powered battles.
+role:
+  - Full-stack product engineering
+  - Game systems
+status: shipped
+technologies:
+  - Next.js
+  - FastAPI
+  - PostgreSQL
+  - Rust / WebAssembly
+  - Docker
+sourceUrl: https://github.com/PumPum7/Assetix-Starthack26
+featured: true
+order: 2
+coverImage: /work/assetix-cover.webp
+coverAlt: Assetix battle victory screen surrounded by pixel-art financial asset characters
+ogImage: /work/assetix-og.png
+---
+
+## Product
+
+Assetix was built during StartHack 2026 as a financial-literacy game. Stocks, bonds, currencies, indices, crypto, and real assets become collectible **FinMons** with their own stats and abilities. Players learn the underlying concepts, build a team, and test those choices through battles and portfolio simulations.
+
+<figure class="case-figure assetix-cover">
+	<img
+		src="/work/assetix-cover.webp"
+		alt="Assetix case-study visual with a battle victory screen and six FinMon sprites"
+	/>
+	<figcaption>Assetix / financial concepts turned into game systems.</figcaption>
+</figure>
+
+## Product system
+
+The product combines a guided learning journey, collectible progression, team selection, market-event battles, and a sandbox for comparing portfolio allocations against historical data. The game layer gives abstract asset classes distinct behaviour instead of presenting financial education as another list of definitions.
+
+The stack spans a Next.js interface, a FastAPI service, PostgreSQL persistence, and a Docker-based development and deployment setup.
+
+<div class="assetix-sprites" aria-label="Selected Assetix FinMon sprites">
+	<figure>
+		<img src="/work/assetix/palantir.png" alt="Palantir equity FinMon sprite" />
+		<figcaption>Equity</figcaption>
+	</figure>
+	<figure>
+		<img src="/work/assetix/us-treasury.png" alt="US Treasury bond FinMon sprite" />
+		<figcaption>Bond</figcaption>
+	</figure>
+	<figure>
+		<img src="/work/assetix/gold-bar.png" alt="Gold bar real-asset FinMon sprite" />
+		<figcaption>Real asset</figcaption>
+	</figure>
+	<figure>
+		<img src="/work/assetix/doge-coin.png" alt="Doge Coin crypto FinMon sprite" />
+		<figcaption>Crypto</figcaption>
+	</figure>
+	<figure>
+		<img src="/work/assetix/sp-500.png" alt="S and P 500 index FinMon sprite" />
+		<figcaption>Index</figcaption>
+	</figure>
+	<figure>
+		<img src="/work/assetix/smart-contract.png" alt="Smart Contract crypto FinMon sprite" />
+		<figcaption>Crypto</figcaption>
+	</figure>
+</div>
+
+## The Rust battle engine
+
+The battle engine is the project's most distinct technical piece. It is written in Rust, compiled to WebAssembly, and runs the turn-based simulation in the browser.
+
+The backend supplies validated teams, battle mode, and a deterministic seed. The engine then owns round resolution: asset-class abilities, team swaps, cooldowns, shields, market events, opponent decisions, and the win condition. Sprint, standard, and marathon modes change team size and battle length without moving the game loop back into the interface.
+
+This boundary kept the simulation separate from React state and gave the battle rules one compact runtime. The server remains responsible for user collections, matchmaking inputs, progression, rewards, and recording the final result.
+
+<figure class="case-figure assetix-engine">
+	<img
+		src="/work/assetix-engine.webp"
+		alt="Assetix battle engine diagram showing two FinMon teams connected through a Rust and WebAssembly round resolver"
+	/>
+	<figcaption>
+		Battle boundary / validated teams, deterministic round state, and persisted result.
+	</figcaption>
+</figure>
+
+## Constraints
+
+- A hackathon schedule required one coherent product path rather than separate polished demos.
+- Financial concepts had to remain recognizable after being translated into game mechanics.
+- Client-side battle state needed repeatable inputs and a clear handoff back to server-side progression.
+- A playful pixel-art interface still had to support data-heavy portfolio tools.
+- Frontend, API, database, WebAssembly build, and deployment had to work as one stack.
+
+## Outcome
+
+The result is a working full-stack prototype with authentication, collection and progression systems, educational journeys, portfolio simulation, and browser-based FinMon battles. The public repository includes the application, Rust engine, data, sprites, Docker setup, and deployment workflow.
+
+## Reflection
+
+Assetix worked because the game mechanics were tied to the subject: bonds heal through coupon payments, equities compound, indices reduce variance, and market events change the value of each choice. The Rust engine made those rules explicit while the rest of the product handled learning, identity, and progression.
+
+With more time, the next step would be narrowing the product around its strongest learning loop and testing whether players understand the financial trade-offs after the battle, not only whether they win it.
