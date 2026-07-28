@@ -203,26 +203,6 @@ textarea {
 	color: var(--accent);
 }
 
-.skip-link {
-	position: fixed;
-	top: 0.75rem;
-	left: 0.75rem;
-	z-index: 100;
-	transform: translateY(-180%);
-	border: 1px solid var(--ink);
-	background: var(--canvas);
-	padding: 0.7rem 1rem;
-	font-family: var(--font-mono);
-	font-size: 0.75rem;
-	font-weight: 600;
-	text-decoration: none;
-	transition: transform 160ms ease;
-}
-
-.skip-link:focus {
-	transform: translateY(0);
-}
-
 .sr-only {
 	position: absolute;
 	width: 1px;
