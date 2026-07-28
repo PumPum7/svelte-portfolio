@@ -2,31 +2,35 @@
 	import { onMount, onDestroy } from 'svelte';
 
 	interface Props {
-		sitekey: string;
-		onSolved?: (solution: string) => void;
-		onError?: (error: string) => void;
+		readonly sitekey: string;
+		readonly onSolved?: (solution: string) => void;
+		readonly onError?: (error: string) => void;
 	}
 
 	let { sitekey, onSolved, onError }: Props = $props();
 
-	let containerRef: HTMLDivElement | undefined = $state();
-	let widget: any = $state(null);
-	let isLoaded = $state(false);
-	let solution = $state('');
-
+	type CaptchaWidget = { readonly destroy: () => void };
 	type FriendlyChallenge = {
-		WidgetInstance: new (
+		readonly WidgetInstance: new (
 			container: HTMLElement,
 			options: {
-				sitekey: string;
-				startMode: string;
-				doneCallback: (solution: string) => void;
-				errorCallback: (error: any) => void;
+				readonly sitekey: string;
+				readonly startMode: string;
+				readonly doneCallback: (solution: string) => void;
+				readonly errorCallback: (error: unknown) => void;
 			}
-		) => {
-			destroy: () => void;
-		};
+		) => CaptchaWidget;
 	};
+
+	declare global {
+		interface Window {
+			friendlyChallenge?: FriendlyChallenge;
+		}
+	}
+
+	let containerRef: HTMLDivElement | undefined = $state();
+	let widget: CaptchaWidget | undefined = $state();
+	let isLoaded = $state(false);
 
 	onMount(() => {
 		// Load Friendly Captcha script
@@ -57,7 +61,7 @@
 	function initWidget() {
 		if (!containerRef) return;
 
-		const friendlyChallenge = (window as any).friendlyChallenge as FriendlyChallenge | undefined;
+		const friendlyChallenge = window.friendlyChallenge;
 		if (!friendlyChallenge) return;
 
 		try {
@@ -65,11 +69,11 @@
 				sitekey,
 				startMode: 'auto',
 				doneCallback: (solutionToken: string) => {
-					solution = solutionToken;
 					onSolved?.(solutionToken);
 				},
-				errorCallback: (error: any) => {
-					onError?.(error?.message || 'Captcha error occurred');
+				errorCallback: (error: unknown) => {
+					const message = error instanceof Error ? error.message : 'Captcha error occurred';
+					onError?.(message);
 				}
 			});
 		} catch (error) {
@@ -78,9 +82,7 @@
 	}
 
 	onDestroy(() => {
-		if (widget && typeof widget.destroy === 'function') {
-			widget.destroy();
-		}
+		widget?.destroy();
 	});
 
 	// Re-initialize widget when container becomes available

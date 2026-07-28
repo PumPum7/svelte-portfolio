@@ -1,22 +1,16 @@
 <script lang="ts">
-	import Icon from './Icon.svelte';
 	import FriendlyCaptcha from './FriendlyCaptcha.svelte';
 	import { contactSchema } from '../lib/validation';
 
-	let name = $state('');
-	let email = $state('');
-	let subject = $state('');
-	let message = $state('');
+	type FieldErrors = {
+		name: string;
+		email: string;
+		subject: string;
+		message: string;
+		captcha: string;
+	};
 
-	let isSubmitting = $state(false);
-	let submitSuccess = $state(false);
-	let submitError = $state('');
-	let captchaSolution = $state('');
-	let captchaError = $state('');
-	let website = $state('');
-	let submittedAt = $state(Date.now());
-
-	let errors = $state({
+	const emptyErrors = (): FieldErrors => ({
 		name: '',
 		email: '',
 		subject: '',
@@ -24,9 +18,20 @@
 		captcha: ''
 	});
 
-	function validate(): boolean {
-		errors = { name: '', email: '', subject: '', message: '', captcha: '' };
+	let name = $state('');
+	let email = $state('');
+	let subject = $state('');
+	let message = $state('');
+	let website = $state('');
+	let captchaSolution = $state('');
+	let submittedAt = $state(Date.now());
+	let errors = $state<FieldErrors>(emptyErrors());
+	let submitError = $state('');
+	let isSubmitting = $state(false);
+	let submitSuccess = $state(false);
 
+	function validate(): boolean {
+		errors = emptyErrors();
 		const result = contactSchema.safeParse({
 			name,
 			email,
@@ -37,57 +42,27 @@
 			submittedAt
 		});
 
-		if (!result.success) {
-			const fieldMap: Record<string, keyof typeof errors> = {
-				name: 'name',
-				email: 'email',
-				subject: 'subject',
-				message: 'message',
-				captchaSolution: 'captcha'
-			};
+		if (result.success) return true;
 
-			result.error.issues.forEach((issue) => {
-				const field = issue.path[0];
-				const key = typeof field === 'string' ? fieldMap[field] : undefined;
-				if (key) {
-					errors[key] = issue.message;
-				}
-			});
-			return false;
+		for (const issue of result.error.issues) {
+			const field = issue.path[0];
+			if (field === 'captchaSolution') errors.captcha = issue.message;
+			if (field === 'name' || field === 'email' || field === 'subject' || field === 'message') {
+				errors[field] = issue.message;
+			}
 		}
-
-		return true;
+		return false;
 	}
 
-	function handleCaptchaSolved(solution: string) {
-		captchaSolution = solution;
-		captchaError = '';
-		errors.captcha = '';
+	function apiResult(result: unknown): { readonly success: boolean; readonly error?: string } {
+		if (typeof result !== 'object' || result === null) return { success: false };
+		const success = 'success' in result && result.success === true;
+		const error = 'error' in result && typeof result.error === 'string' ? result.error : undefined;
+		return error === undefined ? { success } : { success, error };
 	}
 
-	function handleCaptchaError(error: string) {
-		captchaError = error;
-		captchaSolution = '';
-		errors.captcha = error;
-	}
-
-	function resetForm() {
-		name = '';
-		email = '';
-		subject = '';
-		message = '';
-		website = '';
-		captchaSolution = '';
-		captchaError = '';
-		submitError = '';
-		errors = { name: '', email: '', subject: '', message: '', captcha: '' };
-		submittedAt = Date.now();
-		submitSuccess = false;
-	}
-
-	async function handleSubmit(e: Event) {
-		e.preventDefault();
-
+	async function handleSubmit(event: SubmitEvent) {
+		event.preventDefault();
 		if (!validate()) return;
 
 		isSubmitting = true;
@@ -96,9 +71,7 @@
 		try {
 			const response = await fetch('/api/contact', {
 				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json'
-				},
+				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify({
 					name,
 					email,
@@ -109,204 +82,231 @@
 					submittedAt
 				})
 			});
-
-			const result = await response.json();
-
+			const result = apiResult(await response.json());
 			if (response.ok && result.success) {
 				submitSuccess = true;
-			} else {
-				submitError = result.error || 'Something went wrong. Please try again.';
+				return;
 			}
+			submitError = result.error ?? 'The message could not be sent. Please try again.';
 		} catch {
-			submitError = 'Failed to send message. Please try again later.';
+			submitError = 'The message could not be sent. Please try again later.';
 		} finally {
 			isSubmitting = false;
 		}
 	}
+
+	function resetForm() {
+		name = '';
+		email = '';
+		subject = '';
+		message = '';
+		website = '';
+		captchaSolution = '';
+		submittedAt = Date.now();
+		errors = emptyErrors();
+		submitError = '';
+		submitSuccess = false;
+	}
 </script>
 
 {#if submitSuccess}
-	<div class="py-12 text-center sm:py-20" role="status" aria-live="polite">
-		<div class="success-icon mx-auto mb-6 sm:mb-8">
-			<Icon name="exclamation-circle" />
-		</div>
-		<h2 class="font-heading text-sepia-dark mb-3 text-2xl font-bold sm:mb-4 sm:text-3xl">
-			Thank you!
-		</h2>
-		<p class="text-sepia-light px-4 text-base sm:text-lg">
-			I will get back to you as soon as possible!
-		</p>
-		<div class="mt-6 flex flex-wrap justify-center gap-4 sm:mt-8">
-			<button
-				type="button"
-				onclick={resetForm}
-				class="border-sepia-dark text-sepia-dark font-heading inline-block rounded-sm border-2 px-6 py-2.5 text-base font-bold transition-all hover:-translate-y-1 sm:px-8 sm:py-3 sm:text-lg"
-			>
-				Send Another Message
-			</button>
-			<a
-				href="/"
-				class="bg-forest-green text-parchment font-heading inline-block rounded-sm px-6 py-2.5 text-base font-bold transition-all hover:-translate-y-1 sm:px-8 sm:py-3 sm:text-lg"
-			>
-				Back to Home
-			</a>
-		</div>
+	<div class="success" role="status" aria-live="polite">
+		<p class="eyebrow">Message received</p>
+		<h2>Thank you.</h2>
+		<p>I’ll reply as soon as I can.</p>
+		<button class="button-link secondary" type="button" onclick={resetForm}
+			>Send another message</button
+		>
 	</div>
 {:else}
-	<form onsubmit={handleSubmit} class="mx-auto max-w-lg space-y-5 sm:space-y-6">
-		<h1
-			class="font-heading text-sepia-dark mb-6 text-center text-2xl font-bold sm:mb-8 sm:text-3xl md:text-4xl"
-		>
-			Send me a message
-		</h1>
-
+	<form onsubmit={handleSubmit} novalidate>
 		{#if submitError}
-			<div
-				role="alert"
-				aria-live="assertive"
-				class="bg-deep-red-background border-deep-red text-deep-red mb-4 rounded-sm border-2 p-3 text-sm sm:mb-6 sm:p-4 sm:text-base"
-			>
-				{submitError}
-				<p class="mt-2 text-xs sm:text-sm">
-					If the form keeps failing, reach out via
-					<a
-						href="https://github.com/PumPum7"
-						target="_blank"
-						rel="noreferrer"
-						class="underline underline-offset-2"
-					>
-						GitHub
-					</a>
-					or
-					<a
-						href="https://x.com/Officer_Pum"
-						target="_blank"
-						rel="noreferrer"
-						class="underline underline-offset-2"
-					>
-						X
-					</a>.
-				</p>
+			<div class="form-alert" role="alert">
+				{submitError} If the form keeps failing,
+				<a href="https://github.com/PumPum7">use GitHub</a>.
 			</div>
 		{/if}
 
-		<div class="space-y-2">
-			<label for="name" class="sr-only">Name</label>
-			<input
-				id="name"
-				type="text"
-				bind:value={name}
-				placeholder="Name"
-				maxlength={255}
-				autocomplete="name"
-				autocapitalize="words"
-				class="bg-background w-full rounded-full border-2 px-4 py-3 text-base transition-all outline-none focus:ring-2 sm:px-6 sm:py-4 sm:text-lg {errors.name
-					? 'border-deep-red'
-					: 'border-sepia-light'} text-sepia-dark font-body"
-			/>
-			{#if errors.name}
-				<p class="text-deep-red px-4 text-xs sm:px-6 sm:text-sm">{errors.name}</p>
-			{/if}
+		<div class="field-grid">
+			<div class="field">
+				<label for="name">Name</label>
+				<input
+					id="name"
+					type="text"
+					bind:value={name}
+					autocomplete="name"
+					maxlength="255"
+					aria-invalid={errors.name ? 'true' : undefined}
+					aria-describedby={errors.name ? 'name-error' : undefined}
+				/>
+				{#if errors.name}<p id="name-error" class="error">{errors.name}</p>{/if}
+			</div>
+
+			<div class="field">
+				<label for="email">Email</label>
+				<input
+					id="email"
+					type="email"
+					bind:value={email}
+					autocomplete="email"
+					maxlength="250"
+					aria-invalid={errors.email ? 'true' : undefined}
+					aria-describedby={errors.email ? 'email-error' : undefined}
+				/>
+				{#if errors.email}<p id="email-error" class="error">{errors.email}</p>{/if}
+			</div>
 		</div>
 
-		<div class="space-y-2">
-			<label for="email" class="sr-only">E-mail</label>
-			<input
-				id="email"
-				type="email"
-				bind:value={email}
-				placeholder="E-mail"
-				maxlength={250}
-				autocomplete="email"
-				autocapitalize="off"
-				spellcheck="false"
-				class="bg-background w-full rounded-full border-2 px-4 py-3 text-base transition-all outline-none focus:ring-2 sm:px-6 sm:py-4 sm:text-lg {errors.email
-					? 'border-deep-red'
-					: 'border-sepia-light'} text-sepia-dark font-body"
-			/>
-			{#if errors.email}
-				<p class="text-deep-red px-4 text-xs sm:px-6 sm:text-sm">{errors.email}</p>
-			{/if}
-		</div>
-
-		<div class="space-y-2">
-			<label for="subject" class="sr-only">Subject</label>
+		<div class="field">
+			<label for="subject">Subject</label>
 			<input
 				id="subject"
 				type="text"
 				bind:value={subject}
-				placeholder="Subject"
-				maxlength={255}
-				autocomplete="off"
-				autocapitalize="sentences"
-				class="bg-background w-full rounded-full border-2 px-4 py-3 text-base transition-all outline-none focus:ring-2 sm:px-6 sm:py-4 sm:text-lg {errors.subject
-					? 'border-deep-red'
-					: 'border-sepia-light'} text-sepia-dark font-body"
+				maxlength="255"
+				aria-invalid={errors.subject ? 'true' : undefined}
+				aria-describedby={errors.subject ? 'subject-error' : undefined}
 			/>
-			{#if errors.subject}
-				<p class="text-deep-red px-4 text-xs sm:px-6 sm:text-sm">{errors.subject}</p>
-			{/if}
+			{#if errors.subject}<p id="subject-error" class="error">{errors.subject}</p>{/if}
 		</div>
 
-		<div class="space-y-2">
-			<label for="message" class="sr-only">Message</label>
+		<div class="field">
+			<label for="message">Message</label>
 			<textarea
 				id="message"
 				bind:value={message}
-				placeholder="Your Message"
-				maxlength={3500}
-				rows={6}
-				autocomplete="off"
-				autocapitalize="sentences"
-				spellcheck="true"
-				class="bg-background w-full resize-none rounded-3xl border-2 px-4 py-3 text-base transition-all outline-none focus:ring-2 sm:px-6 sm:py-4 sm:text-lg {errors.message
-					? 'border-deep-red'
-					: 'border-sepia-light'} text-sepia-dark font-body"
+				rows="7"
+				maxlength="3500"
+				aria-invalid={errors.message ? 'true' : undefined}
+				aria-describedby={errors.message ? 'message-error' : undefined}
 			></textarea>
-			{#if errors.message}
-				<p class="text-deep-red px-4 text-xs sm:px-6 sm:text-sm">{errors.message}</p>
-			{/if}
+			{#if errors.message}<p id="message-error" class="error">{errors.message}</p>{/if}
 		</div>
 
-		<div class="space-y-2">
-			<div class="absolute -left-[100vw] top-auto h-px w-px overflow-hidden" aria-hidden="true">
-				<label for="website">Website</label>
-				<input
-					id="website"
-					type="text"
-					bind:value={website}
-					tabindex="-1"
-					autocomplete="off"
-				/>
-			</div>
+		<div class="honeypot" aria-hidden="true">
+			<label for="website">Website</label>
+			<input id="website" type="text" bind:value={website} tabindex="-1" autocomplete="off" />
+		</div>
 
+		<div class="captcha">
 			<FriendlyCaptcha
-				sitekey={import.meta.env.PUBLIC_CAPTCHA_SITE_KEY || ''}
-				onSolved={handleCaptchaSolved}
-				onError={handleCaptchaError}
+				sitekey={import.meta.env.PUBLIC_CAPTCHA_SITE_KEY}
+				onSolved={(solution) => {
+					captchaSolution = solution;
+					errors.captcha = '';
+				}}
+				onError={(error) => {
+					captchaSolution = '';
+					errors.captcha = error;
+				}}
 			/>
-			{#if errors.captcha}
-				<p class="text-deep-red px-4 text-xs sm:px-6 sm:text-sm">{errors.captcha}</p>
-			{/if}
-			{#if captchaError}
-				<p class="text-deep-red px-4 text-xs sm:px-6 sm:text-sm">{captchaError}</p>
-			{/if}
+			{#if errors.captcha}<p class="error">{errors.captcha}</p>{/if}
 		</div>
 
-		<div class="pt-3 text-center sm:pt-4">
-			<button
-				type="submit"
-				disabled={isSubmitting}
-				class="bg-forest-green text-parchment font-heading mx-auto flex items-center gap-2 rounded-full px-8 py-3 text-base font-bold shadow-lg transition-all hover:scale-105 disabled:cursor-not-allowed disabled:opacity-50 sm:gap-3 sm:px-12 sm:py-4 sm:text-lg"
-			>
-				{#if isSubmitting}
-					<Icon name="loading" />
-					Sending...
-				{:else}
-					<Icon name="paper-airplane" />
-					Send Message
-				{/if}
-			</button>
-		</div>
+		<button class="button-link submit" type="submit" disabled={isSubmitting}>
+			{isSubmitting ? 'Sending…' : 'Send message'}
+		</button>
 	</form>
 {/if}
+
+<style>
+	form {
+		display: grid;
+		gap: 1.4rem;
+	}
+
+	.field-grid {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 1rem;
+	}
+
+	.field {
+		display: grid;
+		gap: 0.45rem;
+	}
+
+	label {
+		font-family: var(--font-mono);
+		font-size: 0.68rem;
+		font-weight: 500;
+		letter-spacing: 0.09em;
+		text-transform: uppercase;
+	}
+
+	input,
+	textarea {
+		width: 100%;
+		border: 1px solid var(--line-strong);
+		border-radius: var(--radius);
+		background: var(--canvas);
+		padding: 0.85rem;
+		color: var(--ink);
+		outline: none;
+	}
+
+	input:focus,
+	textarea:focus {
+		border-color: var(--accent);
+		box-shadow: 0 0 0 1px var(--accent);
+	}
+
+	textarea {
+		resize: vertical;
+	}
+
+	.error {
+		margin: 0;
+		color: #b42318;
+		font-size: 0.78rem;
+	}
+
+	.form-alert {
+		border-left: 3px solid #b42318;
+		background: rgba(180, 35, 24, 0.06);
+		padding: 0.85rem 1rem;
+		font-size: 0.85rem;
+	}
+
+	.honeypot {
+		position: absolute;
+		left: -9999px;
+	}
+
+	.captcha {
+		min-height: 4.5rem;
+	}
+
+	.submit {
+		width: fit-content;
+		cursor: pointer;
+	}
+
+	.submit:disabled {
+		cursor: wait;
+		opacity: 0.55;
+	}
+
+	.success {
+		border-top: 1px solid var(--line);
+		padding-block: 3rem;
+	}
+
+	.success h2 {
+		margin: 0.75rem 0;
+		font-size: clamp(2.5rem, 6vw, 5rem);
+		font-weight: 520;
+		letter-spacing: -0.06em;
+	}
+
+	.success > p:not(.eyebrow) {
+		margin-bottom: 2rem;
+		color: var(--muted);
+	}
+
+	@media (max-width: 620px) {
+		.field-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

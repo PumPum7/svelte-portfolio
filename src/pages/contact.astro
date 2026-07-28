@@ -1,118 +1,74 @@
 ---
-import Layout from '../layouts/Layout.astro';
 import ContactForm from '../components/ContactForm.svelte';
-import VintageBackground from '../components/VintageBackground.svelte';
+import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<Layout
-	title="Contact | Michael (Pum)"
-	description="Get in touch with Michael (Pum) for freelance work, collaborations, or software engineering conversations."
+<BaseLayout
+	title="Contact — Michael"
+	description="Send Michael a message about a technical question or one of the projects shown on pum.works."
 >
-	<div class="font-body relative min-h-screen">
-		<VintageBackground />
-
-		<!-- Navigation back link -->
-		<nav class="fixed top-0 right-0 left-0 z-50 bg-transparent py-4 sm:py-6">
-			<div class="mx-auto max-w-6xl px-4 sm:px-6">
-				<a
-					href="/"
-					class="group font-heading text-sepia-dark flex w-fit items-center gap-2 text-xl font-bold tracking-tight sm:text-2xl"
-				>
-					<svg
-						class="text-forest-green h-5 w-5 transition-transform group-hover:-rotate-12 sm:h-6 sm:w-6"
-						xmlns="http://www.w3.org/2000/svg"
-						width="24"
-						height="24"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						stroke-width="2"
-						stroke-linecap="round"
-						stroke-linejoin="round"
-					>
-						<path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"></path>
-						<line x1="16" y1="8" x2="2" y2="22"></line>
-						<line x1="17.5" y1="15" x2="9" y2="15"></line>
-					</svg>
-					<span>PUM<span class="text-forest-green">.WORKS</span></span>
-				</a>
-			</div>
-		</nav>
-
-		<!-- Main content -->
-		<main id="main-content" tabindex="-1" class="relative z-10 px-4 pt-24 pb-12 sm:px-6 sm:pt-32 sm:pb-20">
-			<div class="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(22rem,0.9fr)] lg:gap-16">
-				<section class="order-2 lg:order-1">
-					<ContactForm client:load />
-				</section>
-
-				<aside class="hidden lg:order-2 lg:block">
-					<div class="bg-background border-sepia-light sticky top-28 space-y-8 rounded-sm border-2 p-6 shadow-lg sm:p-8">
-						<div>
-							<p class="text-forest-green font-mono text-sm font-bold tracking-[0.2em] uppercase">
-								Reach Out
-							</p>
-							<h2 class="font-heading text-sepia-dark mt-4 text-3xl font-bold sm:text-4xl">
-								Best for projects, product ideas, and interesting technical problems.
-							</h2>
-							<p class="text-sepia-light mt-4 text-base leading-relaxed sm:text-lg">
-								I usually reply within one or two days. If your message is time-sensitive, use one
-								of the direct links below as a fallback.
-							</p>
-						</div>
-
-						<div class="grid gap-4">
-							<a
-								href="https://github.com/PumPum7"
-								target="_blank"
-								rel="noreferrer"
-								class="border-sepia-light hover:border-forest-green hover:bg-forest-green/5 flex items-center justify-between rounded-sm border p-4 transition-colors"
-							>
-								<div>
-									<p class="font-heading text-sepia-dark text-lg font-bold">GitHub</p>
-									<p class="text-sepia-light text-sm sm:text-base">Open source work and project history</p>
-								</div>
-								<span class="text-forest-green font-mono text-sm font-bold">/PumPum7</span>
-							</a>
-
-							<a
-								href="https://x.com/Officer_Pum"
-								target="_blank"
-								rel="noreferrer"
-								class="border-sepia-light hover:border-forest-green hover:bg-forest-green/5 flex items-center justify-between rounded-sm border p-4 transition-colors"
-							>
-								<div>
-									<p class="font-heading text-sepia-dark text-lg font-bold">X</p>
-									<p class="text-sepia-light text-sm sm:text-base">Fastest public fallback for a quick nudge</p>
-								</div>
-								<span class="text-forest-green font-mono text-sm font-bold">@Officer_Pum</span>
-							</a>
-						</div>
-
-						<div class="border-sepia-light/40 grid gap-4 border-t pt-6 sm:grid-cols-2">
-							<div>
-								<p class="text-sepia-dark font-mono text-xs font-bold tracking-[0.18em] uppercase">
-									Based In
-								</p>
-								<p class="text-sepia-light mt-2 text-base">Munich / Austrian Alps</p>
-							</div>
-							<div>
-								<p class="text-sepia-dark font-mono text-xs font-bold tracking-[0.18em] uppercase">
-									Time Zone
-								</p>
-								<p class="text-sepia-light mt-2 text-base">Central European Time</p>
-							</div>
-						</div>
-					</div>
-				</aside>
-			</div>
-		</main>
-
-		<!-- Footer -->
-		<footer class="text-sepia-light relative z-10 py-6 text-center text-sm sm:py-8 sm:text-base">
-			<p class="font-heading">
-				&copy; {new Date().getFullYear()} Michael (Pum). Made in the Alps.
+	<main id="main-content" class="contact-page page-grid">
+		<header>
+			<p class="eyebrow">Contact / pum.works</p>
+			<h1>Send a message.</h1>
+			<p>
+				For questions, technical discussions, or anything related to the work shown here, use the
+				form. GitHub is the best fallback.
 			</p>
-		</footer>
-	</div>
-</Layout>
+			<a class="text-link" href="https://github.com/PumPum7" target="_blank" rel="noreferrer"
+				>GitHub / PumPum7</a
+			>
+		</header>
+		<section aria-label="Contact form">
+			<ContactForm client:visible />
+		</section>
+	</main>
+</BaseLayout>
+
+<style>
+	.contact-page {
+		min-height: calc(100svh - var(--header-height));
+		align-items: start;
+		padding-block: clamp(4rem, 9vw, 8rem);
+	}
+
+	header {
+		position: sticky;
+		top: calc(var(--header-height) + 3rem);
+		grid-column: 1 / span 5;
+	}
+
+	h1 {
+		max-width: 8ch;
+		margin: 1rem 0 2rem;
+		font-size: clamp(4rem, 9vw, 8rem);
+		font-weight: 520;
+		letter-spacing: -0.075em;
+		line-height: 0.86;
+	}
+
+	header > p:not(.eyebrow) {
+		max-width: 30rem;
+		margin-bottom: 2rem;
+		color: var(--muted);
+		font-size: 1.1rem;
+	}
+
+	section {
+		grid-column: 7 / -1;
+		border-top: 1px solid var(--line);
+		padding-top: 1.5rem;
+	}
+
+	@media (max-width: 800px) {
+		header,
+		section {
+			grid-column: 1 / -1;
+		}
+
+		header {
+			position: static;
+			margin-bottom: 4rem;
+		}
+	}
+</style>
